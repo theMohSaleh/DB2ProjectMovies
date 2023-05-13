@@ -1,0 +1,53 @@
+DELIMITER ;
+
+CREATE TABLE `USER` (
+	`userID` int NOT NULL AUTO_INCREMENT,
+	`userName` varchar(30) NOT NULL,
+	`password` varchar(30) NOT NULL,
+	`firstName` varchar(30) NOT NULL,
+	`lastName` varchar(30) NOT NULL,
+	`DOB` date NOT NULL,
+	`regDate` date NOT NULL,
+	`roleID` int(30) NOT NULL,
+    PRIMARY KEY (`userID`)
+);
+
+CREATE TABLE CATEGORY (
+    `catID` int NOT NULL AUTO_INCREMENT,
+    `catName` varchar(60),
+    PRIMARY KEY (`catID`)
+);
+
+CREATE TABLE `ARTICLE` (
+    `articleID` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(50),
+    `content` varchar(500),
+    `publishDate` DATE,
+    `views` int(11),
+    `rating` float(11),
+    `isPublished` boolean DEFAULT FALSE,
+    `filePath` varchar(100),
+    `userID` int(11) NOT NULL,
+    `catID` int(11),
+    PRIMARY KEY (`articleID`),
+    FOREIGN KEY (`userID`) REFERENCES `USER`(`userID`),
+    FOREIGN KEY (`catID`) REFERENCES `CATEGORY`(`catID`)
+);
+
+CREATE TABLE COMMENT (
+    `commentID` int NOT NULL AUTO_INCREMENT,
+    `commentText` varchar(300),
+    `creationDate` date,
+    `userID` int,
+    `articleID` int,
+    PRIMARY KEY (`commentID`),
+    FOREIGN KEY (`userID`) REFERENCES `USER`(`userID`),
+    FOREIGN KEY (`articleID`) REFERENCES `ARTICLE`(`articleID`)
+);
+
+CREATE TABLE RATING(
+    `ratingID` int NOT NULL AUTO_INCREMENT,
+    `ratingValue` int NOT NULL,
+    `articleID` int NOT NULL,
+    PRIMARY KEY (`ratingID`)
+);
