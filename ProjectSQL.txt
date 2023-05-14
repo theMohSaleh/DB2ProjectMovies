@@ -22,7 +22,7 @@ CREATE TABLE `ARTICLE` (
     `articleID` int NOT NULL AUTO_INCREMENT,
     `title` varchar(50),
     `content` varchar(500),
-    `publishDate` DATE,
+    `publishDate` datetime,
     `views` int(11),
     `rating` float(11),
     `isPublished` boolean DEFAULT FALSE,
@@ -37,7 +37,7 @@ CREATE TABLE `ARTICLE` (
 CREATE TABLE COMMENT (
     `commentID` int NOT NULL AUTO_INCREMENT,
     `commentText` varchar(300),
-    `creationDate` date,
+    `creationDate` datetime,
     `userID` int,
     `articleID` int,
     PRIMARY KEY (`commentID`),

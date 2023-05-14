@@ -24,9 +24,6 @@ class Users {
     }
     
     // setters and getters
-    public function setUserID($userID) {
-        $this->userID = $userID;
-    }
 
     public function setUserName($userName) {
         $this->userName = $userName;

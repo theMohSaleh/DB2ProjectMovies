@@ -31,12 +31,8 @@ class Articles {
         $this->userID = $userID;
         $this->catID = $catID;
     }
-
     
     // getters and setters
-    public function setArticleID($articleID) {
-        $this->articleID = $articleID;
-    }
 
     public function setTitle($title) {
         $this->title = $title;
@@ -197,8 +193,8 @@ class Articles {
         return $data;
     }
     
-    // methoid to return all users of a specific category
-    function getAllUsersRole($catID) {
+    // methoid to return all articles of a specific category
+    function getAllArticlesCat($catID) {
         $db = Database::getInstance();
         $data = $db->multiFetch('Select * from ARTICLE WHERE catID = '. $catID);
         return $data;

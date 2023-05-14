@@ -11,5 +11,66 @@
  * @author MohN1080p
  */
 class Categories {
-    //put your code here
+    private $catID;
+    private $catName;
+    
+    public function getCatID() {
+        return $this->catID;
+    }
+
+    public function getCatName() {
+        return $this->catName;
+    }
+
+    public function setCatName($catName): void {
+        $this->catName = $catName;
+    }
+
+    public function initWith($catID, $catName) {
+        $this->catID = $catID;
+        $this->catName = $catName;
+    }
+    
+    public function initWithID($catID) {
+        $db = Database::getInstance();
+        $data = $db->singleFetch('SELECT * FROM CATEGORY WHERE catID = ' . $this->catID);
+        $this->initWith($data->catID,$data->catName);
+    }
+    
+    function addCategory(){
+        if($this->isValid()){
+            try{
+                $db = Database::getInstance();
+                $data = $db->querySql('INSERT INTO CATEGORY (catID, catName) VALUES (NULL, \'' . $this->catName. '\')');
+                return true;
+            } catch (Exception $e) {
+                echo 'Exception: ' . $e;
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    function updateDB(){
+        if($this->isValid()){
+            $db = Database::getInstance();
+            $data = 'UPDATE CATEGORY SET catName = \'' . $this->catName . '\'WHERE catID = ' . $this->catID;
+            $db->querySql($data);
+        }
+    }
+    
+    function getAllCategories(){
+        $db = Database::getInstance();
+        $data = $db->multiFetch("SELECT * FROM CATEGORY");
+        return $data;
+    }
+    
+    function isValid(){
+        $errors = true;
+        
+        if(empty($this->catName)){
+            $errors = false;
+        }
+        return $errors;
+    }
 }
