@@ -1,5 +1,6 @@
 DELIMITER ;
 
+
 CREATE TABLE `USER` (
 	`userID` int NOT NULL AUTO_INCREMENT,
 	`userName` varchar(30) NOT NULL,
