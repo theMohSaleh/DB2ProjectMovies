@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
+<?php
+include_once 'header.php';
+
+if (empty($_SESSION['userID'])) {
+    header('Location: index.php');
+    die();
+}
+
+
+include 'header.html';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
         <title></title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+
     </body>
 </html>

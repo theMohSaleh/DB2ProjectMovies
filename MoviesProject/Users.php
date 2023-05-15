@@ -12,15 +12,15 @@ class Users {
     private $roleID;
     
     // constrcutor
-    function __construct($userID, $userName, $password, $firstName, $lastName, $DOB, $regDate, $roleID) {
-        $this->userID = $userID;
-        $this->userName = $userName;
-        $this->password = $password;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->DOB = $DOB;
-        $this->regDate = $regDate;
-        $this->roleID = $roleID;
+    function __construct() {
+        $this->userID = null;
+        $this->userName = null;
+        $this->password = null;
+        $this->firstName = null;
+        $this->lastName = null;
+        $this->DOB = null;
+        $this->regDate = null;
+        $this->roleID = null;
     }
     
     // setters and getters

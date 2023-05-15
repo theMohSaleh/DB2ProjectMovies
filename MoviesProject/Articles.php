@@ -2,10 +2,11 @@
 
 /**
  * 
- ********* FINISH updateViewCount AND updateRatingScore METHOD *********
+ * ******** FINISH updateViewCount AND updateRatingScore METHOD *********
  * 
  */
 class Articles {
+
     // attributes
     private $articleID;
     private $title;
@@ -17,7 +18,7 @@ class Articles {
     private $filePath;
     private $userID;
     private $catID;
-    
+
     // constructor
     public function __construct($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
         $this->articleID = $articleID;
@@ -31,7 +32,7 @@ class Articles {
         $this->userID = $userID;
         $this->catID = $catID;
     }
-    
+
     // getters and setters
 
     public function setTitle($title) {
@@ -121,7 +122,7 @@ class Articles {
             return false;
         }
     }
-    
+
     // method to initilize article with articleID
     function initWithArticleid($articleID) {
 
@@ -129,13 +130,13 @@ class Articles {
         $data = $db->singleFetch('SELECT * FROM ARTICLE WHERE articleID = ' . $this->articleID);
         $this->initWith($data->title, $data->content, $data->publishDate, $this->views, $this->rating, $this->isPublished, $this->filePath, $this->userID, $this->catID);
     }
-    
+
     // method to add new article
     function addArticle() {
 
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO ARTICLE (articleID, title, content, publishDate, views, rating, isPublished, filePath, userID, catID) VALUES (NULL, \'' . $this->title . '\',\''.$this->content.'\',
+            $data = $db->querySql('INSERT INTO ARTICLE (articleID, title, content, publishDate, views, rating, isPublished, filePath, userID, catID) VALUES (NULL, \'' . $this->title . '\',\'' . $this->content . '\',
                     \'' . $this->publishDate . '\', \'' . $this->views . '\', \'' . $this->rating . '\', \'' . $this->isPublished . '\', \'' . $this->filePath . '\', \'' . $this->userID . '\', \'' . $this->catID . '\')');
             return true;
         } catch (Exception $e) {
@@ -143,7 +144,7 @@ class Articles {
             return false;
         }
     }
-    
+
     // method to initlize data
     private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
         $this->articleID = $articleID;
@@ -157,7 +158,7 @@ class Articles {
         $this->userID = $userID;
         $this->catID = $catID;
     }
-    
+
     // method to update database with edited details
     function updateDB() {
 
@@ -175,28 +176,29 @@ class Articles {
 				WHERE articleID = ' . $this->articleID;
         $db->querySql($data);
     }
-    
+
     // method to update article view count
     function updateViewCount() {
         
     }
-    
+
     // method to update article rating score
     function updateRatingScore() {
         
     }
-    
+
     // method to return all users
     function getAllArticles() {
         $db = Database::getInstance();
         $data = $db->multiFetch('Select * from ARTICLE');
         return $data;
     }
-    
+
     // methoid to return all articles of a specific category
     function getAllArticlesCat($catID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from ARTICLE WHERE catID = '. $catID);
+        $data = $db->multiFetch('Select * from ARTICLE WHERE catID = ' . $catID);
         return $data;
     }
+
 }
