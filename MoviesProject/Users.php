@@ -128,7 +128,7 @@ class Users {
 
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',\'AES_ENCRYPT('.$this->password.', \'P0ly\')\',\'' . $this->firstName . '\', \'' . $this->lastName . '\',
+            $data = $db->querySql('INSERT INTO USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
                      \'' . $this->DOB . '\', \'' . $this->regDate . '\', \'' . $this->roleID . '\')');
             return true;
         } catch (Exception $e) {

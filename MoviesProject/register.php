@@ -13,6 +13,7 @@ if (isset($_POST['submitted'])) {
     $user->setRegDate(date('Y-m-d'));
     $user->setRoleID(2);
 
+    
     if ($user->initWithUsername()) {
 
         if ($user->registerUser())
