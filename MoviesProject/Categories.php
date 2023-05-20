@@ -33,7 +33,7 @@ class Categories {
     
     public function initWithID($catID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM CATEGORY WHERE catID = ' . $this->catID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_CATEGORY WHERE catID = ' . $this->catID);
         $this->initWith($data->catID,$data->catName);
     }
     
@@ -41,7 +41,7 @@ class Categories {
         if($this->isValid()){
             try{
                 $db = Database::getInstance();
-                $data = $db->querySql('INSERT INTO CATEGORY (catID, catName) VALUES (NULL, \'' . $this->catName. '\')');
+                $data = $db->querySql('INSERT INTO dbProj_CATEGORY (catID, catName) VALUES (NULL, \'' . $this->catName. '\')');
                 return true;
             } catch (Exception $e) {
                 echo 'Exception: ' . $e;
@@ -54,14 +54,14 @@ class Categories {
     function updateDB(){
         if($this->isValid()){
             $db = Database::getInstance();
-            $data = 'UPDATE CATEGORY SET catName = \'' . $this->catName . '\'WHERE catID = ' . $this->catID;
+            $data = 'UPDATE dbProj_CATEGORY SET catName = \'' . $this->catName . '\'WHERE catID = ' . $this->catID;
             $db->querySql($data);
         }
     }
     
     function getAllCategories(){
         $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM CATEGORY");
+        $data = $db->multiFetch("SELECT * FROM dbProj_CATEGORY");
         return $data;
     }
     

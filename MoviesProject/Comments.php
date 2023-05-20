@@ -64,7 +64,7 @@ class Comments {
     
     function initWithCommentId($commentID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM COMMENT WHERE commentID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_COMMENT WHERE commentID = ' . $this->userID);
         $this->initWith($data->commentID, $data->commentText, $data->creationDate, $data->userID, $data->$articleID);
     }
     
@@ -72,7 +72,7 @@ class Comments {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
-                $data = $db->querySql("INSERT INTO COMMENT (commentID, commentText, creationDate, userID) VALUES (NULL, '$this->commentText', NOW(), $this->userID, $this->articleID  )");
+                $data = $db->querySql("INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID) VALUES (NULL, '$this->commentText', NOW(), $this->userID, $this->articleID  )");
                 return true;
             } catch (Exception $e) {
                 echo 'Exception: ' . $e;
@@ -86,7 +86,7 @@ class Comments {
 
         if ($this->isValid()) {
             $db = Database::getInstance();
-            $data = 'UPDATE COMMENT set
+            $data = 'UPDATE dbProj_COMMENT set
 			commentText = \'' . $this->commentText . '\' ,
 			creationDate = \'' . $this->creationDate . '\' ,
 			userID = \'' . $this->userID . '\'  ,
@@ -97,13 +97,13 @@ class Comments {
     }
     function getAllComments(){
         $db = DatabaseA::getInstance();
-        $data = $db->multiFetch("SELECT * FROM COMMENTS");
+        $data = $db->multiFetch("SELECT * FROM dbProj_COMMENT");
         return $data;
     }
     
     function getAllCommentsForArticle($articleID){
         $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM COMMMENTS WHERE articleID = $articleID");
+        $data = $db->multiFetch("SELECT * FROM dbProj_COMMENT WHERE articleID = $articleID");
         return $data;
     }
     function isValid(){
