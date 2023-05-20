@@ -1,43 +1,80 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-include 'header.php';
+  <head>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>News Portal | Home Page</title>
 
-if (isset($_POST['submitted'])) {
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    $lgnObj = new Login();
-    $username = $_POST['Username'];
-    $password = $_POST['Password'];
-    
-    if ($lgnObj->login($username, $password)) {
-        header('Location: regiser.php');
-    } else {
-        echo $error = 'Wrong Login Values';
-    }  
-}
-include "header.html";
-?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
+    <!-- Custom styles for this template -->
+    <link href="modern-business.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- The Navigation Menu -->
+   <?php include 'header.php';?>
+
+    <!-- Whole Page Content -->
+    <div class="container">
         
-        <?php
-        if (empty($_SESSION["userID"])){
-         echo '<div><form action="" method="post">
-           <p><h1>Login From</h1> 
-        <p>
-           <p>Username   <input type="text" name="Username" /></p>
-           <p>Password    <input type="password" name="Password" /></p>
-        </p>
-        <p><input type="submit" name="submit" value="Login" /></p>
-        
-         <input type ="hidden" name="submitted" value="TRUE">
-         </form></div>';   
-        }
-        ?>
-    </body>
+        <!-- Centering the Blog Posts -->
+      <div class="row" style="margin-top: 4%">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <!-- Blog Post Card-->
+          <div class="card mb-4">
+                      <img class="card-img-top" src="images/heat.png">
+            <div class="card-body">
+              <h2 class="card-title"> This is a Post Title Text </h2>
+              
+              <!--category-->
+              <p><a class="badge bg-secondary text-decoration-none link-light" href="" style="color:#fff"> This is the Category Text </a>
+                  
+              <!--Subcategory--->
+              <a class="badge bg-secondary text-decoration-none link-light"  style="color:#fff"> This is a Sub-Category Text </a></p>
+       
+              <a href="index.php" class="btn btn-primary"> Read More Buttonish &rarr;</a>
+            </div>
+              
+              <!-- Date Published -->
+            <div class="card-footer text-muted">
+              Posted on [Enter Date Here]
+            </div>
+          </div>  
+          <!-- Pagination Section for later -->
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+      <?php include 'sidebar.php';?>
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+      <?php include 'footer.html';?>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="bootstrap/jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ 
+</head>
+  </body>
+
 </html>
+
