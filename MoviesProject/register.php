@@ -12,14 +12,14 @@ if (isset($_POST['submitted'])) {
     $user->setDOB($date);
     $user->setRegDate(date('Y-m-d'));
     $user->setRoleID(2);
-
     
     if ($user->initWithUsername()) {
 
         if ($user->registerUser())
             echo 'Registerd Successfully';
-        else
+        else    
             echo '<p class="error"> Not Successfull </p>';
+        
     }else {
         echo '<p class="error"> Username Already Exists </p>';
     }

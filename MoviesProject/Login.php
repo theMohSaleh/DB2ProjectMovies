@@ -44,8 +44,8 @@ Class Login extends Users {
             if ($natnoNew == $card_id) {
                 $this->ok = true;
 
-                $_SESSION['userID'] = $this->getUid();
-                $_SESSION['userName'] = $this->getUsername();
+                $_SESSION['userID'] = $this->getUserID();
+                $_SESSION['userName'] = $this->getUserName();
                 $_SESSION['roleID'] = $this->getRoleID();
                 setcookie('userID', $_SESSION['userID'], time() + 60 * 60 * 24 * 7, '/', $this->domain);
                 setcookie('userName', $_SESSION['userName'], time() + 60 * 60 * 24 * 7, '/', $this->domain);
@@ -66,11 +66,11 @@ Class Login extends Users {
         try {
             $this->checkUser($userName, $password);
             
-            if ($this->getUid() != null) {
+            if ($this->getUserID() != null) {
                 $this->ok = true;
 
-                $_SESSION['userID'] = $this->getUid();
-                $_SESSION['userName'] = $this->getUsername();
+                $_SESSION['userID'] = $this->getUserID();
+                $_SESSION['userName'] = $this->getUserName();
                 $_SESSION['roleID'] = $this->getRoleID();
                 setcookie('userID', $_SESSION['userID'], time() + 60 * 60 * 24 * 7, '/', $this->domain);
                 setcookie('userName', $_SESSION['userName'], time() + 60 * 60 * 24 * 7, '/', $this->domain);

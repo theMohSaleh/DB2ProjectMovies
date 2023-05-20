@@ -109,7 +109,7 @@ class Users {
     function initWithUsername() {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE username = \'' . $this->username.'\'');
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \'' . $this->userName.'\''); //AND userID != \'' . $this->userID .'\'
         if ($data != null) {
             return false;
         }
@@ -119,20 +119,23 @@ class Users {
     // method to validate user login and initilize
     function checkUser($userName, $password){
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = \''.$password.'\'');
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = AES_ENCRYPT('.$password.', \'P0ly\')');
         $this->initWith($data->userID, $data->userName, $data->password, $this->firstName, $this->lastName, $this->DOB, $this->regDate, $this->roleID);
     }
     
     // method to register new user
     function registerUser() {
-
-        try {
-            $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
+        if ($this->isValid()) {
+            try {
+                $db = Database::getInstance();
+                $data = $db->querySql('INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
                      \'' . $this->DOB . '\', \'' . $this->regDate . '\', \'' . $this->roleID . '\')');
-            return true;
-        } catch (Exception $e) {
-            echo 'Exception: ' . $e;
+                return true;
+            } catch (Exception $e) {
+                echo 'Exception: ' . $e;
+                return false;
+            }
+        } else {
             return false;
         }
     }
@@ -151,9 +154,9 @@ class Users {
 
     // method to update database with edited details
     function updateDB() {
-
-        $db = Database::getInstance();
-        $data = 'UPDATE dbProj_USER set
+        if ($this->isValid()) {
+            $db = Database::getInstance();
+            $data = 'UPDATE dbProj_USER set
 			userName = \'' . $this->userName . '\',
 			password = \'' . $this->password . '\',
 			firstName = \'' . $this->firstName . '\',
@@ -162,7 +165,8 @@ class Users {
 			regDate = \'' . $this->regDate . '\',
 			roleID = \'' . $this->roleID . '\'
 				WHERE userID = ' . $this->userID;
-        $db->querySql($data);
+            $db->querySql($data);
+        } 
     }
     
     // method to return all users
@@ -179,22 +183,51 @@ class Users {
         return $data;
     }
     
+    function login($username, $password) {
+
+        try {
+            
+            $this->checkUser($username, $password);
+            if ($this->getUid() != null) {
+                $this->ok = true;
+
+                $_SESSION['uid'] = $this->getUid();
+                $_SESSION['username'] = $this->getUsername();
+               
+
+                return true;
+            } else {
+                
+                $error[] = 'Wrong Username OR password';
+            }
+            return false;
+        } catch (Exception $e) {
+            $error[] = $e->getMessage();
+        }
+
+        return false;
+    }
+    
     // method to validate input
     public function isValid() {
-        $errors = array();
+        $errors = true;
 
         if (empty($this->userName))
-            $errors[] = 'You must enter first name';
+            $errors = false;
         else {
             if (!$this->initWithUsername())
-                $errors[] = 'This Username address is already registered';
+                $errors = false;
         }
         
         if (empty($this->password))
-            $errors[] = 'You must enter password';
+            $errors = false;
         
-        if (empty($this->roleID))
-            $errors[] = 'You must select the role for this user';
+        if (empty($this->firstName))
+            $errors = false;
+        
+        if (empty($this->lastName))
+            $errors = false;
+        
         return $errors;
     }
 }
