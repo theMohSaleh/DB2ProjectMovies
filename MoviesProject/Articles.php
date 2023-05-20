@@ -115,7 +115,7 @@ class Articles {
     function deleteArticle() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('Delete from ARTICLE where articleID=' . $this->articleID);
+            $data = $db->querySql('Delete from dbProj_ARTICLE where articleID=' . $this->articleID);
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -127,7 +127,7 @@ class Articles {
     function initWithArticleid($articleID) {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM ARTICLE WHERE articleID = ' . $this->articleID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_ARTICLE WHERE articleID = ' . $this->articleID);
         $this->initWith($data->title, $data->content, $data->publishDate, $this->views, $this->rating, $this->isPublished, $this->filePath, $this->userID, $this->catID);
     }
 
@@ -136,7 +136,7 @@ class Articles {
 
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO ARTICLE (articleID, title, content, publishDate, views, rating, isPublished, filePath, userID, catID) VALUES (NULL, \'' . $this->title . '\',\'' . $this->content . '\',
+            $data = $db->querySql('INSERT INTO dbProj_ARTICLE (articleID, title, content, publishDate, views, rating, isPublished, filePath, userID, catID) VALUES (NULL, \'' . $this->title . '\',\'' . $this->content . '\',
                     \'' . $this->publishDate . '\', \'' . $this->views . '\', \'' . $this->rating . '\', \'' . $this->isPublished . '\', \'' . $this->filePath . '\', \'' . $this->userID . '\', \'' . $this->catID . '\')');
             return true;
         } catch (Exception $e) {
@@ -163,7 +163,7 @@ class Articles {
     function updateDB() {
 
         $db = Database::getInstance();
-        $data = 'UPDATE ARTICLE set
+        $data = 'UPDATE dbProj_ARTICLE set
 			title = \'' . $this->title . '\',
 			content = \'' . $this->content . '\',
 			publishDate = \'' . $this->publishDate . '\',
@@ -190,14 +190,14 @@ class Articles {
     // method to return all users
     function getAllArticles() {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from ARTICLE');
+        $data = $db->multiFetch('Select * from dbProj_ARTICLE');
         return $data;
     }
 
     // methoid to return all articles of a specific category
     function getAllArticlesCat($catID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from ARTICLE WHERE catID = ' . $catID);
+        $data = $db->multiFetch('Select * from dbProj_ARTICLE WHERE catID = ' . $catID);
         return $data;
     }
 

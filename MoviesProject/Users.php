@@ -89,7 +89,7 @@ class Users {
     function deleteuser() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('Delete from USER where userID=' . $this->userID);
+            $data = $db->querySql('Delete from dbProj_USER where userID=' . $this->userID);
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -101,7 +101,7 @@ class Users {
     function initWithUid($userID) {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM USER WHERE userID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $this->userID);
         $this->initWith($data->userID, $data->userName, $data->password, $this->firstName, $this->lastName, $this->DOB, $this->regDate, $this->roleID);
     }
     
@@ -109,7 +109,7 @@ class Users {
     function initWithUsername() {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM users WHERE username = \'' . $this->username.'\'');
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE username = \'' . $this->username.'\'');
         if ($data != null) {
             return false;
         }
@@ -119,7 +119,7 @@ class Users {
     // method to validate user login and initilize
     function checkUser($userName, $password){
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM USER WHERE userName = \''.$userName.'\' AND password = \''.$password.'\'');
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = \''.$password.'\'');
         $this->initWith($data->userID, $data->userName, $data->password, $this->firstName, $this->lastName, $this->DOB, $this->regDate, $this->roleID);
     }
     
@@ -128,7 +128,7 @@ class Users {
 
         try {
             $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
+            $data = $db->querySql('INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
                      \'' . $this->DOB . '\', \'' . $this->regDate . '\', \'' . $this->roleID . '\')');
             return true;
         } catch (Exception $e) {
@@ -153,7 +153,7 @@ class Users {
     function updateDB() {
 
         $db = Database::getInstance();
-        $data = 'UPDATE USER set
+        $data = 'UPDATE dbProj_USER set
 			userName = \'' . $this->userName . '\',
 			password = \'' . $this->password . '\',
 			firstName = \'' . $this->firstName . '\',
@@ -168,14 +168,14 @@ class Users {
     // method to return all users
     function getAllUsers() {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from USER');
+        $data = $db->multiFetch('Select * from dbProj_USER');
         return $data;
     }
     
     // methoid to return all users of a specific role
     function getAllUsersRole($roleID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from USER WHERE roleID = '. $roleID);
+        $data = $db->multiFetch('Select * from dbProj_USER WHERE roleID = '. $roleID);
         return $data;
     }
     
