@@ -1,10 +1,5 @@
 <?php
 
-/**
- * 
- * ******** FINISH updateViewCount AND updateRatingScore METHOD *********
- * 
- */
 class Articles {
 
     // attributes
@@ -14,13 +9,14 @@ class Articles {
     private $publishDate;
     private $views;
     private $rating;
+    private $likes;
+    private $dislikes;
     private $isPublished;
-    private $filePath;
     private $userID;
     private $catID;
 
     // constructor
-    public function __construct($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
+    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
         $this->articleID = $articleID;
         $this->title = $title;
         $this->content = $content;
@@ -30,44 +26,6 @@ class Articles {
         $this->isPublished = $isPublished;
         $this->filePath = $filePath;
         $this->userID = $userID;
-        $this->catID = $catID;
-    }
-
-    // getters and setters
-
-    public function setTitle($title) {
-        $this->title = $title;
-    }
-
-    public function setContent($content) {
-        $this->content = $content;
-    }
-
-    public function setPublishDate($publishDate) {
-        $this->publishDate = $publishDate;
-    }
-
-    public function setViews($views) {
-        $this->views = $views;
-    }
-
-    public function setRating($rating) {
-        $this->rating = $rating;
-    }
-
-    public function setIsPublished($isPublished) {
-        $this->isPublished = $isPublished;
-    }
-
-    public function setFilePath($filePath) {
-        $this->filePath = $filePath;
-    }
-
-    public function setUserID($userID) {
-        $this->userID = $userID;
-    }
-
-    public function setCatID($catID) {
         $this->catID = $catID;
     }
 
@@ -95,12 +53,16 @@ class Articles {
         return $this->rating;
     }
 
-    public function getIsPublished() {
-        return $this->isPublished;
+    public function getLikes() {
+        return $this->likes;
     }
 
-    public function getFilePath() {
-        return $this->filePath;
+    public function getDislikes() {
+        return $this->dislikes;
+    }
+
+    public function getIsPublished() {
+        return $this->isPublished;
     }
 
     public function getUserID() {
@@ -111,71 +73,108 @@ class Articles {
         return $this->catID;
     }
 
-    // method to delte article
-    function deleteArticle() {
-        try {
-            $db = Database::getInstance();
-            $data = $db->querySql('Delete from ARTICLE where articleID=' . $this->articleID);
-            return true;
-        } catch (Exception $e) {
-            echo 'Exception: ' . $e;
-            return false;
-        }
-    }
-
-    // method to initilize article with articleID
-    function initWithArticleid($articleID) {
-
-        $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM ARTICLE WHERE articleID = ' . $this->articleID);
-        $this->initWith($data->title, $data->content, $data->publishDate, $this->views, $this->rating, $this->isPublished, $this->filePath, $this->userID, $this->catID);
-    }
-
-    // method to add new article
-    function addArticle() {
-
-        try {
-            $db = Database::getInstance();
-            $data = $db->querySql('INSERT INTO ARTICLE (articleID, title, content, publishDate, views, rating, isPublished, filePath, userID, catID) VALUES (NULL, \'' . $this->title . '\',\'' . $this->content . '\',
-                    \'' . $this->publishDate . '\', \'' . $this->views . '\', \'' . $this->rating . '\', \'' . $this->isPublished . '\', \'' . $this->filePath . '\', \'' . $this->userID . '\', \'' . $this->catID . '\')');
-            return true;
-        } catch (Exception $e) {
-            echo 'Exception: ' . $e;
-            return false;
-        }
-    }
-
-    // method to initlize data
-    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
-        $this->articleID = $articleID;
+    public function setTitle($title) {
         $this->title = $title;
+    }
+
+    public function setContent($content) {
         $this->content = $content;
+    }
+
+    public function setPublishDate($publishDate) {
         $this->publishDate = $publishDate;
+    }
+
+    public function setViews($views) {
         $this->views = $views;
+    }
+
+    public function setRating($rating) {
         $this->rating = $rating;
+    }
+
+    public function setLikes($likes) {
+        $this->likes = $likes;
+    }
+
+    public function setDislikes($dislikes) {
+        $this->dislikes = $dislikes;
+    }
+
+    public function setIsPublished($isPublished) {
         $this->isPublished = $isPublished;
-        $this->filePath = $filePath;
+    }
+
+    public function setUserID($userID) {
         $this->userID = $userID;
+    }
+
+    public function setCatID($catID) {
         $this->catID = $catID;
     }
 
-    // method to update database with edited details
-    function updateDB() {
+    // method to delete article
+    function deleteArticle() {
+        try {
+            $db = Database::getInstance();
+            $data = $db->querySql("DELETE FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
+            return true;
+        } catch (Exception $e) {
+            echo 'Exception: ' . $e;
+            return false;
+        }
+    }
 
+    // method to initialize article with articleID
+    function initWithArticleid($articleID) {
         $db = Database::getInstance();
-        $data = 'UPDATE ARTICLE set
-			title = \'' . $this->title . '\',
-			content = \'' . $this->content . '\',
-			publishDate = \'' . $this->publishDate . '\',
-			views = \'' . $this->views . '\',
-			rating = \'' . $this->rating . '\',
-			isPublished = \'' . $this->isPublished . '\',
-			filePath = \'' . $this->filePath . '\',
-			userID = \'' . $this->userID . '\',
-			catID = \'' . $this->catID . '\'
-				WHERE articleID = ' . $this->articleID;
+        $data = $db->singleFetch("SELECT * FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
+        $this->initWith($data->title, $data->content, $data->publishDate, $this->views, $this->rating, $this->isPublished, $this->filePath, $this->userID, $this->catID);
+    }
+
+    // method to add a new article
+    function addArticle() {
+        try {
+            $db = Database::getInstance();
+            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
+            return true;
+        } catch (Exception $e) {
+            echo 'Exception: ' . $e;
+            return false;
+        }
+    }
+
+    // method to update the database with edited details
+    function updateDB() {
+        $db = Database::getInstance();
+        $data = "UPDATE dbProj_ARTICLE SET
+			title = \"$this->title\",
+			content = \"$this->content\",
+			publishDate = \"$this->publishDate\",
+			views = \"$this->views\",
+			rating = \"$this->rating\",
+			isPublished = \"$this->isPublished\",
+			filePath = \"$this->filePath\",
+			userID = \"$this->userID\",
+			catID = \"$this->catID\"
+			WHERE articleID = $this->articleID";
         $db->querySql($data);
     }
+
+    // method to return all articles
+    function getAllArticles() {
+        $db = Database::getInstance();
+        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE");
+        return $data;
+    }
+
+    // method to return all articles of a specific category
+    function getAllArticlesCat($catID) {
+        $db = Database::getInstance();
+        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID");
+        return $data;
+    }
+}
 
     // method to update article view count
     function updateViewCount() {
@@ -187,18 +186,4 @@ class Articles {
         
     }
 
-    // method to return all users
-    function getAllArticles() {
-        $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from ARTICLE');
-        return $data;
-    }
 
-    // methoid to return all articles of a specific category
-    function getAllArticlesCat($catID) {
-        $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from ARTICLE WHERE catID = ' . $catID);
-        return $data;
-    }
-
-}

@@ -2,6 +2,8 @@
 
 include 'header.php';
 
+
+
 if (isset($_POST['submitted'])) {
 
     $lgnObj = new Login();
@@ -9,12 +11,12 @@ if (isset($_POST['submitted'])) {
     $password = $_POST['Password'];
     
     if ($lgnObj->login($username, $password)) {
-        header('Location: view_users.php');
+        header('Location: regiser.php');
     } else {
         echo $error = 'Wrong Login Values';
-    }
-    
+    }  
 }
+include "header.html";
 ?>
 <html>
     <head>
@@ -22,10 +24,10 @@ if (isset($_POST['submitted'])) {
         <title></title>
     </head>
     <body>
-        <a href="view_article.php">Articles</a>
-        <a href="register.php">Users</a>
         
-        <div><form action="" method="post">
+        <?php
+        if (empty($_SESSION["userID"])){
+         echo '<div><form action="" method="post">
            <p><h1>Login From</h1> 
         <p>
            <p>Username   <input type="text" name="Username" /></p>
@@ -34,8 +36,8 @@ if (isset($_POST['submitted'])) {
         <p><input type="submit" name="submit" value="Login" /></p>
         
          <input type ="hidden" name="submitted" value="TRUE">
-         </form></div>
-        <?php
+         </form></div>';   
+        }
         ?>
     </body>
 </html>

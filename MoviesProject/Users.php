@@ -109,7 +109,7 @@ class Users {
     function initWithUsername() {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM users WHERE username = \'' . $this->username.'\'');
+        $data = $db->singleFetch('SELECT * FROM USER WHERE username = \'' . $this->username.'\'');
         if ($data != null) {
             return false;
         }

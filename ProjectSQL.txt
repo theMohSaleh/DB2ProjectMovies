@@ -1,7 +1,7 @@
 DELIMITER ;
 
 
-CREATE TABLE `USER` (
+CREATE TABLE `dbProj_USER` (
 	`userID` int NOT NULL AUTO_INCREMENT,
 	`userName` varchar(30) NOT NULL,
 	`password` varchar(30) NOT NULL,
@@ -13,21 +13,22 @@ CREATE TABLE `USER` (
     PRIMARY KEY (`userID`)
 );
 
-CREATE TABLE CATEGORY (
+CREATE TABLE `dbProj_CATEGORY` (
     `catID` int NOT NULL AUTO_INCREMENT,
     `catName` varchar(60),
     PRIMARY KEY (`catID`)
 );
 
-CREATE TABLE `ARTICLE` (
+CREATE TABLE `dbProj_ARTICLE` (
     `articleID` int NOT NULL AUTO_INCREMENT,
     `title` varchar(50),
     `content` varchar(500),
     `publishDate` datetime,
     `views` int(11),
+    `likes` int(11),
+    `dislikes` int(11),
     `rating` float(11),
     `isPublished` boolean DEFAULT FALSE,
-    `filePath` varchar(100),
     `userID` int(11) NOT NULL,
     `catID` int(11),
     PRIMARY KEY (`articleID`),
@@ -35,7 +36,7 @@ CREATE TABLE `ARTICLE` (
     FOREIGN KEY (`catID`) REFERENCES `CATEGORY`(`catID`)
 );
 
-CREATE TABLE COMMENT (
+CREATE TABLE `dbProj_COMMENT` (
     `commentID` int NOT NULL AUTO_INCREMENT,
     `commentText` varchar(300),
     `creationDate` datetime,
@@ -46,9 +47,12 @@ CREATE TABLE COMMENT (
     FOREIGN KEY (`articleID`) REFERENCES `ARTICLE`(`articleID`)
 );
 
-CREATE TABLE RATING(
-    `ratingID` int NOT NULL AUTO_INCREMENT,
-    `ratingValue` int NOT NULL,
+CREATE TABLE `dbProj_FILES`(
+    `fileID` int(11) NOT NULL AUTO_INCREMENT,
+    `fileName` int(11) NOT NULL,
+    `fileType` varchar(30),
+    `filelocation` varchar(30),
     `articleID` int NOT NULL,
-    PRIMARY KEY (`ratingID`)
+    PRIMARY KEY (`fileID`),
+    FOREIGN KEY (`articleID`) REFERENCES `ARTICLE`(`articleID`)
 );
