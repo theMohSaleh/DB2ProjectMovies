@@ -34,7 +34,7 @@ CREATE OR REPLACE TABLE `dbProj_ARTICLE` (
     PRIMARY KEY (`articleID`),
     FOREIGN KEY (`userID`) REFERENCES `dbProj_USER`(`userID`),
     FOREIGN KEY (`catID`) REFERENCES `dbProj_CATEGORY`(`catID`)
-);
+)ENGINE=MyISAM;
 
 CREATE OR REPLACE TABLE `dbProj_COMMENT` (
     `commentID` int NOT NULL AUTO_INCREMENT,
@@ -45,7 +45,7 @@ CREATE OR REPLACE TABLE `dbProj_COMMENT` (
     PRIMARY KEY (`commentID`),
     FOREIGN KEY (`userID`) REFERENCES `dbProj_USER`(`userID`),
     FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
-);
+)ENGINE=MyISAM;
 
 CREATE OR REPLACE TABLE `dbProj_FILES`(
     `fileID` int(11) NOT NULL AUTO_INCREMENT,
@@ -55,8 +55,9 @@ CREATE OR REPLACE TABLE `dbProj_FILES`(
     `articleID` int NOT NULL,
     PRIMARY KEY (`fileID`),
     FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
-);
+)ENGINE=MyISAM;
 
+ALTER TABLE dbProj_ARTICLE ADD FULLTEXT(title, content);
 
 INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL,'User1',AES_ENCRYPT('123', 'P0ly'),'User','One', DATE('2002-03-06'),CURRENT_DATE(),2);
 

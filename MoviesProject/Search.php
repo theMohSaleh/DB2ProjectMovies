@@ -1,15 +1,164 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
-/**
- * Description of Search
- *
- * @author MohN1080p
- */
 class Search {
-    //put your code here
+
+
+    public function ShowMessages($search, $rank = false) {
+        if ($rank == true) {
+            $q = "select *, match(MessageText, Subject) against ('$search') as relevance "
+                    . "from messages where match(MessageText, Subject) against ('" . $search . "')";
+        }
+        else
+            $q = "select * from messages where match(MessageText, Subject) against ('" . $search . "')";
+
+        $q .= " ORDER BY match(MessageText, Subject) against ('" . $search . "') DESC";
+
+        $this->showResults($q, $rank);
+    }
+
+    function showResults($q, $rank) {
+
+        $db = Database::getInstance();
+        $data = $db->multiFetch($q);
+
+        if (!empty($data)) {
+            $row_cnt = count($data);
+
+            if ($row_cnt == 0) {
+                echo '<br>';
+                echo '<p>sorry no messages were found that match your query</p>';
+            } else {
+                echo '<br>';
+                //display a table of results
+                $table = '<table class="CSSTableGenerator" width="75%">' .
+                        '<tr bgcolor="#87CEEB">
+                     <td><b>Message ID</b></td>
+                     <td><b>Topic</b></td>
+                     <td><b>Message</b></td>';
+
+
+                if ($rank == true)
+                    $table .= '<td><b>Relevance</b></td></tr>';
+
+                $bg = '#eeeeee';
+
+                for ($i = 0; $i < $row_cnt; $i++) {
+                    $bg = ($bg == '#eeeeee' ? '#ffffff' : '#eeeeee');
+
+                    $table .= '<tr bgcolor="' . $bg . '">
+                          <td> ' . $data[$i]->idMessages . '</td>
+                          <td>' . $data[$i]->Subject . '</td>
+                        <td>' . $data[$i]->MessageText . '</td>';
+
+                    if ($rank == true)
+                        $table .= '<td>' . $data[$i]->relevance . '</td></tr>';
+                }
+                $table .= '</table>';
+
+                echo $table;
+            }
+        }
+        else {
+            echo '<p class="error"> sorry no messages were found that match your query</p>';
+        }
+    }
+
+    function handleAll($text) {
+
+        echo $text;
+        $search = explode(' ', $text);
+        // print_r($search);
+
+        $returnText = '';
+
+        foreach ($search as $term) {
+            $term = '+' . $term . ' ';
+            $returnText .= $term;
+        }
+
+        $returnText = trim($returnText);
+
+        return $returnText;
+    }
+
+    function handleNone($text) {
+
+        $search = explode(' ', $text);
+
+        $returnText = '';
+
+        foreach ($search as $term) {
+            $term = '-' . $term . ' ';
+            $returnText .= $term;
+        }
+
+        return $returnText;
+    }
+
+    function handlePart($text) {
+
+        $search = explode(' ', $text);
+
+        $returnText = '';
+
+        foreach ($search as $term) {
+            $term = $term . '* ';
+            $returnText .= $term;
+        }
+
+        $returnText = trim($returnText);
+
+        return $returnText;
+    }
+
+    function handleExact($text) {
+
+        $returnText = '"' . $text . '"';
+
+        return $returnText;
+    }
+
+    function handleFirst($text) {
+
+        $search = explode(' ', $text);
+
+        $returnText = '+' . $search[0] . ' -' . $search[1];
+        /*
+          foreach($search as $term){
+          $term = '-'.$term. ' ';
+          $returnText .= $term;
+          } */
+
+        return $returnText;
+    }
+
+    function handleRank($text) {
+        //create a search query that looks first for the exact term, then for all terms, then for any of the terms
+        //and then for parts of the terms
+        // $returnText = '("'.$text.'")';
+
+        $search = explode(' ', $text);
+
+        $returnText = ' (';
+
+        foreach ($search as $term) {
+            $term = '+' . $term . ' ';
+            $returnText .= $term;
+        }
+
+        $returnText = trim($returnText);
+
+        $returnText .= ') (' . $text . ') ';
+
+        foreach ($search as $term) {
+            $term = $term . '* ';
+            $returnText .= $term;
+        }
+        $returnText = trim($returnText);
+
+        return $returnText;
+    }
+
 }
+
+?>
