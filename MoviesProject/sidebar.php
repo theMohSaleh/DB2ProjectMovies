@@ -1,5 +1,5 @@
 <!-- Sidebar Content -->
-<div class="col-md-4">
+<div class="col-md-4 my-5">
 
   <!-- Search Widget -->
   <div class="card mb-4">

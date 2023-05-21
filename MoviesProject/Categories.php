@@ -31,9 +31,9 @@ class Categories {
         $this->catName = $catName;
     }
     
-    public function initWithID($catID) {
+    public function initWithCatID($catID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_CATEGORY WHERE catID = ' . $this->catID);
+        $data = $db->singleFetch("SELECT * FROM dbProj_CATEGORY WHERE catID = $catID ");
         $this->initWith($data->catID,$data->catName);
     }
     

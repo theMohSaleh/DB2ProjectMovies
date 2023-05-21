@@ -14,21 +14,22 @@ class Articles {
     private $isPublished;
     private $userID;
     private $catID;
-
-    // constructor
-    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $isPublished, $filePath, $userID, $catID) {
+    
+    
+    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
         $this->articleID = $articleID;
         $this->title = $title;
         $this->content = $content;
         $this->publishDate = $publishDate;
         $this->views = $views;
         $this->rating = $rating;
+        $this->likes = $likes;
+        $this->dislikes = $dislikes;
         $this->isPublished = $isPublished;
-        $this->filePath = $filePath;
         $this->userID = $userID;
         $this->catID = $catID;
     }
-
+   
     public function getArticleID() {
         return $this->articleID;
     }
@@ -128,8 +129,8 @@ class Articles {
     // method to initialize article with articleID
     function initWithArticleid($articleID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch("SELECT * FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
-        $this->initWith($data->title, $data->content, $data->publishDate, $this->views, $this->rating, $this->isPublished, $this->filePath, $this->userID, $this->catID);
+        $data = $db->singleFetch("Select * from dbProj_ARTICLE WHERE articleID = $articleID ");
+        $this->initWith($data->articleID,$data->title, $data->content, $data->publishDate, $this->views, $this->likes, $this->dislikes, $this->rating, $this->isPublished, $this->userID, $this->catID);
     }
 
     // method to add a new article
@@ -171,7 +172,7 @@ class Articles {
     // method to return all articles of a specific category
     function getAllArticlesCat($catID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID");
+        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID ");
         return $data;
     }
 }

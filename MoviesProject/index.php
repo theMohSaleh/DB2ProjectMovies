@@ -23,35 +23,59 @@
     <!-- The Navigation Menu -->
    <?php include 'header.php';?>
 
+    <?php
+    
+    $articlesObj = new Articles();
+    
+    if(isset($_GET["catID"])){
+        $catID = $_GET["catID"];
+        $articles = $articlesObj->getAllArticlesCat($catID);
+    } else {
+        $articles = $articlesObj->getAllArticles();
+    }
+    ?>
+    
     <!-- Whole Page Content -->
     <div class="container">
-        
         <!-- Centering the Blog Posts -->
       <div class="row" style="margin-top: 4%">
 
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
+        <div class="col-md-8 my-5">
 
           <!-- Blog Post Card-->
-          <div class="card mb-4">
-                      <img class="card-img-top" src="images/heat.png">
+          <?php 
+          
+          if(!empty($articles)){
+              for($i =0; $i < count($articles); $i++){  
+            $catObj = new Categories();
+            $catObj->initWithCatID($articles[$i]->catID);
+            
+            echo '<div class="card mb-4">
+            <img class="card-img-top" src="images/heat.png">
+            
             <div class="card-body">
-              <h2 class="card-title"> This is a Post Title Text </h2>
+            <!--category-->
+              <p><a class="badge bg-secondary text-decoration-none link-light" href="index.php?catID='.$catObj->getCatID().'" style="color:#fff">'.$catObj->getCatName().'</a>
+            
+            <!--Title-->            
+                <h2 class="card-title">'.$articles[$i]->title.'</h2>
+                  <a href="view_article?artID='.$articles[$i]->articleID.'.php" class="btn btn-primary">Read Article!</a>
+                </div>
               
-              <!--category-->
-              <p><a class="badge bg-secondary text-decoration-none link-light" href="" style="color:#fff"> This is the Category Text </a>
-                  
-              <!--Subcategory--->
-              <a class="badge bg-secondary text-decoration-none link-light"  style="color:#fff"> This is a Sub-Category Text </a></p>
-       
-              <a href="index.php" class="btn btn-primary"> Read More Buttonish &rarr;</a>
-            </div>
+            <!-- Date Published -->
+                <div class="card-footer text-muted">
+                  Posted on '.$articles[$i]->publishDate.'
+                </div>
+          </div>  ';
               
-              <!-- Date Published -->
-            <div class="card-footer text-muted">
-              Posted on [Enter Date Here]
-            </div>
-          </div>  
+          }
+        } else {
+            echo "<h1>There are no articles to display!</h1>";
+        }
+          
+          ?>
+          
           <!-- Pagination Section for later -->
 
         </div>
@@ -66,11 +90,6 @@
 
     <!-- Footer -->
       <?php include 'footer.html';?>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="bootstrap/jquery/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </html>
 
