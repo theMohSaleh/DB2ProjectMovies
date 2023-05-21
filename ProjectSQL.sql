@@ -44,7 +44,7 @@ CREATE OR REPLACE TABLE `dbProj_COMMENT` (
     `articleID` int,
     PRIMARY KEY (`commentID`),
     FOREIGN KEY (`userID`) REFERENCES `dbProj_USER`(`userID`),
-    FOREIGN KEY (`articleID`) REFERENCES `ARTICLE`(`articleID`)
+    FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
 );
 
 CREATE OR REPLACE TABLE `dbProj_FILES`(
@@ -54,7 +54,7 @@ CREATE OR REPLACE TABLE `dbProj_FILES`(
     `filelocation` varchar(30),
     `articleID` int NOT NULL,
     PRIMARY KEY (`fileID`),
-    FOREIGN KEY (`articleID`) REFERENCES `ARTICLE`(`articleID`)
+    FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
 );
 
 
