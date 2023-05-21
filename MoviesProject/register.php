@@ -16,7 +16,7 @@ if (isset($_POST['submitted'])) {
     if ($user->initWithUsername()) {
 
         if ($user->registerUser())
-            echo 'Registerd Successfully';
+            echo 'Registered Successfully';
         else    
             echo '<p class="error"> Not Successfull </p>';
         

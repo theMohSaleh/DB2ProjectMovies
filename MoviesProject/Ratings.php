@@ -43,7 +43,7 @@ class Ratings {
     
     function initWithUid($ratingID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM RATING WHERE ratingID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_RATING WHERE ratingID = ' . $this->userID);
         $this->initWith($data->ratingID, $data->ratingValue, $data->articleID);
     }
     
@@ -51,7 +51,7 @@ class Ratings {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
-                $data = $db->querySql("INSERT INTO RATING (ratingID, ratingValue, articleID) VALUES (NULL, $this->ratingValue, $this->articleID )");
+                $data = $db->querySql("INSERT INTO dbProj_RATING (ratingID, ratingValue, articleID) VALUES (NULL, $this->ratingValue, $this->articleID )");
                 return true;
             } catch (Exception $e) {
                 echo 'Exception: ' . $e;

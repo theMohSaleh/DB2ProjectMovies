@@ -61,7 +61,6 @@ class Comments {
         $this->articleID = $articleID;
     }
 
-    
     function initWithCommentId($commentID) {
         $db = Database::getInstance();
         $data = $db->singleFetch('SELECT * FROM dbProj_COMMENT WHERE commentID = ' . $this->userID);
@@ -106,6 +105,7 @@ class Comments {
         $data = $db->multiFetch("SELECT * FROM dbProj_COMMENT WHERE articleID = $articleID");
         return $data;
     }
+    
     function isValid(){
         $errors = true;
         

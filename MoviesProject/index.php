@@ -10,7 +10,7 @@
 
     <title>News Portal | Home Page</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -71,10 +71,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="bootstrap/jquery/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-
- 
-</head>
-  </body>
 
 </html>
 
