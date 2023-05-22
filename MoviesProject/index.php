@@ -67,7 +67,7 @@
             $catObj->initWithCatID($articles[$i]->catID);
             
             echo '<div class="card mb-4">
-            <img class="card-img-top" src="images/heat.png">
+            <img class="card-img-left" src="images/heat.png">
             
             <div class="card-body">
             <!--category-->
