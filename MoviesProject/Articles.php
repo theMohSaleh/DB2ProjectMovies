@@ -175,6 +175,14 @@ class Articles {
         $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID ");
         return $data;
     }
+    
+    // method to return all articles with matching title
+    function ShowArticles($search) {
+        $q = "select * from dbProj_ARTICLE where match(title) against ('" . $search . "')  ORDER BY match(title) against ('" . $search . "') DESC";
+        $db = Database::getInstance();
+        $data = $db->multiFetch($q);
+        return $data;
+    }
 }
 
     // method to update article view count

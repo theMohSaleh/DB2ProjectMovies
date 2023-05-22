@@ -3,20 +3,17 @@
 class Search {
 
 
-    public function ShowMessages($search, $rank = false) {
-        if ($rank == true) {
-            $q = "select *, match(MessageText, Subject) against ('$search') as relevance "
-                    . "from messages where match(MessageText, Subject) against ('" . $search . "')";
-        }
-        else
-            $q = "select * from messages where match(MessageText, Subject) against ('" . $search . "')";
+    public function ShowArticles($search) {
+            $q = "select * from dbProj_ARTICLE where match(title) against ('" . $search . "')";
 
-        $q .= " ORDER BY match(MessageText, Subject) against ('" . $search . "') DESC";
-
-        $this->showResults($q, $rank);
+        $q .= " ORDER BY match(title) against ('" . $search . "') DESC";
+        $db = Database::getInstance();
+        $data = $db->multiFetch($q);
+        return $data;
+        //$this->showResults($q);
     }
 
-    function showResults($q, $rank) {
+    function showResults($q) {
 
         $db = Database::getInstance();
         $data = $db->multiFetch($q);
@@ -26,7 +23,7 @@ class Search {
 
             if ($row_cnt == 0) {
                 echo '<br>';
-                echo '<p>sorry no messages were found that match your query</p>';
+                echo '<p>sorry no articles were found that match your query</p>';
             } else {
                 echo '<br>';
                 //display a table of results
@@ -37,8 +34,7 @@ class Search {
                      <td><b>Message</b></td>';
 
 
-                if ($rank == true)
-                    $table .= '<td><b>Relevance</b></td></tr>';
+                
 
                 $bg = '#eeeeee';
 
@@ -50,8 +46,7 @@ class Search {
                           <td>' . $data[$i]->Subject . '</td>
                         <td>' . $data[$i]->MessageText . '</td>';
 
-                    if ($rank == true)
-                        $table .= '<td>' . $data[$i]->relevance . '</td></tr>';
+                    
                 }
                 $table .= '</table>';
 

@@ -33,6 +33,13 @@
     } else {
         $articles = $articlesObj->getAllArticles();
     }
+    
+    // check if user searched for articles
+    if (isset($_GET['searchtitle'])) {
+        
+        $search = trim($_GET['searchtitle']);
+        $articles = $articlesObj->ShowArticles($search);
+}
     ?>
     
     <!-- Whole Page Content -->
