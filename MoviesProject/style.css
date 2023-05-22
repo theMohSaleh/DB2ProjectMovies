@@ -30,3 +30,9 @@ body {
 .portfolio-item {
   margin-bottom: 30px;
 }
+
+.login-title {
+    color: white;
+    font-family:georgia;
+    font-size: 40px;
+}
