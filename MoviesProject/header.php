@@ -53,7 +53,7 @@ spl_autoload_register(
                             {
                                 echo '<a class="nav-link" href="loginPage.php">Login</a>';
                             } else {
-                                echo '<a class="nav-link" href="logout.php">Logout</a>';
+                                echo '<a class="nav-link" href="logout.php">('.$_SESSION['userName'].') Logout</a>';
                             }
                         ?>
                     </li>

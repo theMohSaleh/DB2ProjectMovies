@@ -28,6 +28,7 @@
     session_start();
     
     $articlesObj = new Articles();
+    $msg = null; // used to inform user of search results
     
     if(isset($_GET["catID"])){
         $catID = $_GET["catID"];
@@ -38,7 +39,7 @@
     
     // check if user searched for articles
     if (isset($_GET['searchtitle'])) {
-        
+        $msg = "Displaying search results for ".$_GET['searchtitle'];
         $search = trim($_GET['searchtitle']);
         $articles = $articlesObj->ShowArticles($search);
 }
@@ -46,12 +47,17 @@
     
     <!-- Whole Page Content -->
     <div class="container">
+        
         <!-- Centering the Blog Posts -->
       <div class="row" style="margin-top: 4%">
-
         <!-- Blog Entries Column -->
         <div class="col-md-8 my-5">
-
+            <?php
+            // display message to user showing search results
+            if (isset($_GET['searchtitle'])) {
+                echo "<h2>$msg</h2><br>";
+            }
+            ?>
           <!-- Blog Post Card-->
           <?php 
           
