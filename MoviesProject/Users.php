@@ -102,7 +102,7 @@ class Users {
 
         $db = Database::getInstance();
         $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $this->userID);
-        $this->initWith($data->userID, $data->userName, $data->password, $this->firstName, $this->lastName, $this->DOB, $this->regDate, $this->roleID);
+        $this->initWith($data->userID, $data->userName, $data->password, $data->firstName, $data->lastName, $data->DOB, $data->regDate, $data->roleID);
     }
     
     // method to initilize user with username
@@ -120,7 +120,7 @@ class Users {
     function checkUser($userName, $password){
         $db = Database::getInstance();
         $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = AES_ENCRYPT('.$password.', \'P0ly\')');
-        $this->initWith($data->userID, $data->userName, $data->password, $this->firstName, $this->lastName, $this->DOB, $this->regDate, $this->roleID);
+        $this->initWith($data->userID, $data->userName, $data->password, $data->firstName, $data->lastName, $data->DOB, $data->regDate, $data->roleID);
     }
     
     // method to register new user
@@ -188,12 +188,12 @@ class Users {
         try {
             
             $this->checkUser($username, $password);
-            if ($this->getUid() != null) {
+            if ($this->getUserID() != null) {
                 $this->ok = true;
 
-                $_SESSION['uid'] = $this->getUid();
-                $_SESSION['username'] = $this->getUsername();
-               
+                $_SESSION['userID'] = $this->getUserID();
+                $_SESSION['userName'] = $this->getUserName();
+                $_SESSION['roleID'] = $this->getRoleID();
 
                 return true;
             } else {

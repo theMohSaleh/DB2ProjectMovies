@@ -2,7 +2,7 @@
 
 include 'header.php';
 
-
+session_start();
 
 if (isset($_POST['submitted'])) {
 
@@ -13,7 +13,7 @@ if (isset($_POST['submitted'])) {
     if ($lgnObj->login($username, $password)) {
         header('Location: index.php');
     } else {
-        echo "<script>alert('$username, $password');</script>";
+        echo $error = 'Wrong Login Values';
     }  
 }
 ?>

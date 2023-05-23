@@ -33,10 +33,29 @@ spl_autoload_register(
                         <a class="nav-link" href="index.php">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Post(Author Only?)</a>
+                        <?php
+                        // check if logged in user is an admin
+                            if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '0') 
+                            {
+                            echo '<a class="nav-link" href="view_users.php">Manage Users</a>';
+                            }
+                            // check if logged in user is an author
+                            if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '1')
+                            {
+                            echo '<a class="nav-link" href="add_article.php">Post</a>';
+                            }
+                        ?>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="loginPage.php">Login</a>
+                        <?php
+                        // check if user is not logged in using session variable
+                            if ($_SESSION['userName'] == "") 
+                            {
+                                echo '<a class="nav-link" href="loginPage.php">Login</a>';
+                            } else {
+                                echo '<a class="nav-link" href="logout.php">Logout</a>';
+                            }
+                        ?>
                     </li>
                 </ul>
             </div>

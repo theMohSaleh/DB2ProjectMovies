@@ -25,6 +25,8 @@
 
     <?php
     
+    session_start();
+    
     $articlesObj = new Articles();
     
     if(isset($_GET["catID"])){

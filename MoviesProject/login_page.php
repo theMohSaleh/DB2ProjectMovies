@@ -9,7 +9,7 @@ if (isset($_POST['submitted'])) {
     $password = $_POST['Password'];
     
     if ($lgnObj->login($username, $password)) {
-        header('Location: regiser.php');
+        header('Location: index.php');
     } else {
         echo $error = 'Wrong Login Values';
     }  
