@@ -151,3 +151,10 @@ VALUES (NULL, 'Heartwarming and Inspirational: Movie Review of ''The Power of Dr
 
 INSERT INTO dbProj_ARTICLE (articleID, title, content, publishDate, views, likes, dislikes, rating, isPublished, userID, catID)
 VALUES (NULL, 'Visually Stunning and Epic: Movie Review of ''Legend of the Lost Kingdom''', 'Prepare to be transported to a fantastical world with ''Legend of the Lost Kingdom.'' This visually stunning adventure film immerses audiences in breathtaking landscapes, jaw-dropping special effects, and an enthralling narrative. With a stellar ensemble cast and impeccable production, it''s a must-watch for fantasy enthusiasts.', NOW(), 0, 0, 0, NULL, 0, 6, 6);
+
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "I just booked my dream vacation after reading this article! Can't wait to experience the ultimate adventure!", NOW(), 1, 1);
+
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "This article convinced me to finally plan my dream vacation. The excitement is overwhelming!", NOW(), 2, 1);
+
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "The article provided some great insights and recommendations for planning a dream vacation. I'm definitely going to book one soon!", NOW(), 3, 1);
+
