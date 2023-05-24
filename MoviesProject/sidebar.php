@@ -33,12 +33,14 @@
                 <select id="category" name="catID">
                     <option value="" disabled selected>--Select a Category--</option>
                     <?php 
+                    // loop through list of all categories
                         for($i =0; $i < count($categories); $i++){
-                            $selected = $_GET['catID'];
+                            $selected = $_GET['catID']; // used to check if user already selected a category
+                            // check category id to retain selected value after submit
                             if ($categories[$i]->catID == $selected) {
-                            echo '<option value="'.$categories[$i]->catID.'" selected="selected">'.$categories[$i]->catName.'</option>';
+                            echo '<option value="'.$categories[$i]->catID.'" selected="selected">'.$categories[$i]->catName.'</option>'; // insert category in dropdown list
                             } else {
-                                echo '<option value="'.$categories[$i]->catID.'">'.$categories[$i]->catName.'</option>';
+                                echo '<option value="'.$categories[$i]->catID.'">'.$categories[$i]->catName.'</option>'; // insert category in dropdown list
                             }
                         }
                     ?>
