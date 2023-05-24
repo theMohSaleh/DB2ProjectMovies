@@ -1,3 +1,5 @@
+<?php include 'header.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,11 +40,12 @@
     }
     
     // check if user searched for articles
+
     if (isset($_GET['searchtitle'])) {
         $msg = "Displaying search results for ".$_GET['searchtitle'];
         $search = trim($_GET['searchtitle']);
         $articles = $articlesObj->ShowArticles($search);
-}
+        }
     ?>
     
     <!-- Whole Page Content -->
@@ -67,7 +70,7 @@
             $catObj->initWithCatID($articles[$i]->catID);
             
             echo '<div class="card mb-4">
-            <img class="card-img-top" src="images/heat.png">
+            <img class="card-img-left" src="images/heat.png">
             
             <div class="card-body">
             <!--category-->
@@ -75,7 +78,7 @@
             
             <!--Title-->            
                 <h2 class="card-title">'.$articles[$i]->title.'</h2>
-                  <a href="view_article?artID='.$articles[$i]->articleID.'.php" class="btn btn-primary">Read Article!</a>
+                  <a href="view_article.php?artID='.$articles[$i]->articleID.'" class="btn btn-primary">Read Article!</a>
                 </div>
               
             <!-- Date Published -->
