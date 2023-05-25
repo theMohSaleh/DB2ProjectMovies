@@ -30,6 +30,7 @@
     session_start();
     
     $articlesObj = new Articles();
+    $search = new Search();
     $msg = null; // used to inform user of search results
     
     if(isset($_GET["catID"])){
@@ -46,6 +47,19 @@
         $search = trim($_GET['searchtitle']);
         $articles = $articlesObj->ShowArticles($search);
         }
+        
+    // if form is subbmited
+    if (isset($_POST['submitted'])) {
+        $title = $_POST['searchtitle'];
+        $authorID = $_POST['authorID'];
+        $popular = $_POST['popular'];
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        $msg = "Displaying advanced search results for ".$_POST['searchtitle'];
+        $articles = $search->ShowAdvancedArticles($title, $authorID, $popular, $startDate, $endDate);
+        }
+    
+        
     ?>
     
     <!-- Whole Page Content -->
@@ -57,7 +71,7 @@
         <div class="col-md-8 my-5">
             <?php
             // display message to user showing search results
-            if (isset($_GET['searchtitle'])) {
+            if (isset($_GET['searchtitle']) || isset($_POST['submitted'])) {
                 echo "<h2>$msg</h2><br>";
             }
             ?>

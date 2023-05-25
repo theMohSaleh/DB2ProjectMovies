@@ -12,7 +12,41 @@ class Search {
         return $data;
         //$this->showResults($q);
     }
-
+    
+    public function ShowAdvancedArticles($title="", $authorID="", $popular=false, $startDate="", $endDate="") {
+        $q = "select * from dbProj_ARTICLE where";
+        
+        // check if title was searched for
+        if ($title != "") {
+            // check if other variables are empty to avoid adding more conditions
+            if (empty($authorID) && empty($startDate) || empty($endDate)) {
+                $q = $q." match(title) against ('" . $title . "')";
+            } else {
+                $q = $q." match(title) against ('" . $title . "') AND";
+            }
+        }
+        
+        // check if an author was selected
+        if ($authorID != "") {
+            $q = $q." UserID = $authorID";
+        }
+        
+        // check if a date range was selected
+        if ($startDate != "" && $endDate != "") {
+            $q = $q." publishDate BETWEEN '$startDate' AND '$endDate'";
+        }
+        
+        // check if most viewed was selected
+        if ($popular == true) {
+            $q = $q." ORDER BY views DESC";
+        }
+        $db = Database::getInstance();
+        $data = $db->multiFetch($q);
+        //return $q;
+        return $data;
+    }
+    
+    
     function showResults($q) {
 
         $db = Database::getInstance();
