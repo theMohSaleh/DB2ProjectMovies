@@ -5,6 +5,7 @@ class Articles {
     // attributes
     private $articleID;
     private $title;
+    private $description;
     private $content;
     private $publishDate;
     private $views;
@@ -15,10 +16,10 @@ class Articles {
     private $userID;
     private $catID;
     
-    
-    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
+        private function initWith($articleID, $title, $description, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
         $this->articleID = $articleID;
         $this->title = $title;
+        $this->description = $description;
         $this->content = $content;
         $this->publishDate = $publishDate;
         $this->views = $views;
@@ -114,6 +115,14 @@ class Articles {
         $this->catID = $catID;
     }
 
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
     // method to delete article
     function deleteArticle() {
         try {
@@ -130,14 +139,14 @@ class Articles {
     function initWithArticleid($articleID) {
         $db = Database::getInstance();
         $data = $db->singleFetch("Select * from dbProj_ARTICLE WHERE articleID = $articleID ");
-        $this->initWith($data->articleID,$data->title, $data->content, $data->publishDate, $this->views, $this->likes, $this->dislikes, $this->rating, $this->isPublished, $this->userID, $this->catID);
+        $this->initWith($data->articleID,$data->title, $data->description, $data->content, $data->publishDate, $data->views, $data->likes, $data->dislikes, $data->rating, $data->isPublished, $data->userID, $data->catID);
     }
 
     // method to add a new article
     function addArticle() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
+            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, description ,content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->description\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -150,7 +159,8 @@ class Articles {
         $db = Database::getInstance();
         $data = "UPDATE dbProj_ARTICLE SET
 			title = \"$this->title\",
-			content = \"$this->content\",
+			description = \"$this->description\",
+                        content = \"$this->content\",
 			publishDate = \"$this->publishDate\",
 			views = \"$this->views\",
 			rating = \"$this->rating\",

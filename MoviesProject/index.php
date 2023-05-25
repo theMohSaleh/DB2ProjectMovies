@@ -27,8 +27,6 @@
 
     <?php
     
-    session_start();
-    
     $articlesObj = new Articles();
     $msg = null; // used to inform user of search results
     
@@ -78,9 +76,14 @@
             
             <!--Title-->            
                 <h2 class="card-title">'.$articles[$i]->title.'</h2>
-                  <a href="view_article.php?artID='.$articles[$i]->articleID.'" class="btn btn-primary">Read Article!</a>
-                </div>
+                <p class="card-text text-muted">'.$articles[$i]->description.'</p>                
+                <a href="view_article.php?artID='.$articles[$i]->articleID.'" class="btn btn-primary">Read Article!</a>
+            </div>
+                
+            <!--Description-->
+                
               
+            
             <!-- Date Published -->
                 <div class="card-footer text-muted">
                   Posted on '.$articles[$i]->publishDate.'

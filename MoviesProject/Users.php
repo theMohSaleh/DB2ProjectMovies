@@ -11,18 +11,6 @@ class Users {
     private $regDate;
     private $roleID;
     
-    // constrcutor
-    function __construct() {
-        $this->userID = null;
-        $this->userName = null;
-        $this->password = null;
-        $this->firstName = null;
-        $this->lastName = null;
-        $this->DOB = null;
-        $this->regDate = null;
-        $this->roleID = null;
-    }
-    
     // setters and getters
 
     public function setUserName($userName) {
@@ -101,7 +89,7 @@ class Users {
     function initWithUid($userID) {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $userID);
         $this->initWith($data->userID, $data->userName, $data->password, $data->firstName, $data->lastName, $data->DOB, $data->regDate, $data->roleID);
     }
     
