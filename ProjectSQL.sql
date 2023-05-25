@@ -52,7 +52,7 @@ CREATE OR REPLACE TABLE `dbProj_FILES`(
     `fileID` int(11) NOT NULL AUTO_INCREMENT,
     `fileName` int(11) NOT NULL,
     `fileType` varchar(30),
-    `filelocation` varchar(30),
+    `fileLocation` varchar(30),
     `articleID` int NOT NULL,
     PRIMARY KEY (`fileID`),
     FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
@@ -154,11 +154,11 @@ INSERT INTO dbProj_ARTICLE (articleID, title, description, content, publishDate,
 VALUES (NULL, 'Visually Stunning and Epic: Movie Review of ''Legend of the Lost Kingdom''', 'Prepare to be transported to a fantastical world with ''Legend of the Lost Kingdom.'' This visually stunning adventure film immerses audiences in breathtaking landscapes, jaw-dropping special effects, and an enthralling narrative. With a stellar ensemble cast and impeccable production, it''s a must-watch for fantasy enthusiasts.', "Embark on an extraordinary journey with ''Legend of the Lost Kingdom,'' a movie that will captivate your senses and transport you to a realm of imagination and wonder.\n\nThe film showcases breathtaking landscapes that will leave you in awe. From lush green forests to towering mountains and mystical realms, every scene is a visual treat.\n\nThe special effects in the movie are nothing short of spectacular. Be prepared to witness mind-blowing visuals, magical creatures, and thrilling action sequences that will keep you on the edge of your seat.\n", NOW(), 0, 0, 0, NULL, 0, 6, 6);
 
 
-INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "I just booked my dream vacation after reading this article! Can't wait to experience the ultimate adventure!", NOW(), 1, 1);
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "While the G7 summit is an important step in addressing global challenges, there is still a long way to go. It's important for leaders to follow through on their commitments and work towards tangible solutions that can make a real difference in the lives of people around the world.", NOW(), 1, 1);
 
-INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "This article convinced me to finally plan my dream vacation. The excitement is overwhelming!", NOW(), 2, 1);
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "It's encouraging to see world leaders coming together at the G7 summit to tackle global challenges. With pressing issues like climate change and the ongoing COVID-19 pandemic, it's important for countries to work collaboratively towards solutions that can benefit everyone.", NOW(), 2, 1);
 
-INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "The article provided some great insights and recommendations for planning a dream vacation. I'm definitely going to book one soon!", NOW(), 3, 1);
+INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, "The G7 summit is a crucial platform for discussing pressing global issues and coordinating responses. With the world facing unprecedented challenges, it's vital that leaders come together to find common ground and take meaningful action.", NOW(), 3, 1);
 
 INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID)
 VALUES

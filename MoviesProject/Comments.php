@@ -63,7 +63,7 @@ class Comments {
 
     function initWithCommentId($commentID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_COMMENT WHERE commentID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_COMMENT WHERE commentID = ' . $commentID);
         $this->initWith($data->commentID, $data->commentText, $data->creationDate, $data->userID, $data->$articleID);
     }
     

@@ -11,18 +11,6 @@ class Users {
     private $regDate;
     private $roleID;
     
-    // constrcutor
-    function __construct() {
-        $this->userID = null;
-        $this->userName = null;
-        $this->password = null;
-        $this->firstName = null;
-        $this->lastName = null;
-        $this->DOB = null;
-        $this->regDate = null;
-        $this->roleID = null;
-    }
-    
     // setters and getters
     public function setUserID($userID) {
         $this->userID = $userID;

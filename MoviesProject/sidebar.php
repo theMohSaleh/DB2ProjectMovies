@@ -76,8 +76,7 @@
   <h5 class="card-header">Categories</h5>
   <div class="card-body">
     <div class="row">
-      <div class="col-lg-6">
-        <ul class="list-unstyled mb-0">
+      <div class="flex justify-content-between">
             <form name="category" action="index.php" method="get">
                 <select id="category" name="catID">
                     <option value="" disabled selected>--Select a Category--</option>
@@ -96,7 +95,6 @@
                 </select>
                 <button class="btn btn-secondary" type="submit">Go!</button>
             </form>
-        </ul>
       </div>
 
     </div>
