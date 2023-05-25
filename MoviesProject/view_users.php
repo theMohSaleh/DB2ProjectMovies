@@ -3,13 +3,15 @@
 include_once 'header.php';
 
 session_start();
-
+echo '<head>';
+echo '<title>Manage Users</title>';
+echo '</head>';
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
     header('Location: index.php');
     die();
 }
-
+// if user is not an admin, redirect to home page
 if ($_SESSION['roleID'] != '0') {
     header('Location: index.php');
     die();

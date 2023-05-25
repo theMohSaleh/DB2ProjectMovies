@@ -24,7 +24,10 @@ class Users {
     }
     
     // setters and getters
-
+    public function setUserID($userID) {
+        $this->userID = $userID;
+    }
+    
     public function setUserName($userName) {
         $this->userName = $userName;
     }
@@ -101,15 +104,15 @@ class Users {
     function initWithUid($userID) {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $this->userID);
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userID = ' . $userID);
         $this->initWith($data->userID, $data->userName, $data->password, $data->firstName, $data->lastName, $data->DOB, $data->regDate, $data->roleID);
     }
     
-    // method to initilize user with username
+    // method to check if username exists in database for editing existing user
     function initWithUsername() {
 
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \'' . $this->userName.'\''); //AND userID != \'' . $this->userID .'\'
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \'' . $this->userName.'\' AND userID != \'' . $this->userID .'\'');
         if ($data != null) {
             return false;
         }

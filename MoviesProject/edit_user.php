@@ -4,6 +4,16 @@ include 'header.php';
 
 session_start();
 
+?>
+
+<head>
+<title>Edit User</title>
+</head>
+
+
+
+<?php
+
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
     header('Location: index.php');
@@ -33,33 +43,41 @@ elseif (isset($_POST['id'])) {
     exit();
 }
 
+// create user object and pass ID to get related user information
 $user = new Users();
 $user->initWithUid($id);
 
 //perfrom the following if the user has submitted the form 
 if (isset($_POST['submitted'])) {
 
-    $oldName = $user->getUsername();
+    $oldName = $user->getUserName();
 
 //populate the user object member variables from values on the form
-    $user->setUsername($_POST['FName']);
-    $user->setEmail($_POST['Email']);
-    $user->setPassword($_POST['Password']);
+    $user->setUserName($_POST['userName']);
+    $user->setFirstName($_POST['FName']);
+    $user->setLastName($_POST['LName']);
+    $user->setDOB($_POST['DOB']);
+    $user->setRoleID($_POST['roleID']);
 
 
-    if (!$user->initWithUsername()) {// username exists
-        
-        echo "<h2> Thankyou </h2><p>".$user->getUsername()." Exists</p>";
-        $user->setUsername($oldName);
+    if (!$user->initWithUsername()) {// check if username exists
+        // inform user the desired username is not available and undo username change
+        echo "<h2> The username </h2><p>".$user->getUserName()." already exists</p>";
+        $user->setUserName($oldName);
         
     }else {
 
-        $errors = $user->isValid();
+        //$errors = $user->isValid();
 
         if (empty($errors)) {
             //update the user 
             $user->updateDB();
-            echo "<h2> Thankyou </h2><p>.$user->getUsername(). is updated</p>";
+            // redirect user to users list after 5 seconds
+            header( "refresh:5;url=view_users.php" );
+            // inform user of successful edit
+            echo '<h2> Successful </h2><p>'.$user->getUserName().' is updated</p>';
+            echo '<p>You will be redirected shortly...</p>';
+            return true;
         } else {
             echo '<div style="width:50%; background:#FFFFFF; margin:0 auto;">
                 <p class="error"> The following errors occurred: <br/>';
@@ -80,12 +98,15 @@ echo '<h1>Edit User</h1>';
 echo '<div id="stylized" class="myform"> 
          <form action="edit_user.php" method="post">
         <br />
-        <h3>Edit User: ' . $user->getUsername() . '</h3>
+        <h3>Edit User: ' . $user->getUserName() . '</h3>
         <br />
-           <label>Username</label>    <input type="text" name="FName" value="' . $user->getUsername() . '" />
-           <label>Email Address</label> <input type="text" name="Email" value="' . $user->getEmail() . '"/>
-           <label>Password</label>      <input type="password" name="Password" value="' . $user->getPassword() . '"/>
-           <input type="submit" class ="DB4Button" name="submit" value="update" />
+           <label>Username</label>    <input type="text" name="userName" value="' . $user->getUserName() . '" /><br><br>
+           <label>First Name</label> <input type="text" name="FName" value="' . $user->getFirstName() . '"/><br><br>
+           <label>Last Name</label> <input type="text" name="LName" value="' . $user->getLastName() . '"/><br><br>
+           <label>Date of Birth</label> <input type="date" name="DOB" value="' . $user->getDOB() . '"/><br><br>
+           <label>Registered Date</label> <input type="date" name="RegDate" value="' . $user->getRegDate() . '" readonly/><br><br>
+           <label>User Role</label> <input type="text" name="roleID" value="' . $user->getRoleID() . '"/><br><br>
+           <input type="submit" class ="DB4Button" onclick="redirect()" name="submit" value="Update" />
         
          <input type ="hidden" name="submitted" value="TRUE">
          <input type ="hidden" name="id" value="' . $id . '"/>

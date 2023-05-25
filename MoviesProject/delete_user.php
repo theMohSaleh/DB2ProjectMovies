@@ -1,11 +1,20 @@
 <?php
 include 'header.php';
 
-if (empty($_SESSION['uid'])) {
+session_start();
+echo '<head>';
+echo '<title>Delete User</title>';
+echo '</head>';
+// redirect user to home page if not logged in
+if (empty($_SESSION['userID'])) {
     header('Location: index.php');
     die();
 }
-
+// if user is not an admin, redirect to home page
+if ($_SESSION['roleID'] != '0') {
+    header('Location: index.php');
+    die();
+}
 
 $page_title = 'Delete User';
 
@@ -35,8 +44,7 @@ echo '<h1>Delete User</h1>';
 //create a user object 
 $user = new Users();
 $user->initWithUid($id);
-//not we do not need to call the get() method as we do not need to populate the object
-//we only need to call its delete() and getUserName() methods
+
 
 if(isset($_POST['submitted']))
 {
@@ -44,17 +52,17 @@ if(isset($_POST['submitted']))
     if(isset($_POST['sure']) && ($_POST['sure'] == 'Yes') ) //delete the record   
     {  
        if($user->deleteuser())
-           echo '<p> User' .$user->getUsername(). ' was deleted</p>'; 
+           echo '<p> User ' .$user->getUserName(). ' was deleted</p>'; 
     }//no confirmation
      else
-       echo '<p> User '. $user->getUsername(). '  deletion not confirmed</p>'; 
+       echo '<p> User '. $user->getUserName(). '  deletion not confirmed</p>'; 
 }
 else //show form
 {
     echo '<div id="stylized" class="myform"> 
         <form action="delete_user.php" method="post">
         <br />
-        <h3>Name: '.$user->getUsername() . '</h3></br>
+        <h3>Name: '.$user->getUserName() . '</h3></br>
         <label>Delete this user?</label> <br/><br/>
           <input type="radio" name="sure" value="Yes" /><label>Yes</label>
           <input type="radio" name="sure" value="No" checked="checked" /> <label>No</label>
