@@ -1,7 +1,4 @@
 <?php
-
-include_once 'header.php';
-
 session_start();
 echo '<head>';
 echo '<title>Manage Users</title>';
@@ -18,35 +15,45 @@ if ($_SESSION['roleID'] != '0') {
 }
 
 
-include 'header.html';
+include 'header.php';
+?>
 
-echo '<h1> Users </h1>';
+<h1> Users </h1>
 
-$users = new Users();
-$row = $users->getAllusers();
+<?php
+    $users = new Users();
+    $row = $users->getAllusers();
+?>
 
+<div class ="container">
+<br>
+<br>
+<br>
+<br>
+
+<h1> Users </h1>    
+    <?php
 if (!empty($row)) {
     echo '<br />';
     //display a table of results
-    echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%">';
-    echo '<tr bgcolor="#87CEEB">
-          <td style="text-align: center"><b>Edit</b></td>
-          <td style="text-align: center"><b>Delete</b></td>
-          <td style="text-align: center"><b><a href="view_users.php">Username</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">First Name</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">Last Name</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">Date of Birth</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">Registered Date</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">User Role</a></b></td>
-          <td style="text-align: center"><b><a href="view_users.php">UserID</a></b></td></tr>';
+    echo '<table class = "table table-striped table-hover my-5 border rounded rounded-3 overflow-hidden" align="center" cellspacing = "2" cellpadding = "4" width="75%">';
+    echo '<tr >
+          <th class = "col" style="text-align: center">Edit</td>
+          <th class = "col" style="text-align: center">Delete</td>
+          <th class = "col" style="text-align: center">Username</td>
+          <th class = "col" style="text-align: center">First Name</td>
+          <th class = "col" style="text-align: center">Last Name</td>
+          <th class = "col" style="text-align: center">Date of Birth</td>
+          <th class = "col" style="text-align: center">Registered Date</td>
+          <th class = "col" style="text-align: center">User Role</td>
+          <th class = "col" style="text-align: center">UserID</td>
+          </tr>';
 
 //above is the header
 //loop below adds the user details    
     //use the following to set alternate backgrounds 
-    $bg = '#eeeeee';
 
     for ($i = 0; $i < count($row); $i++) {
-        $bg = ($bg == '#eeeeee' ? '#ffffff' : '#eeeeee');
         $roleTitle = null;
         if ($row[$i]->roleID == 0) {
             $roleTitle = "Administrator";
@@ -56,15 +63,15 @@ if (!empty($row)) {
             $roleTitle = "Viewer";
         }
         echo '<tr bgcolor="' . $bg . '">
-            <td style="text-align: center"><a href="edit_user.php?id=' . $row[$i]->userID . '">Edit</a></td>
-            <td style="text-align: center"><a href="delete_user.php?id=' . $row[$i]->userID . '">Delete</a></td>
-            <td style="text-align: center">' . $row[$i]->userName . '</td>
-            <td style="text-align: center">' . $row[$i]->firstName . '</td>
-            <td style="text-align: center">' . $row[$i]->lastName . '</td>
-            <td style="text-align: center">' . $row[$i]->DOB . '</td>
-            <td style="text-align: center">' . $row[$i]->regDate . '</td>
-            <td style="text-align: center">' . $roleTitle . '</td>
-                <td style="text-align: center">' . $row[$i]->userID . '</td>
+            <td  style="text-align: center"><a href="edit_user.php?id=' . $row[$i]->userID . '">Edit</a></td>
+            <td  style="text-align: center"><a href="delete_user.php?id=' . $row[$i]->userID . '">Delete</a></td>
+            <td  style="text-align: center">' . $row[$i]->userName . '</td>
+            <td  style="text-align: center">' . $row[$i]->firstName . '</td>
+            <td  style="text-align: center">' . $row[$i]->lastName . '</td>
+            <td  style="text-align: center">' . $row[$i]->DOB . '</td>
+            <td  style="text-align: center">' . $row[$i]->regDate . '</td>
+            <td  style="text-align: center">' . $roleTitle . '</td>
+                <td  style="text-align: center">' . $row[$i]->userID . '</td>
               </tr>';
     }
     echo '</table>';
@@ -75,5 +82,9 @@ if (!empty($row)) {
 }
 
 
-include 'footer.html';
+
 ?>
+</div>
+
+<?php include 'footer.html'; ?>
+

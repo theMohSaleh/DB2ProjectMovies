@@ -107,16 +107,26 @@ echo '<h1>Edit Article</h1>';
 //create a new user data object and populate it using the get() method
 //this will show the form with the fields already populated with values from the $user object created above 
 //see the CSS file to see what effect the id="stylized" properties have on the form 
-echo '<div id="stylized" class="myform"> 
-         <form action="edit_article.php" method="post">
+echo '<div class ="container" id="stylized" class="myform"> 
+        <form action="edit_article.php" method="post">
+        <br />
         <br />
         <h3>Edit Article: ' . $article->getTitle() . '</h3>
         <br />
-            <label>Title</label>    <input type="text" name="title" value="' . $article->getTitle() . '" /><br><br>
-            <label>Description</label> <input type="text" name="desc" value="' . $article->getDescription() . '"/><br><br>
-            <label>Content</label> <textarea name="content" rows="10" cols="70">' . $article->getContent() . '</textarea><br><br>
-            <label>Published</label> <input type="checkbox" name="isPublished" '.(($article->getIsPublished()=='1')?'checked':"").'/><br><br>
-            <label>Category</label> <select id="category" name="category" name="catID">';
+            <div class = "mb-3">
+                <label class = "form-label"><b>Title</b></label>    <input class = "form-control" type="text" name="title" value="' . $article->getTitle() . '" /><br><br>
+            </div>
+            <div class = "mb-3">
+            <label class = "form-label"><b>Description</b></label>
+            <textarea class = "form-control" type="text" name="desc"  rows="2">'.$article->getDescription().'</textarea><br><br>
+            </div>
+            <div class = "mb-3">
+            <label class = "form-label"><b>Content</b></label> <textarea class = "form-control" name="content" rows="10" cols="70">' . $article->getContent() . '</textarea><br><br>
+            </div>
+            <div class = "mb-3">
+            <input form-check-input type="checkbox" name="isPublished" '.(($article->getIsPublished()=='1')?'checked':"") .'/> <label class = "form-label"><b>Published</b></label> <br><br>
+            </div>
+            <label class = "form-label"><b>Category</b></label> <select class = "form-control" id="category" name="category" name="catID">';
 // loop through list of all categories
                         for($i =0; $i < count($categories); $i++){
                             // check category id to retain selected value after submit
@@ -127,7 +137,7 @@ echo '<div id="stylized" class="myform">
                             }
                         }
                 echo '</select><br><br>
-                <input type="submit" class ="DB4Button" name="submit" value="Update" />
+                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="submit" value="Update" />
         
         <input type ="hidden" name="submitted" value="TRUE">
         <input type ="hidden" name="id" value="' . $id . '"/>

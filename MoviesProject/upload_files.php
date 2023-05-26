@@ -2,25 +2,11 @@
 
 <?php
 if (isset($_POST['submitted'])) {
+    $imageName = $_FILES["image"]["tmp_name"];
+    echo $imageName;
     
-    if (!empty($_FILES)) {
-        $upload = new Upload();
-        $upload->setUploadDir('images/');
-        $msg = $upload->upload('image');
-        
-        if (empty($msg)) {
-            $file = new Files();
-            $file->setArticleID(1);
-            $file->setFileName($upload->getFilepath());
-            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
-            $file->setFileType($upload->getFileType());
-            $file->addFile();
-        }else { 
-            print_r ($msg);
-        }
-    }
-    else
-        echo '<p> try again';
+    $imageDest = 'images//'.$_FILES['image']['name'];
+    move_uploaded_file($_FILES['image']['tmp_name'], $imageDest);
 }
 ?>
 

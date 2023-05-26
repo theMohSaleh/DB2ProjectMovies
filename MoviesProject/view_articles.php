@@ -1,7 +1,6 @@
+<?php include 'header.php'; ?>
+
 <?php
-
-include_once 'header.php';
-
 session_start();
 echo '<head>';
 echo '<title>Manage Articles</title>';
@@ -17,39 +16,47 @@ if ($_SESSION['roleID'] != '0') {
     die();
 }
 
+?>
 
-include 'header.html';
 
-echo '<h1> Articles </h1>';
 
+
+
+<?php
 $articles = new Articles();
 $row = $articles->getAllArticles();
+?>
 
-if (!empty($row)) {
-    echo '<br />';
+<div class ="container">
+<br>
+<br>
+<br>
+<br>
+
+<h1> Articles </h1>    
+<?php 
+    if (!empty($row)) {
     //display a table of results
-    echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%">';
-    echo '<tr bgcolor="#87CEEB">
-          <td><b>View Article</b></td>
-          <td><b>Edit</b></td>
-          <td><b>Delete</b></td>
-          <td><b>Title</b></td>
-          <td><b>Description</b></td>
-          <td><b>Is Published?</b></td>
-          <td><b>Publish Date</b></td>
-          <td><b>Total Views</b></td>
-          <td><b>Rating</b></td>
-          <td><b>ID of User</b></td></tr>';
-
+    echo '<table class ="table table-striped table-hover my-5 border rounded rounded-3 overflow-hidden" align="center" cellspacing = "2" cellpadding = "4" width="75%">';
+    echo '<tr>
+          <th class = "col">View Article</td>
+          <th class = "col">Edit</td>
+          <th class = "col">Delete</td>
+          <th class = "col">Title</td>
+          <th class = "col">Description</td>
+          <th class = "col">Is Published?</td>
+          <th class = "col">Publish Date</td>
+          <th class = "col">Total Views</td>
+          <th class = "col">Rating</td>
+          <th class = "col">ID of User</td></tr>';
 //above is the header
 //loop below adds the user details    
     //use the following to set alternate backgrounds 
-    $bg = '#eeeeee';
+
 
     for ($i = 0; $i < count($row); $i++) {
-        $bg = ($bg == '#eeeeee' ? '#ffffff' : '#eeeeee');
         
-        echo '<tr bgcolor="' . $bg . '">
+        echo '<tr>
             <td style="text-align: center"><a href="view_article.php?artID=' . $row[$i]->articleID . '">View</a></td>
             <td style="text-align: center"><a href="edit_article.php?id=' . $row[$i]->articleID . '">Edit</a></td>
             <td style="text-align: center"><a href="delete_article.php?id=' . $row[$i]->articleID . '">Delete</a></td>
@@ -59,8 +66,8 @@ if (!empty($row)) {
             <td style="text-align: center">' . $row[$i]->publishDate . '</td>
             <td style="text-align: center">' . $row[$i]->views . '</td>
             <td style="text-align: center">' . $row[$i]->rating . '</td>
-                <td style="text-align: center"><a href="edit_user.php?id=' . $row[$i]->userID . '">' . $row[$i]->userID . '</td>
-              </tr>';
+            <td style="text-align: center"><a href="edit_user.php?id=' . $row[$i]->userID . '">' . $row[$i]->userID . '</td>
+            </tr>';
     }
     echo '</table>';
 } else {
@@ -68,7 +75,8 @@ if (!empty($row)) {
     echo '<p class="error"> Oh dear. There was an error</p>';
     echo '<p class="error">' . mysqli_error($dbc) . '</p>';
 }
-
-
-include 'footer.html';
 ?>
+    
+
+</div>
+<?php include 'footer.html';?>
