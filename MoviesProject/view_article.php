@@ -22,9 +22,14 @@ $comments = $commentObj->getAllCommentsForArticle($id);
 
 $currenturl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
+if (isset($_POST['like'])) {
+    $article->like();
+}
 
 
-
+if (isset($_POST['dislike'])) {
+    $article->dislike();
+}
 ?>    
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +81,9 @@ $currenturl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                         </div>
                         <div class="card-footer text-muted">
                             <div class="d-flex justify-content-between">
-                                Views: <?php echo $article->getViews() ?> <b> Likes: </b> <b> Dislikes: </b>
+                                Views: <?php echo $article->getViews() ?> 
+                                <form name="likeButton" method="post"><input type="submit" name="like" value="Like"> <?php echo $article->getLikes(); ?> </form> 
+                                <form name="dislikeButton" method="post"><input type="submit" name="dislike" value="Dislike"> <?php echo $article->getDislikes(); ?> </form> 
                                 <a href="delete_article.php" class="link-grey">Delete Post</a>
                             </div>
 

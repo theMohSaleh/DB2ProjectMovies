@@ -9,23 +9,23 @@ class Articles {
     private $content;
     private $publishDate;
     private $views;
-    private $rating;
     private $likes;
     private $dislikes;
+    private $rating;
     private $isPublished;
     private $userID;
     private $catID;
     
-        private function initWith($articleID, $title, $description, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
+        private function initWith($articleID, $title, $description, $content, $publishDate, $views, $likes, $dislikes, $rating, $isPublished, $userID, $catID) {
         $this->articleID = $articleID;
         $this->title = $title;
         $this->description = $description;
         $this->content = $content;
         $this->publishDate = $publishDate;
         $this->views = $views;
-        $this->rating = $rating;
         $this->likes = $likes;
         $this->dislikes = $dislikes;
+        $this->rating = $rating;
         $this->isPublished = $isPublished;
         $this->userID = $userID;
         $this->catID = $catID;
@@ -37,6 +37,10 @@ class Articles {
 
     public function getTitle() {
         return $this->title;
+    }
+    
+    public function getDescription() {
+        return $this->description;
     }
 
     public function getContent() {
@@ -51,16 +55,16 @@ class Articles {
         return $this->views;
     }
 
-    public function getRating() {
-        return $this->rating;
-    }
-
     public function getLikes() {
         return $this->likes;
     }
 
     public function getDislikes() {
         return $this->dislikes;
+    }
+
+    public function getRating() {
+        return $this->rating;
     }
 
     public function getIsPublished() {
@@ -78,6 +82,10 @@ class Articles {
     public function setTitle($title) {
         $this->title = $title;
     }
+    
+    public function setDescription($description) {
+        $this->description = $description;
+    }
 
     public function setContent($content) {
         $this->content = $content;
@@ -91,16 +99,16 @@ class Articles {
         $this->views = $views;
     }
 
-    public function setRating($rating) {
-        $this->rating = $rating;
-    }
-
     public function setLikes($likes) {
-        $this->likes = $likes;
+        $this->rating = $likes;
     }
 
     public function setDislikes($dislikes) {
-        $this->dislikes = $dislikes;
+        $this->likes = $dislikes;
+    }
+
+    public function setRating($rating) {
+        $this->dislikes = $rating;
     }
 
     public function setIsPublished($isPublished) {
@@ -114,14 +122,7 @@ class Articles {
     public function setCatID($catID) {
         $this->catID = $catID;
     }
-
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function setDescription($description) {
-        $this->description = $description;
-    }
+    
 
     // method to delete article
     function deleteArticle() {
@@ -212,8 +213,16 @@ class Articles {
         $db->querySql($data);
     }
 
-    // method to update article rating score
-    function updateRatingScore() {
-        
+    // method to increment like value
+    function like() {
+        $db = Database::getInstance();
+        $data = "UPDATE dbproj_article SET likes = likes+1 WHERE articleid='$this->articleID'";
+        $db->querySql($data);
+    }
+    
+    function dislike() {
+        $db = Database::getInstance();
+        $data = "UPDATE dbproj_article SET dislikes = dislikes+1 WHERE articleid='$this->articleID'";
+        $db->querySql($data);
     }
 }
