@@ -5,7 +5,6 @@ class Articles {
     // attributes
     private $articleID;
     private $title;
-    private $description;
     private $content;
     private $publishDate;
     private $views;
@@ -16,10 +15,10 @@ class Articles {
     private $userID;
     private $catID;
     
-        private function initWith($articleID, $title, $description, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
+    
+    private function initWith($articleID, $title, $content, $publishDate, $views, $rating, $likes, $dislikes, $isPublished, $userID, $catID) {
         $this->articleID = $articleID;
         $this->title = $title;
-        $this->description = $description;
         $this->content = $content;
         $this->publishDate = $publishDate;
         $this->views = $views;
@@ -115,28 +114,12 @@ class Articles {
         $this->catID = $catID;
     }
 
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function setDescription($description) {
-        $this->description = $description;
-    }
-
     // method to delete article
     function deleteArticle() {
         try {
             $db = Database::getInstance();
-            $user = new Users();
-            $user->initWithUid($this->userID);
-            // check if article was not published by an admin
-            if ($user->getRoleID() != '0') {
-                $data = $db->querySql("UPDATE dbProj_ARTICLE SET Title = '*this article was removed by an administrator*', isPublished = 0 WHERE articleID = $this->articleID");
-                return true;
-            } else {
-                // prevent deletion of article if published by admin
-                return false;
-            }
+            $data = $db->querySql("DELETE FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
+            return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
             return false;
@@ -147,14 +130,14 @@ class Articles {
     function initWithArticleid($articleID) {
         $db = Database::getInstance();
         $data = $db->singleFetch("Select * from dbProj_ARTICLE WHERE articleID = $articleID ");
-        $this->initWith($data->articleID,$data->title, $data->description, $data->content, $data->publishDate, $data->views, $data->likes, $data->dislikes, $data->rating, $data->isPublished, $data->userID, $data->catID);
+        $this->initWith($data->articleID,$data->title, $data->content, $data->publishDate, $this->views, $this->likes, $this->dislikes, $this->rating, $this->isPublished, $this->userID, $this->catID);
     }
 
     // method to add a new article
     function addArticle() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, description ,content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->description\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
+            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -167,39 +150,35 @@ class Articles {
         $db = Database::getInstance();
         $data = "UPDATE dbProj_ARTICLE SET
 			title = \"$this->title\",
-			description = \"$this->description\",
-                        content = \"$this->content\",
-			publishDate = '$this->publishDate',
-			isPublished = $this->isPublished,
-			catID = $this->catID
+			content = \"$this->content\",
+			publishDate = \"$this->publishDate\",
+			views = \"$this->views\",
+			rating = \"$this->rating\",
+			isPublished = \"$this->isPublished\",
+			filePath = \"$this->filePath\",
+			userID = \"$this->userID\",
+			catID = \"$this->catID\"
 			WHERE articleID = $this->articleID";
         $db->querySql($data);
     }
 
-    // method to return all articles (for admin use)
+    // method to return all articles
     function getAllArticles() {
         $db = Database::getInstance();
         $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE");
         return $data;
     }
-    
-    // method to display published articles
-    function getAllPublishedArticles() {
-        $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE isPublished = 1");
-        return $data;
-    }
-    
+
     // method to return all articles of a specific category
     function getAllArticlesCat($catID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID AND isPublished = 1");
+        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE catID = $catID ");
         return $data;
     }
     
     // method to return all articles with matching title
     function ShowArticles($search) {
-        $q = "select * from dbProj_ARTICLE where isPublished = 1 AND match(title,description) against ('" . $search . "')  ORDER BY match(title,description) against ('" . $search . "') DESC";
+        $q = "select * from dbProj_ARTICLE where match(title) against ('" . $search . "')  ORDER BY match(title) against ('" . $search . "') DESC";
         $db = Database::getInstance();
         $data = $db->multiFetch($q);
         return $data;
