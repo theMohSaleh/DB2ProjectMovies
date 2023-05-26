@@ -8,6 +8,43 @@ class Files {
     private $fileLocation;
     private $articleID;
     
+    public function getFileID() {
+        return $this->fileID;
+    }
+
+    public function getFileName() {
+        return $this->fileName;
+    }
+
+    public function getFileType() {
+        return $this->fileType;
+    }
+
+    public function getFileLocation() {
+        return $this->fileLocation;
+    }
+
+    public function getArticleID() {
+        return $this->articleID;
+    }
+
+    public function setFileName($fileName) {
+        $this->fileName = $fileName;
+    }
+
+    public function setFileType($fileType) {
+        $this->fileType = $fileType;
+    }
+
+    public function setFileLocation($fileLocation) {
+        $this->fileLocation = $fileLocation;
+    }
+
+    public function setArticleID($articleID) {
+        $this->articleID = $articleID;
+    }
+
+        
     private function initWith($fileID, $fileName, $fileType, $fileLocation, $articleID) {
         $this->fileID = $fileID;
         $this->fileName = $fileName;
@@ -32,13 +69,13 @@ class Files {
     function initWithFileID($fileID) {
         $db = Database::getInstance();
         $data = $db->singleFetch("SELECT * FROM dbProj_FILE WHERE fileID = ' . $fileID");
-        $this->initWith($data->fid, $data->fname, $data->flocation, $data->ftype, $data->uid);
+        $this->initWith($data->fileID, $data->fileName, $data->fileLocation, $data->articleID);
     }
 
     function addFile() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_FILE (fileID, fileName, fileLocation, fileType) VALUES (NULL, $this->fileName, $this->fileLocation, $this->fileType, $this->articleID )");
+            $data = $db->querySql("INSERT INTO dbProj_FILE (fileID, fileName, fileLocation, fileType, articleID) VALUES (NULL, $this->fileName, $this->fileLocation, $this->fileType, $this->articleID )");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -54,7 +91,7 @@ class Files {
 			fileType= \'' . $this->fileType . '\' ,
 			fileLocation = \'' . $this->fileLocation . '\' ,
                         articleID = ' . $this->articleID . '
-				WHERE fid = ' . $this->fid;
+				WHERE fileID = ' . $this->fileID;
         $db->querySql($data);
     }
 
@@ -66,7 +103,7 @@ class Files {
 
     function getArticleFiles($articleID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from dbProj_FILE where uid=' . $this->articleID);
+        $data = $db->multiFetch('Select * from dbProj_FILE where articleID=' . $this->articleID);
         return $data;
     }
 }
