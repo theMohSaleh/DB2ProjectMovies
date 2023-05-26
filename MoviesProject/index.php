@@ -56,8 +56,6 @@
         $msg = "Displaying advanced search results for ".$_POST['searchtitle'];
         $articles = $search->ShowAdvancedArticles($title, $authorID, $popular, $startDate, $endDate);
         }
-    
-        
     ?>
     
     <!-- Whole Page Content -->

@@ -113,8 +113,10 @@ class Upload {
             else
                 $error[] = 'No Directory Permissions';
         }
-        else
+        else{
             $error[] = 'NOT ALLOWED';
+        }
+            
 
         //$this->uploadDir(dirname(__FILE__) . '/../users/' . $sesion);
 
@@ -135,14 +137,10 @@ class Upload {
             elseif (in_array($files['type'], $this->denied_mime_types))
                 $error[] = $files['name'] . ' is a denied type';
 
-            elseif (!move_uploaded_file($files['tmp_name'], $this->upload_dir . $files['name']))
+            elseif (!move_uploaded_file($files['tmp_name'], __DIR__. $this->getUploadDir() . $files['name']))
                 $error[] = $files['name'] . ' could not be uploaded';
             else
                 $this->setFilepath($files['name']);
-            
-            
-            
-            
         }
         
         return $error;
