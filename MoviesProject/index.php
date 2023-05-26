@@ -48,7 +48,7 @@
         
     // if form is subbmited
     if (isset($_POST['submitted'])) {
-        $title = $_POST['searchtitle'];
+        $title = $_POST['advTitle'];
         $authorID = $_POST['authorID'];
         $popular = $_POST['popular'];
         $startDate = $_POST['startDate'];

@@ -18,6 +18,14 @@
                     $("#advanceDiv").fadeIn();
                 }
             });
+            $("#clear").click(function() {
+                $("#advTitle").val('');
+                $("#author").val('').change();
+                $('#popular').prop('checked', false);
+                $("#dateMsg").html('');
+                $("#startDate").val('');
+                $("#endDate").val('');
+            });
             $("#advancedSearch").submit(function(e) {
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
@@ -55,7 +63,7 @@
           <div class="input-group" id="advanceDiv">
               <form id="advancedSearch" name="advancedSearch" action="index.php" method="post">
                   <hr> 
-                  <input type="text" name="searchtitle" class="form-control" placeholder="Search title..." value="<?php echo $_POST['searchtitle'] ?>"> <br>
+                  <input type="text" id="advTitle" name="advTitle" class="form-control" placeholder="Search title..." value="<?php echo $_POST['advTitle'] ?>"> <br>
                 <select id="author" name="authorID">
                     <option value="" disabled selected>--Select an Author--</option>
                     <?php 
@@ -80,6 +88,7 @@
                   <label for="endDate"> And Date</label><br>
                   <input type="date" id="endDate" name="endDate" value="<?php echo $_POST['endDate'] ?>"><br><br>
                 <button class="btn btn-secondary" name="submitted" type="submit">Go!</button>
+                <button class="btn btn-secondary" style="background-color:#999999" id="clear" type="button">Clear</button>
             </form>
           </div>
   </div>

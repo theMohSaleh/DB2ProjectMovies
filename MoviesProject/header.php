@@ -64,6 +64,13 @@ spl_autoload_register(
                             }
                         ?>
                     </li>
+                    <li class="nav-item">
+                        <?php
+                            if ($_SESSION['userName'] == "") {
+                                echo '<a class="nav-link" href="register.php">Register</a>';
+                            }
+                        ?>
+                    </li>
                 </ul>
             </div>
         </div>
