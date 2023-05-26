@@ -18,6 +18,19 @@
                     $("#advanceDiv").fadeIn();
                 }
             });
+            $("#advancedSearch").submit(function(e) {
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                // check if start or end date is picked
+                if(startDate != "" || endDate != ""){
+                    // check if one of the dates was not selected to prevent form submission
+                    if (startDate == "" || endDate == "") {
+                        // prompt user to enter date for both fields and prevent form submission
+                        alert("Please select both start and end dates before searching.");
+                        e.preventDefault();
+                    }
+                }
+            });
         })
     
     </script>
@@ -40,7 +53,7 @@
     </div>
           <button class="btn btn-secondary" id="advanceBTN" name="advanceBTN" type="button">Show Advanced Search</button>
           <div class="input-group" id="advanceDiv">
-              <form name="advancedSearch" action="index.php" method="post">
+              <form id="advancedSearch" name="advancedSearch" action="index.php" method="post">
                   <hr> 
                   <input type="text" name="searchtitle" class="form-control" placeholder="Search title..." value="<?php echo $_POST['searchtitle'] ?>"> <br>
                 <select id="author" name="authorID">
@@ -65,7 +78,7 @@
                   <input type="date" id="startDate" name="startDate"><br>
                   <label for="endDate"> And Date</label><br>
                   <input type="date" id="endDate" name="endDate"><br>
-                <button class="btn btn-secondary" name = "submitted" type="submit">Go!</button>
+                <button class="btn btn-secondary" name="submitted" type="submit">Go!</button>
             </form>
           </div>
   </div>

@@ -16,6 +16,11 @@ class Search {
     public function ShowAdvancedArticles($title="", $authorID="", $popular=false, $startDate="", $endDate="") {
         $q = "select * from dbProj_ARTICLE where";
         
+        // check if all fields are empty and display all articles instead
+        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate) && $popular==false) {
+            $q = "select * from dbProj_ARTICLE";
+        }
+        
         // check if title was searched for
         if ($title != "") {
             // check if other variables are empty to avoid adding more conditions
@@ -28,7 +33,12 @@ class Search {
         
         // check if an author was selected
         if ($authorID != "") {
-            $q = $q." UserID = $authorID";
+            // check if other variables does not contain data
+            if (empty($startDate) || empty($endDate)) {
+                $q = $q." UserID = $authorID";
+            } else {
+                $q = $q." UserID = $authorID AND";
+            }
         }
         
         // check if a date range was selected
@@ -40,9 +50,10 @@ class Search {
         if ($popular == true) {
             $q = $q." ORDER BY views DESC";
         }
+        
+        // fetch data and return
         $db = Database::getInstance();
         $data = $db->multiFetch($q);
-        //return $q;
         return $data;
     }
     
