@@ -26,7 +26,7 @@
                     // check if one of the dates was not selected to prevent form submission
                     if (startDate == "" || endDate == "") {
                         // prompt user to enter date for both fields and prevent form submission
-                        alert("Please select both start and end dates before searching.");
+                        $("#dateMsg").html('Please select start and end date. <br>');
                         e.preventDefault();
                     }
                 }
@@ -74,6 +74,7 @@
                   <br>
                   <input type="checkbox" id="popular" name="popular" <?php if(!empty($_POST['popular'])) echo 'checked' ?>>
                   <label for="popular"> Most Popular</label><br>
+                  <span id="dateMsg" style="color:#ff3333;"></span>
                   <label for="startDate"> Between Date</label><br>
                   <input type="date" id="startDate" name="startDate" value="<?php echo $_POST['startDate'] ?>"><br>
                   <label for="endDate"> And Date</label><br>
