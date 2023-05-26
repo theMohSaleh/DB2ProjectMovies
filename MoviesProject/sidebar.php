@@ -65,7 +65,7 @@
                   <hr> 
                   <input type="text" id="advTitle" name="advTitle" class="form-control" placeholder="Search title..." value="<?php echo $_POST['advTitle'] ?>"> <br>
                 <select id="author" name="authorID">
-                    <option value="" disabled selected>--Select an Author--</option>
+                    <option value="" disabled selected hidden>--Select an Author--</option>
                     <?php 
                     // loop through list of all authors
                         for($i =0; $i < count($authors); $i++){
@@ -102,7 +102,7 @@
       <div class="flex justify-content-between">
             <form name="category" action="index.php" method="get">
                 <select id="category" name="catID">
-                    <option value="" disabled selected>--Select a Category--</option>
+                    <option value="" disabled selected hidden>--Select a Category--</option>
                     <?php 
                     // loop through list of all categories
                         for($i =0; $i < count($categories); $i++){

@@ -8,6 +8,14 @@ session_start();
 
 <head>
 <title>Edit User</title>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            
+        });
+    
+    </script>
 </head>
 
 
@@ -100,17 +108,22 @@ echo '<div id="stylized" class="myform">
         <br />
         <h3>Edit User: ' . $user->getUserName() . '</h3>
         <br />
-           <label>Username</label>    <input type="text" name="userName" value="' . $user->getUserName() . '" /><br><br>
-           <label>First Name</label> <input type="text" name="FName" value="' . $user->getFirstName() . '"/><br><br>
-           <label>Last Name</label> <input type="text" name="LName" value="' . $user->getLastName() . '"/><br><br>
-           <label>Date of Birth</label> <input type="date" name="DOB" value="' . $user->getDOB() . '"/><br><br>
-           <label>Registered Date</label> <input type="date" name="RegDate" value="' . $user->getRegDate() . '" readonly/><br><br>
-           <label>User Role</label> <input type="text" name="roleID" value="' . $user->getRoleID() . '"/><br><br>
-           <input type="submit" class ="DB4Button" onclick="redirect()" name="submit" value="Update" />
+            <label>Username</label>    <input type="text" name="userName" value="' . $user->getUserName() . '" /><br><br>
+            <label>First Name</label> <input type="text" name="FName" value="' . $user->getFirstName() . '"/><br><br>
+            <label>Last Name</label> <input type="text" name="LName" value="' . $user->getLastName() . '"/><br><br>
+            <label>Date of Birth</label> <input type="date" name="DOB" value="' . $user->getDOB() . '"/><br><br>
+            <label>Registered Date</label> <input type="date" name="RegDate" value="' . $user->getRegDate() . '" readonly/><br><br>
+                <label for="roleID">User Role</label>
+                <select id="roleID" name="roleID">
+                    <option value="0"'.(($user->getRoleID()=='0')?'selected="selected"':"").'>Administrator</option> 
+                    <option value="1"'.(($user->getRoleID()=='1')?'selected="selected"':"").'>Author</option> 
+                    <option value="2"'.(($user->getRoleID()=='2')?'selected="selected"':"").'>Viewer</option> 
+                </select><br><br>
+                <input type="submit" class ="DB4Button" onclick="redirect()" name="submit" value="Update" />
         
-         <input type ="hidden" name="submitted" value="TRUE">
-         <input type ="hidden" name="id" value="' . $id . '"/>
-         </form>
+        <input type ="hidden" name="submitted" value="TRUE">
+        <input type ="hidden" name="id" value="' . $id . '"/>
+        </form>
         <div class="spacer"></div>
         </div>';
 
