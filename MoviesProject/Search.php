@@ -4,9 +4,9 @@ class Search {
 
 
     public function ShowArticles($search) {
-            $q = "select * from dbProj_ARTICLE where match(title) against ('" . $search . "')";
+            $q = "select * from dbProj_ARTICLE where match(title,description) against ('" . $search . "')";
 
-        $q .= " ORDER BY match(title) against ('" . $search . "') DESC";
+        $q .= " ORDER BY match(title,description) against ('" . $search . "') DESC";
         $db = Database::getInstance();
         $data = $db->multiFetch($q);
         return $data;
@@ -14,36 +14,26 @@ class Search {
     }
     
     public function ShowAdvancedArticles($title="", $authorID="", $popular=false, $startDate="", $endDate="") {
-        $q = "select * from dbProj_ARTICLE where";
+        $q = "select * from dbProj_ARTICLE WHERE isPublished = 1";
         
-        // check if all fields are empty and display all articles instead
-        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate)) {
-            $q = "select * from dbProj_ARTICLE";
-        }
+//        // check if all fields are empty and display all articles instead
+//        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate)) {
+//            $q = "select * from dbProj_ARTICLE";
+//        }
         
         // check if title was searched for
         if ($title != "") {
-            // check if other variables are empty to avoid adding more conditions
-            if (empty($authorID) && empty($startDate) || empty($endDate)) {
-                $q = $q." match(title) against ('" . $title . "')";
-            } else {
-                $q = $q." match(title) against ('" . $title . "') AND";
-            }
+            $q = $q." AND match(title,description) against ('" . $title . "')";
         }
         
         // check if an author was selected
         if ($authorID != "") {
-            // check if other variables does not contain data
-            if (empty($startDate) || empty($endDate)) {
-                $q = $q." UserID = $authorID";
-            } else {
-                $q = $q." UserID = $authorID AND";
-            }
+            $q = $q." AND UserID = $authorID";
         }
         
         // check if a date range was selected
         if ($startDate != "" && $endDate != "") {
-            $q = $q." publishDate BETWEEN '$startDate' AND '$endDate'";
+            $q = $q." AND publishDate BETWEEN '$startDate' AND '$endDate'";
         }
         
         // check if most viewed was selected

@@ -3,7 +3,7 @@ include 'header.php';
 
 session_start();
 echo '<head>';
-echo '<title>Delete User</title>';
+echo '<title>Delete Article</title>';
 echo '</head>';
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
@@ -22,10 +22,6 @@ include 'header.html';
 
 $id=0;
 
-//the first time the page is displayed it is because it is from a hyper link so we use $_GET to 
-//retrieve the parameter from the link
-//Any time the page is shown after that it is because it has been submitted using the form
-//so we then use $_POST to get the form data
 if( isset($_GET['id']) )
 {
     $id=$_GET['id'];  
@@ -40,10 +36,10 @@ else
 }
 
 
-echo '<h1>Delete User</h1>';
+echo '<h1>Delete Article</h1>';
 //create a user object 
-$user = new Users();
-$user->initWithUid($id);
+$article = new Articles();
+$article->initWithArticleid($id);
 
 
 if(isset($_POST['submitted']))
@@ -51,23 +47,24 @@ if(isset($_POST['submitted']))
 //test the value of the radio button    
     if(isset($_POST['sure']) && ($_POST['sure'] == 'Yes') ) //delete the record   
     {  
-        $userName = $user->getUserName();
-       if($user->deleteuser())
-           // inform user of successful delete
-            echo '<p> User ' .$userName. ' was deleted</p>';
+        $articleName = $article->getTitle();
+       if($article->deleteArticle())
+           // inform user of successful delete and redirect
+            echo '<p> Article: ' .$articleName. ' was deleted</p>'; 
             header( "refresh:5;url=view_articles.php" );
             echo '<p>You will be redirected shortly...</p>';
     }//no confirmation
      else
-       echo '<p> User '. $user->getUserName(). '  deletion not confirmed</p>'; 
+       echo '<p> Article '. $article->getTitle(). '  deletion not confirmed</p>';
+        echo '<a href="view_articles.php" <button id="back" type="button">Return to Articles</button></a>';
 }
 else //show form
 {
     echo '<div id="stylized" class="myform"> 
-        <form action="delete_user.php" method="post">
+        <form action="delete_article.php" method="post">
         <br />
-        <h3>Name: '.$user->getUserName() . '</h3></br>
-        <label>Delete this user?</label> <br/><br/>
+        <h3>Name: '.$article->getTitle() . '</h3></br>
+        <label>Delete this article?</label> <br/><br/>
           <input type="radio" name="sure" value="Yes" /><label>Yes</label>
           <input type="radio" name="sure" value="No" checked="checked" /> <label>No</label>
           <input type="submit" class ="DB4Button" name="submit" value="Delete" />
@@ -75,7 +72,7 @@ else //show form
          <input type ="hidden" name="submitted" value="TRUE">
          <input type ="hidden" name="id" value="' . $id . '"/>
          </form>
-         <a href="view_users.php"><input type="button" value="Return to Users" /></a>
+         <a href="view_articles.php"><input type="button" value="Return to Articles" /></a>
          <div class="spacer"></div>
          </div>';   
 

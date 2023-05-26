@@ -45,6 +45,8 @@ spl_autoload_register(
                             if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '0') 
                             {
                             echo '<a class="nav-link" href="view_users.php">Manage Users</a>';
+                            echo '</li><li class="nav-item"><a class="nav-link" href="view_articles.php">Manage Articles</a>';
+                            echo '</li><li class="nav-item"><a class="nav-link" href="add_article.php">Post</a>';
                             }
                             // check if logged in user is an author
                             if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '1')

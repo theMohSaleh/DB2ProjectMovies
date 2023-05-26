@@ -30,15 +30,15 @@ if (!empty($row)) {
     //display a table of results
     echo '<table align="center" cellspacing = "2" cellpadding = "4" width="75%">';
     echo '<tr bgcolor="#87CEEB">
-          <td><b>Edit</b></td>
-          <td><b>Delete</b></td>
-          <td><b><a href="view_users.php">Username</a></b></td>
-          <td><b><a href="view_users.php">First Name</a></b></td>
-          <td><b><a href="view_users.php">Last Name</a></b></td>
-          <td><b><a href="view_users.php">Date of Birth</a></b></td>
-          <td><b><a href="view_users.php">Registered Date</a></b></td>
-          <td><b><a href="view_users.php">User Role</a></b></td>
-          <td><b><a href="view_users.php">UserID</a></b></td></tr>';
+          <td style="text-align: center"><b>Edit</b></td>
+          <td style="text-align: center"><b>Delete</b></td>
+          <td style="text-align: center"><b><a href="view_users.php">Username</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">First Name</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">Last Name</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">Date of Birth</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">Registered Date</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">User Role</a></b></td>
+          <td style="text-align: center"><b><a href="view_users.php">UserID</a></b></td></tr>';
 
 //above is the header
 //loop below adds the user details    
@@ -56,15 +56,15 @@ if (!empty($row)) {
             $roleTitle = "Viewer";
         }
         echo '<tr bgcolor="' . $bg . '">
-            <td><a href="edit_user.php?id=' . $row[$i]->userID . '">Edit</a></td>
-            <td><a href="delete_user.php?id=' . $row[$i]->userID . '">Delete</a></td>
-            <td>' . $row[$i]->userName . '</td>
-            <td>' . $row[$i]->firstName . '</td>
-            <td>' . $row[$i]->lastName . '</td>
-            <td>' . $row[$i]->DOB . '</td>
-            <td>' . $row[$i]->regDate . '</td>
-            <td>' . $roleTitle . '</td>
-                <td>' . $row[$i]->userID . '</td>
+            <td style="text-align: center"><a href="edit_user.php?id=' . $row[$i]->userID . '">Edit</a></td>
+            <td style="text-align: center"><a href="delete_user.php?id=' . $row[$i]->userID . '">Delete</a></td>
+            <td style="text-align: center">' . $row[$i]->userName . '</td>
+            <td style="text-align: center">' . $row[$i]->firstName . '</td>
+            <td style="text-align: center">' . $row[$i]->lastName . '</td>
+            <td style="text-align: center">' . $row[$i]->DOB . '</td>
+            <td style="text-align: center">' . $row[$i]->regDate . '</td>
+            <td style="text-align: center">' . $roleTitle . '</td>
+                <td style="text-align: center">' . $row[$i]->userID . '</td>
               </tr>';
     }
     echo '</table>';

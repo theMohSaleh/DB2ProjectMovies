@@ -58,8 +58,7 @@ CREATE OR REPLACE TABLE `dbProj_FILES`(
     FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)
 )ENGINE=MyISAM;
 
-ALTER TABLE dbProj_ARTICLE ADD FULLTEXT(title);
-ALTER TABLE dbProj_ARTICLE ADD FULLTEXT(description);
+ALTER TABLE dbProj_ARTICLE ADD FULLTEXT title(title, description);
 
 INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL,'User1',AES_ENCRYPT('123', 'P0ly'),'User','One', DATE('2002-03-06'),CURRENT_DATE(),2);
 

@@ -8,14 +8,6 @@ session_start();
 
 <head>
 <title>Edit User</title>
-
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            
-        });
-    
-    </script>
 </head>
 
 
@@ -24,6 +16,11 @@ session_start();
 
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
+    header('Location: index.php');
+    die();
+}
+// if user is not an admin, redirect to home page
+if ($_SESSION['roleID'] != '0') {
     header('Location: index.php');
     die();
 }
@@ -124,6 +121,7 @@ echo '<div id="stylized" class="myform">
         <input type ="hidden" name="submitted" value="TRUE">
         <input type ="hidden" name="id" value="' . $id . '"/>
         </form>
+        <a href="view_users.php"><input type="button" value="Return to Users" /></a>
         <div class="spacer"></div>
         </div>';
 

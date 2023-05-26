@@ -35,7 +35,7 @@
         $catID = $_GET["catID"];
         $articles = $articlesObj->getAllArticlesCat($catID);
     } else {
-        $articles = $articlesObj->getAllArticles();
+        $articles = $articlesObj->getAllPublishedArticles();
     }
     
     // check if user searched for articles
