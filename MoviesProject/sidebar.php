@@ -72,12 +72,12 @@
                     ?>
                 </select>
                   <br>
-                  <input type="checkbox" id="popular" name="popular">
+                  <input type="checkbox" id="popular" name="popular" <?php if(!empty($_POST['popular'])) echo 'checked' ?>>
                   <label for="popular"> Most Popular</label><br>
                   <label for="startDate"> Between Date</label><br>
-                  <input type="date" id="startDate" name="startDate"><br>
+                  <input type="date" id="startDate" name="startDate" value="<?php echo $_POST['startDate'] ?>"><br>
                   <label for="endDate"> And Date</label><br>
-                  <input type="date" id="endDate" name="endDate"><br>
+                  <input type="date" id="endDate" name="endDate" value="<?php echo $_POST['endDate'] ?>"><br><br>
                 <button class="btn btn-secondary" name="submitted" type="submit">Go!</button>
             </form>
           </div>

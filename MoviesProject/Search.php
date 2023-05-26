@@ -17,7 +17,7 @@ class Search {
         $q = "select * from dbProj_ARTICLE where";
         
         // check if all fields are empty and display all articles instead
-        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate) && $popular==false) {
+        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate)) {
             $q = "select * from dbProj_ARTICLE";
         }
         
