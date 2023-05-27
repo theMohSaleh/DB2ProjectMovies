@@ -36,7 +36,7 @@ if (isset($_POST['submitted'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register</title>
+    <title><?php echo $lang['Register'] . ' ' . $_SESSION['userName']; ?></title>
 
     <!-- Bootstrap core -->
 
@@ -50,18 +50,18 @@ if (isset($_POST['submitted'])) {
         <div id="stylized" class="myform"> 
             <form action="register.php" method="post">
                 <fieldset>
-                <label><b>Enter Username</b></label>
+                <label><b><?php echo $lang['USERNAME'] . ' ' . $_SESSION['userName']; ?></b></label>
                 <input type="text" name="userName" size="20" value="" />
-                <label><b>Enter Password</b></label>
+                <label><b><?php echo $lang['PASSWORD'] . ' ' . $_SESSION['userName']; ?></b></label>
                 <input type="password" name="password" size="10" value="" />
-                <label><b>Enter First Name</b></label>
+                <label><b><?php echo $lang['FIRSTNAME'] . ' ' . $_SESSION['userName']; ?></b></label>
                 <input type="text" name="firstName" size="10" value="" />
-                <label><b>Enter Last Name</b></label>
+                <label><b><?php echo $lang['LASTNAME'] . ' ' . $_SESSION['userName']; ?></b></label>
                 <input type="text" name="lastName" size="10" value="" />
-                <label><b>Enter Date of birth</b></label>
+                <label><b><?php echo $lang['DOB'] . ' ' . $_SESSION['userName']; ?></b></label>
                 <input type="date" name="DOB" size="10" value="" />
                 <div align="center">
-                <input type ="submit" value ="Register" />
+                <input type ="submit" value ="<?php echo $lang['Register'].' '. $_SESSION['userName']; ?>" />
             </div>  
             <input type="hidden" name="submitted" value="1" />
         </fieldset>
