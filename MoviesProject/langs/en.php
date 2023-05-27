@@ -4,6 +4,8 @@ $lang = array();
 
 $lang['WELCOME'] = 'Welcome User';
 
+
+
 $lang['LOGIN'] = 'Login';
 $lang['LOGOUT'] = 'Logout';
 $lang['NO_PHOTO'] = 'Image Was Not Found';
@@ -12,14 +14,18 @@ $lang['WRONGLOGIN'] = 'WRONG LOGIN VALUES';
 $lang['USERNAME'] = 'Username';
 $lang['FIRSTNAME'] = 'First Name';
 $lang['LASTNAME'] = 'Last Name';
+$lang['DOB'] = 'Date Of Birth';
 $lang['PASSWORD'] = 'Password';
 $lang['MAIN_PAGE'] = 'Main Page';
-$lang['Post'] = 'Post';
-$lang['Register'] = 'Register';
-$lang['News'] = 'News';
-$lang['Login'] = 'Login';
-$lang['ManageAricles'] = 'ManageArticales';
-$lang['ContactUs'] = 'Contact us';
+$lang['POST'] = 'Post';
+$lang['REGISTER'] = 'Register';
+$lang['NEWS'] = 'News';
+$lang['LOGIN'] = 'Login';
+$lang['EMAIL'] = 'e-mail';
+$lang['CONTACTUS'] = 'Conatct us';
+$lang['MANAGEUSERS'] = 'manage users';
+$lang['MANAGEARTICLES'] = 'manage articles';
+
 
 
 
