@@ -65,7 +65,7 @@ if (isset($_POST['submitted'])) {
                         <div class="m-t-40 account-pages">
                             <div class="text-center account-logo-box">
                                 <h2 class="text-uppercase">
-                                        <span><p class="login-title">News Portal Login</p></span>
+                                        <span><p class="login-title"><?php echo $lang['LOGINP']; ?></p></span>
                                 </h2>
                             </div>
                             <div class="account-content">
@@ -74,20 +74,20 @@ if (isset($_POST['submitted'])) {
                                     <div class="form-group ">
                                         <div class="col-xs-12">
                                             <input class="form-control" type="text" required="" name="Username"
-                                                placeholder="Username">
+                                                placeholder="<?php echo $lang['USERNAME']; ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <input class="form-control" type="password" name="Password" required=""
-                                                placeholder="Password">
+                                                placeholder="<?php echo $lang['PASSWORD']; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group account-btn text-center m-t-10">
                                         <div class="col-xs-12">
                                             <button class="btn w-md btn-bordered btn-danger waves-effect waves-light"
-                                                type="submit" name="submitted">Log In</button>
+                                                type="submit" name="submitted"><?php echo $lang['LOGIN']; ?></button>
                                         </div>
                                     </div>
 

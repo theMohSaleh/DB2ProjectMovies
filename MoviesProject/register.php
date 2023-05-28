@@ -71,7 +71,7 @@ if (isset($_POST['submitted'])) {
                         <div class="m-t-40 account-pages">
                             <div class="text-center account-logo-box">
                                 <h2 class="text-uppercase">
-                                        <span><p class="login-title">News Portal Register</p></span>
+                                        <span><p class="login-title"><?php echo $lang['REGISTERP'].' '. $_SESSION['userName']; ?></p></span>
                                 </h2>
                             </div>
                             <div class="account-content">
@@ -79,42 +79,42 @@ if (isset($_POST['submitted'])) {
 
                                     <div class="form-group ">
                                         <div class="col-xs-12">
-                                            <label> Username: </label>
+                                            <label> <?php echo $lang['USERNAME'].' '. $_SESSION['userName']; ?> </label>
                                             <input class="form-control" type="text" required="" name="Username">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-12">
-                                            <label> Password: </label>
+                                            <label> <?php echo $lang['PASSWORD'].' '. $_SESSION['userName']; ?>: </label>
                                             <input class="form-control" type="password" name="Password" required="">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-12">
-                                            <label> First Name: </label>
+                                            <label>  <?php echo $lang['FIRSTNAME'].' '. $_SESSION['userName']; ?> </label>
                                             <input class="form-control" type="text" name="FirstName" required="">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-12">
-                                            <label> Last Name: </label>
+                                            <label> <?php echo $lang['LASTNAME'].' '. $_SESSION['userName']; ?> </label>
                                             <input class="form-control" type="text" name="LastName" required="">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-12">
-                                            <label> Date of birth: </label>
+                                            <label> <?php echo $lang['DOB'].' '. $_SESSION['userName']; ?> </label>
                                             <input class="form-control" type="date" name="DOB" >
                                         </div>
                                     </div>
                                     <div class="form-group account-btn text-center m-t-10">
                                         <div class="col-xs-12">
                                             <button class="btn w-md btn-bordered btn-danger waves-effect waves-light"
-                                                type="submit" name="submitted"> Register </button>
+                                                type="submit" name="submitted"> <?php echo $lang['REGISTER'].' '. $_SESSION['userName']; ?> </button>
                                         </div>
                                     </div>
 

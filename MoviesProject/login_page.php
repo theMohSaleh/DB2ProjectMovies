@@ -19,19 +19,19 @@ include "header.html";
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title><?php echo $lang['LOGIN']; ?></title>
     </head>
     <body>
         
         <?php
         if (empty($_SESSION["userID"])){
          echo '<div><form action="" method="post">
-           <p><h1>Login From</h1> 
+           <p><h1>'.$lang['LOGINF'].' </h1> 
         <p>
-           <p>Username   <input type="text" name="Username" /></p>
-           <p>Password    <input type="password" name="Password" /></p>
+           <p>'.$lang['USERNAME'].'  <input type="text" name="Username" /></p>
+           <p>'.$lang['PASSWORD'].'    <input type="password" name="Password" /></p>
         </p>
-        <p><input type="submit" name="submit" value="Login" /></p>
+        <p><input type="submit" name="submit" value="'.$lang['LOGIN'].'" /></p>
         
          <input type ="hidden" name="submitted" value="TRUE">
          </form></div>';   
