@@ -152,11 +152,13 @@ class Articles {
     }
 
     // method to add a new article
-    function addArticle() {
+    function addArticle($userID) {
         try {
+            $userID = (int)$userID;
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (articleID, title, description ,content, publishDate, views, likes, dislikes, isPublished, userID, catID) VALUES (NULL, \"$this->title\", \"$this->description\", \"$this->content\", \"$this->publishDate\", \"$this->views\", \"$this->rating\", \"$this->isPublished\", \"$this->filePath\", \"$this->userID\", \"$this->catID\")");
-            return true;
+            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (userID) VALUES ($userID)");
+            $newArticle = $db->singleFetch("SELECT * FROM dbProj_ARTICLE ORDER BY articleID DESC LIMIT 1");
+            return $newArticle;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
             return false;

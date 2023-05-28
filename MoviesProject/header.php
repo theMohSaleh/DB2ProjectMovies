@@ -49,12 +49,12 @@ include 'langSet.php';
                             {
                             echo '<a class="nav-link" href="view_users.php">'.$lang['MANAGEUSERS'].'</a>';
                             echo '</li><li class="nav-item"><a class="nav-link" href="view_articles.php">'.$lang['MANAGEARTICLES'].' </a>';
-                            echo '</li><li class="nav-item"><a class="nav-link" href="add_article.php">'.$lang['POST'].' </a>';
+                            echo '</li><li class="nav-item"><a class="nav-link" href="view_drafts.php">'.$lang['POST'].' </a>';
                             }
                             // check if logged in user is an author
                             if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '1')
                             {
-                            echo '<a class="nav-link" href="add_article.php">'.$lang['POST'].' </a>';
+                            echo '<a class="nav-link" href="view_drafts.php">'.$lang['POST'].' </a>';
                             }
                         ?>
                     </li>

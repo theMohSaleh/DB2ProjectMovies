@@ -100,7 +100,7 @@ if (isset($_POST['submitted'])) {
             echo '</p></div>';
         }
 } // end if submitted conditional
-
+echo '<br><br><br><br>';
 echo '<h1>Edit Article</h1>';
 
 

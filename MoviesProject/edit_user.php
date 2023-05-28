@@ -93,7 +93,6 @@ if (isset($_POST['submitted'])) {
         }
     }
 } // end if submitted conditional
-
 echo '<h1>Edit User</h1>';
 
 
