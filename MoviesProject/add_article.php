@@ -19,7 +19,7 @@ if (empty($_SESSION['userID'])) {
     header('Location: index.php');
     die();
 }
-
+$id = null;
 include 'header.html';
 $article = new Articles();
 // check if current user is admin or author
@@ -34,13 +34,6 @@ if ($_SESSION['roleID'] == '0' || $_SESSION['roleID'] = '1') {
                 // redirect to home page
                 header('Location: index.php');
             }
-   } else {
-       // create new article
-       $article->addArticle($_SESSION['userID']);
-       $article->setTitle(null);
-       $article->setContent(null);
-       $article->setDescription(null);
-       $article->setCatID(null);
    }
 } else {
     // redirect to home page
@@ -52,34 +45,30 @@ $categories = $categoryObj->getAllCategories();
 
 
 //perfrom the following if the user has submitted the form 
-if (isset($_POST['submitted'])) {
-
+if (isset($_POST['save'])) {
+    //save action
     //populate the user object member variables from values on the form
     $article->setTitle($_POST['title']);
     $article->setDescription($_POST['desc']);
     $article->setContent($_POST['content']);
-    if ($_POST['isPublished']) {
-        $article->setIsPublished(1);
-    } else {
-        $article->setIsPublished(0);
-    }
+    $article->setIsPublished(0);
     $article->setCatID($_POST['category']);
+    
+    // check if article is edit
+    if ($_GET['id'] == null) {
+    // create new article
+    $article->addArticle($_SESSION['userID']);
+    }
     
     if (empty($errors)) {
         //update the user 
-        $q = $article->updateDB();
-        // inform user of successful edit
+        $article->updateDB();
+        // inform user of successful publish
         echo '<p>'.$q.'</p>';
-        echo '<h2> Successful! </h2><p>Article: '.$oldName.' has been updated.</p>';
+        echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
         echo '<p>You will be redirected shortly...</p>';
-        // redirect user to relative page after 5 seconds
-        if ($_SESSION['roleID'] == '0' && $_SESSION['userID'] != $article->getUserID()){
-            header( "refresh:5;url=view_articles.php" );
-        } else {
-            header( "refresh:5;url=index.php" );
-        }
-            echo '<a href="view_articles.php"><input type="button" value="Return to Articles" /></a>';
-            return true;
+        echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
+        return true;
         } else {
             echo '<div style="width:50%; background:#FFFFFF; margin:0 auto;">
                 <p class="error"> The following errors occurred: <br/>';
@@ -88,6 +77,38 @@ if (isset($_POST['submitted'])) {
             }
             echo '</p></div>';
         }
+    
+} else if (isset($_POST['publish'])) {
+    //delete action
+
+
+    //populate the user object member variables from values on the form
+    $article->setTitle($_POST['title']);
+    $article->setDescription($_POST['desc']);
+    $article->setContent($_POST['content']);
+    $article->setIsPublished(1);
+    $article->setCatID($_POST['category']);
+    
+    if (empty($errors)) {
+        //update the user 
+        $q = $article->updateDB();
+        // inform user of successful publish
+        echo '<p>'.$q.'</p>';
+        echo '<h2> Successful! </h2><p>Article: '.$article->getTitle().' has been published.</p>';
+        echo '<p>You will be redirected shortly...</p>';
+        echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
+        return true;
+        } else {
+            echo '<div style="width:50%; background:#FFFFFF; margin:0 auto;">
+                <p class="error"> The following errors occurred: <br/>';
+            foreach ($errors as $err) {
+                echo "$err <br/>";
+            }
+            echo '</p></div>';
+        }
+} else if (isset($_POST['delete'])) {
+    $article->deleteArticle($_SESSION['userID']);
+    header('Location: view_drafts.php');
 } // end if submitted conditional
 echo '<br><br><br><br>';
 echo '<h1>Add Article</h1>';
@@ -120,8 +141,9 @@ echo '<div class ="container" id="stylized" class="myform">
                             }
                         }
                 echo '</select><br><br>
-                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="submit" value="Publish" />
-                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="submit" value="Save" />
+                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="publish" value="Publish" />
+                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="save" value="Save" />
+                <input class = "btn btn-primary" type="submit" class ="DB4Button" name="delete" value="Delete" />
         
         <input type ="hidden" name="submitted" value="TRUE">
         <input type ="hidden" name="id" value="' . $id . '"/>

@@ -125,16 +125,19 @@ class Articles {
     
 
     // method to delete article
-    function deleteArticle() {
+    function deleteArticle($loggedUserID="") {
         try {
             $db = Database::getInstance();
             $user = new Users();
             $user->initWithUid($this->userID);
             // check if article was not published by an admin
-            if ($user->getRoleID() != '0') {
+            if ($user->getUserID() == $loggedUserID) {
+                $data = $db->querySql("DELETE FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
+                return true;
+            } else if ($user->getRoleID() != '0') {
                 $data = $db->querySql("UPDATE dbProj_ARTICLE SET Title = '*this article was removed by an administrator*', isPublished = 0 WHERE articleID = $this->articleID");
                 return true;
-            } else {
+            } else { 
                 // prevent deletion of article if published by admin
                 return false;
             }
@@ -157,8 +160,7 @@ class Articles {
             $userID = (int)$userID;
             $db = Database::getInstance();
             $data = $db->querySql("INSERT INTO dbProj_ARTICLE (userID) VALUES ($userID)");
-            $newArticle = $db->singleFetch("SELECT * FROM dbProj_ARTICLE ORDER BY articleID DESC LIMIT 1");
-            return $newArticle;
+            return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
             return false;
