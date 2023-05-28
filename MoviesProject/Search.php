@@ -12,10 +12,13 @@ class Search {
         return $data;
         //$this->showResults($q);
     }
-    
-    public function ShowAdvancedArticles($title="", $authorID="", $popular=false, $startDate="", $endDate="") {
-        $q = "select * from dbProj_ARTICLE WHERE isPublished = 1";
-        
+
+    public function ShowAdvancedArticles($title="", $authorID="", $popular=false, $startDate="", $endDate="", $admin=false) {
+        if ($admin == false) {
+            $q = "select * from dbProj_ARTICLE WHERE isPublished = 1";
+        } else {
+            $q = "select * from dbProj_ARTICLE WHERE 1 = 1";
+        }
 //        // check if all fields are empty and display all articles instead
 //        if (empty($title) && empty($authorID) && empty($startDate) && empty($endDate)) {
 //            $q = "select * from dbProj_ARTICLE";

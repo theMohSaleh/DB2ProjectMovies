@@ -10,7 +10,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-        // put your code here
+        include 'upload_files.php';
         ?>
     </body>
+    
 </html>

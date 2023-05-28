@@ -16,7 +16,9 @@ if (isset($_POST['submitted'])) {
     if ($user->initWithUsername()) {
 
         if ($user->registerUser()){
-        echo "<script>alert('Register Success!');</script>";
+        echo "<div class = 'container'><br><br><br><br><h1>Registered Successfully!</h1><br>"
+            . "<a href ='loginPage.php'><input class = 'btn btn-primary m' type = 'button' value = 'Go to login page'></a></div>";
+        return true;
         }
         else {   
         echo "<script>alert('Invalid Details');</script>";

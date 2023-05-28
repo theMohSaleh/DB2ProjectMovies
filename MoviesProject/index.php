@@ -23,8 +23,21 @@
   <body>
 
     <!-- The Navigation Menu -->
-   <?php include 'header.php';?>
+   <?php include 'header.php';
+   $increment = 10;
+   
+   if(isset($_GET['pageno'])){
+    $current = (int) $_GET['pageno'];
+    $start = $current * $increment;
+    echo $start;
+    echo "HELLO";
+   }else{
+        $start = 0;
+    } 
+   ?>
 
+    
+    
     <?php
     
     $articlesObj = new Articles();
@@ -35,7 +48,7 @@
         $catID = $_GET["catID"];
         $articles = $articlesObj->getAllArticlesCat($catID);
     } else {
-        $articles = $articlesObj->getAllPublishedArticles();
+        $articles = $articlesObj->getAllPublishedArticles($start,$increment);
     }
     
     // check if user searched for articles
@@ -45,6 +58,8 @@
         $search = trim($_GET['searchtitle']);
         $articles = $articlesObj->ShowArticles($search);
         }
+
+        
         
     // if form is subbmited
     if (isset($_POST['submitted'])) {
@@ -58,9 +73,10 @@
         }
     ?>
     
+    
     <!-- Whole Page Content -->
     <div class="container">
-        
+        <?php echo $_SERVER['REQUEST_URI']; ?>
         <!-- Centering the Blog Posts -->
       <div class="row" style="margin-top: 4%">
         <!-- Blog Entries Column -->
@@ -110,6 +126,12 @@
           ?>
           
           <!-- Pagination Section for later -->
+          <div>
+              <button class="btn"><a href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a></button>
+              <button class="btn"><a href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a></button>
+          </div>
+          
+          if(ceil(count($articles)/$increment))
 
         </div>
 

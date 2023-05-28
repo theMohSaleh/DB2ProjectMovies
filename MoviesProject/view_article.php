@@ -26,7 +26,6 @@ if (isset($_POST['like'])) {
     $article->like();
 }
 
-
 if (isset($_POST['dislike'])) {
     $article->dislike();
 }
@@ -131,7 +130,7 @@ if (isset($_POST['dislike'])) {
                     <div class="card">
                         <h5 class="card-header">Leave a Comment:</h5>
                         <div class="card-body">
-                            <form name="Comment" method="post">
+                            <form action='add_comment.php?<?php echo $id ?>' name="Comment" method="post">
                                 <div class="form-group">
                                     <textarea class="form-control" style="resize: none" name="comment" rows="3" placeholder="Comment" required></textarea>
                                     <button type="submit" class="btn btn-primary my-2" name="submit">Submit</button>

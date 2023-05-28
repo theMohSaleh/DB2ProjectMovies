@@ -185,9 +185,15 @@ class Articles {
     }
     
     // method to display published articles
-    function getAllPublishedArticles() {
+    function getAllPublishedArticles($start,$end) {
         $db = Database::getInstance();
-        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE isPublished = 1");
+        $q = "SELECT * FROM dbProj_ARTICLE WHERE isPublished = 1 ORDER BY publishDate DESC ";
+        
+        if(isset($start)){
+            $q .= 'limit ' .$start. ',' . $end;
+        }
+        $data = $db->multiFetch($q);
+        echo $q;
         return $data;
     }
     
@@ -198,6 +204,11 @@ class Articles {
         return $data;
     }
     
+    function getAllArticlesAuthor($authorID) {
+        $db = Database::getInstance();
+        $data = $db->multiFetch("SELECT * FROM dbProj_ARTICLE WHERE userID = $authorID");
+        return $data;
+    }
     // method to return all articles with matching title
     function ShowArticles($search) {
         $q = "select * from dbProj_ARTICLE where isPublished = 1 AND match(title,description) against ('" . $search . "')  ORDER BY match(title,description) against ('" . $search . "') DESC";
@@ -209,20 +220,20 @@ class Articles {
     // method to update article view count
     function updateViewCount() {
         $db = Database::getInstance();
-        $data = "UPDATE dbproj_article SET views = views+1 WHERE articleid='$this->articleID'";
+        $data = "UPDATE dbProj_ARTICLE SET views = views+1 WHERE articleid='$this->articleID'";
         $db->querySql($data);
     }
 
     // method to increment like value
     function like() {
         $db = Database::getInstance();
-        $data = "UPDATE dbproj_article SET likes = likes+1 WHERE articleid='$this->articleID'";
+        $data = "UPDATE dbProj_ARTICLE SET likes = likes+1 WHERE articleid='$this->articleID'";
         $db->querySql($data);
     }
     
     function dislike() {
         $db = Database::getInstance();
-        $data = "UPDATE dbproj_article SET dislikes = dislikes+1 WHERE articleid='$this->articleID'";
+        $data = "UPDATE dbProj_ARTICLE SET dislikes = dislikes+1 WHERE articleid='$this->articleID'";
         $db->querySql($data);
     }
 }
