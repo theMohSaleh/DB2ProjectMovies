@@ -23,8 +23,8 @@ $lang['NEWS'] = 'News';
 $lang['LOGIN'] = 'Login';
 $lang['EMAIL'] = 'e-mail';
 $lang['CONTACTUS'] = 'Conatct us';
-$lang['MANAGEUSERS'] = 'manage users';
-$lang['MANAGEARTICLES'] = 'manage articles';
+$lang['MANAGEUSERS'] = 'Manage Users';
+$lang['MANAGEARTICLES'] = 'Manage Articles';
 
 
 
