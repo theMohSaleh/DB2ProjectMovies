@@ -81,6 +81,7 @@ $authors = $users->getAllUsersRole(1);
 <br>
 <br>
 
+<h1> <?php echo $lang['ARTICLES']; ?> </h1>    
 <div class = "flex justify-content-between"><h1> Articles </h1>
                 <form id="advancedSearch" name="advancedSearch" action="view_articles.php" method="post">         
                 <select id="author" name="authorID">
@@ -115,16 +116,16 @@ $authors = $users->getAllUsersRole(1);
     //display a table of results
     echo '<table class ="table table-striped table-hover my-5 border rounded rounded-3 overflow-hidden" align="center" cellspacing = "2" cellpadding = "4" width="75%">';
     echo '<tr>
-          <th class = "col">View Article</td>
-          <th class = "col">Edit</td>
-          <th class = "col">Delete</td>
-          <th class = "col">Title</td>
-          <th class = "col">Description</td>
-          <th class = "col">Is Published?</td>
-          <th class = "col">Publish Date</td>
-          <th class = "col">Total Views</td>
-          <th class = "col">Rating</td>
-          <th class = "col">ID of User</td></tr>';
+          <th class = "col">'.$lang['VIEWA'].'</td>
+          <th class = "col">'.$lang['EDIT'].'</td>
+          <th class = "col">'.$lang['DELETE'].'</td>
+          <th class = "col">'.$lang['TITLE'].'</td>
+          <th class = "col">'.$lang['DISC'].'</td>
+          <th class = "col">'.$lang['ISPUB'].'</td>
+          <th class = "col">'.$lang['PUBDATE'].'</td>
+          <th class = "col">'.$lang['TOTALV'].'</td>
+          <th class = "col">'.$lang['RATING'].'</td>
+          <th class = "col">'.$lang['USERID'].'</td></tr>';
 //above is the header
 //loop below adds the user details    
     //use the following to set alternate backgrounds 
@@ -133,9 +134,9 @@ $authors = $users->getAllUsersRole(1);
     for ($i = 0; $i < count($row); $i++) {
         
         echo '<tr>
-            <td style="text-align: center"><a href="view_article.php?artID=' . $row[$i]->articleID . '">View</a></td>
-            <td style="text-align: center"><a href="edit_article.php?id=' . $row[$i]->articleID . '">Edit</a></td>
-            <td style="text-align: center"><a href="delete_article.php?id=' . $row[$i]->articleID . '">Delete</a></td>
+            <td style="text-align: center"><a href="view_article.php?artID=' . $row[$i]->articleID . '">'.$lang['VIEWA'].'</a></td>
+            <td style="text-align: center"><a href="edit_article.php?id=' . $row[$i]->articleID . '">'.$lang['EDIT'].'</a></td>
+            <td style="text-align: center"><a href="delete_article.php?id=' . $row[$i]->articleID . '">'.$lang['DELETE'].'</a></td>
             <td>' . $row[$i]->title . '</td>
             <td>' . $row[$i]->description . '</td>
             <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'Yes':"No").'</td>

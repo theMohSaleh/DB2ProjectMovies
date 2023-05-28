@@ -25,7 +25,36 @@ $lang['EMAIL'] = 'e-mail';
 $lang['CONTACTUS'] = 'Conatct us';
 $lang['MANAGEUSERS'] = 'Manage Users';
 $lang['MANAGEARTICLES'] = 'Manage Articles';
+$lang['REGISTERP'] = 'NEW PROTAL REGISTER';
+$lang['LOGINP'] = 'portal login';
+$lang['LOGINF'] = 'login Form';
+$lang['SEARCH'] = 'Search';
+$lang['SEARCHA'] = 'SHOW ADVANCED SEARCH';
+$lang['SEARCHT'] = 'SEARCH TITLE....';
+$lang['CAT'] = 'Categories';
+$lang['CATS'] = '--Select a Category--';
+$lang['GO'] = 'GO!';
+$lang['AUTHORS'] = '--SELECT AN AUTHOR--';
+$lang['MOSTP'] = 'MOST POPULER';
+$lang['BETWEEND'] = 'BETWEEN DATE';
+$lang['ANDD'] = 'AND DATE';
 
+$lang['VIEWA'] = 'View Article';
+$lang['EDIT'] = 'Edit';
+$lang['DELETE'] = 'Delete';
+$lang['TITLE'] = 'Title';
+$lang['DISC'] = 'Discreption';
+$lang['ISPUB'] = 'Is Published';
+$lang['PUBDATE'] = 'Publish Date';
+$lang['TOTALV'] = 'Total Views';
+$lang['RATING'] = 'Rating';
+$lang['USERID'] = 'USERID';
+$lang['ARTICLES'] = 'ARTICLES';
+
+$lang['USERS'] = 'Users';
+$lang['REGDATE'] = 'Registred date';
+$lang['USERROLE'] = 'User Role';
+$lang['error']='Oh dear. There was an error';
 
 
 

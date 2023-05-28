@@ -48,24 +48,24 @@
 
   <!-- Search Widget -->
   <div class="card mb-4">
-    <h5 class="card-header">Search</h5>
+    <h5 class="card-header"><?php echo $lang['SEARCH']; ?></h5>
     <div class="card-body">
       <form name="search" action="index.php" method="get">
         <div class="input-group">
 
-          <input type="text" name="searchtitle" class="form-control" placeholder="Search title..." value="<?php echo $_GET['searchtitle'] ?>" required>
+          <input type="text" name="searchtitle" class="form-control" placeholder="<?php echo $lang['SEARCHT']; ?>" value="<?php echo $_GET['searchtitle'] ?>" required>
           <span class="input-group-btn">
-            <button class="btn btn-secondary" type="submit">Go!</button>
+            <button class="btn btn-secondary" type="submit"><?php echo $lang['GO']; ?></button>
           </span>
       </form>
     </div>
-          <button class="btn btn-secondary" id="advanceBTN" name="advanceBTN" type="button">Show Advanced Search</button>
+          <button class="btn btn-secondary" id="advanceBTN" name="advanceBTN" type="button"><?php echo $lang['SEARCHA']; ?></button>
           <div class="input-group" id="advanceDiv">
               <form id="advancedSearch" name="advancedSearch" action="index.php" method="post">
                   <hr> 
-                  <input type="text" id="advTitle" name="advTitle" class="form-control" placeholder="Search title..." value="<?php echo $_POST['advTitle'] ?>"> <br>
+                  <input type="text" id="advTitle" name="advTitle" class="form-control" placeholder="<?php echo $lang['SEARCHT']; ?>" value="<?php echo $_POST['advTitle'] ?>"> <br>
                 <select id="author" name="authorID">
-                    <option value="" disabled selected hidden>--Select an Author--</option>
+                    <option value="" disabled selected hidden><?php echo $lang['AUTHORS']; ?></option>
                     <?php 
                     // loop through list of all authors
                         for($i =0; $i < count($authors); $i++){
@@ -81,11 +81,11 @@
                 </select>
                   <br>
                   <input type="checkbox" id="popular" name="popular" <?php if(!empty($_POST['popular'])) echo 'checked' ?>>
-                  <label for="popular"> Most Popular</label><br>
+                  <label for="popular"> <?php echo $lang['MOSTP']; ?></label><br>
                   <span id="dateMsg" style="color:#ff3333;"></span>
-                  <label for="startDate"> Between Date</label><br>
+                  <label for="startDate"> <?php echo $lang['BETWEEND']; ?></label><br>
                   <input type="date" id="startDate" name="startDate" value="<?php echo $_POST['startDate'] ?>"><br>
-                  <label for="endDate"> And Date</label><br>
+                  <label for="endDate"> <?php echo $lang['ANDD']; ?></label><br>
                   <input type="date" id="endDate" name="endDate" value="<?php echo $_POST['endDate'] ?>"><br><br>
                 <button class="btn btn-secondary" name="submitted" type="submit">Go!</button>
                 <button class="btn btn-secondary" style="background-color:#999999" id="clear" type="button">Clear</button>
@@ -96,13 +96,13 @@
 
 <!-- Categories Widget -->
 <div class="card my-4">
-  <h5 class="card-header">Categories</h5>
+  <h5 class="card-header"><?php echo $lang['CAT']; ?></h5>
   <div class="card-body">
     <div class="row">
       <div class="flex justify-content-between">
             <form name="category" action="index.php" method="get">
                 <select id="category" name="catID">
-                    <option value="" disabled selected hidden>--Select a Category--</option>
+                    <option value="" disabled selected hidden><?php echo $lang['CATS']; ?></option>
                     <?php 
                     // loop through list of all categories
                         for($i =0; $i < count($categories); $i++){
@@ -116,7 +116,7 @@
                         }
                     ?>
                 </select>
-                <button class="btn btn-secondary" type="submit">Go!</button>
+                <button class="btn btn-secondary" type="submit"><?php echo $lang['GO']; ?></button>
             </form>
       </div>
 
