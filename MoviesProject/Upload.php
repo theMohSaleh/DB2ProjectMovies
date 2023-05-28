@@ -18,8 +18,6 @@ class Upload {
         $this->fileType = '';
     }
     
-    
-
     function setFilepath($file) {
         $this->filepath = $file;
     }

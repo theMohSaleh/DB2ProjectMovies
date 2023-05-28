@@ -131,7 +131,7 @@
               <button class="btn"><a href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a></button>
           </div>
           
-          if(ceil(count($articles)/$increment))
+          if(ceil(count($totalDispalyed)/$increment)){}
 
         </div>
 
