@@ -78,7 +78,11 @@ class Articles {
     public function getCatID() {
         return $this->catID;
     }
-
+    
+    public function setArticleID($articleID) {
+        $this->articleID = $articleID;
+    }
+    
     public function setTitle($title) {
         $this->title = $title;
     }
@@ -157,28 +161,40 @@ class Articles {
     // method to add a new article
     function addArticle($userID) {
         try {
-            $userID = (int)$userID;
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_ARTICLE (userID) VALUES ($userID)");
+            $db->querySql("INSERT INTO dbProj_ARTICLE (title, description, content, publishDate, isPublished, userID, catID) VALUES ('$this->title', '$this->description',"
+                    . "'$this->content', '$this->publishDate', '$this->isPublished', '$userID', '$this->catID');");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
             return false;
+            
         }
     }
 
     // method to update the database with edited details
     function updateDB() {
         $db = Database::getInstance();
-        $data = "UPDATE dbProj_ARTICLE SET
+        $q = "UPDATE dbProj_ARTICLE SET
 			title = \"$this->title\",
 			description = \"$this->description\",
                         content = \"$this->content\",
-			publishDate = '$this->publishDate',
 			isPublished = $this->isPublished,
 			catID = $this->catID
 			WHERE articleID = $this->articleID";
-        $db->querySql($data);
+        $db->querySql($q);
+        return $q;
+    }
+    
+    // method to set article publish date in database
+    function publishArticle() {
+        $db = Database::getInstance();
+        $date = date("Y-m-d H:i:s"); // get current date and time
+        $q = "UPDATE dbProj_ARTICLE SET
+			publishDate = \"$date\"
+			WHERE articleID = $this->articleID";
+        $db->querySql($q);
+        return $data;
     }
 
     // method to return all articles (for admin use)

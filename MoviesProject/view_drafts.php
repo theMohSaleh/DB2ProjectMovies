@@ -53,8 +53,8 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
     for ($i = 0; $i < count($row); $i++) {
         
         echo '<tr>
-            <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'<a href="view_article.php?id=' . $row[$i]->articleID . '">'.$lang['VIEWA'].'':"Not Published.").'</a></td>
-            <td style="text-align: center">'.(($row[$i]->isPublished=='0')?'<a href="add_article.php?id=' . $row[$i]->articleID . '">'.$lang['EDIT'].'':"Cannot Edit Published Article.").'</a></td>
+            <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'<a href="view_article.php?id=' . $row[$i]->articleID . '">'.$lang['VIEWA'].'</a>':"Not Published.").'</td>
+            <td style="text-align: center">'.(($row[$i]->isPublished=='0')?'<a href="add_article.php?id=' . $row[$i]->articleID . '">'.$lang['EDIT'].'</a>':"Cannot Edit Published Article.").'</td>
             <td>' . $row[$i]->title . '</td>
             <td>' . $row[$i]->description . '</td>
             <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'Yes':"No").'</td>

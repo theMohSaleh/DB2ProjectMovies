@@ -54,15 +54,16 @@ if (isset($_POST['save'])) {
     $article->setIsPublished(0);
     $article->setCatID($_POST['category']);
     
-    // check if article is edit
+    // check if article is not an edit
     if ($_GET['id'] == null) {
-    // create new article
-    $article->addArticle($_SESSION['userID']);
-    }
+        // create new article
+        $article->addArticle($_SESSION['userID']);
+    } else {
     
     if (empty($errors)) {
         //update the user 
-        $article->updateDB();
+        $q = $article->updateDB();
+        echo $q;
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
@@ -77,7 +78,7 @@ if (isset($_POST['save'])) {
             }
             echo '</p></div>';
         }
-    
+    }
 } else if (isset($_POST['publish'])) {
     //delete action
 
