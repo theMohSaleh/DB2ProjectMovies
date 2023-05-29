@@ -24,16 +24,16 @@
 
     <!-- The Navigation Menu -->
    <?php include 'header.php';
-   $increment = 10;
+   
    $current = 0;
+   $increment = 10;
+   $articleObj = new Articles();
+   $count = $articleObj->getPublishedArticlesCount();
+   $maxPage = $count/$increment;
    
    if(isset($_GET['pageno'])){
-    
+       
     $current = (int) $_GET['pageno'];
-    $articleObj = new Articles();
-    $count = $articleObj->getPublishedArticlesCount();
-    
-    $maxPage = $count/$increment;
     
     if($current < 0){
         echo "<script>window.top.location='index.php'</script>";
@@ -43,7 +43,7 @@
         echo "<script>window.top.location='index.php?'</script>";
     }
     
-    if($current > ceil($maxPage)){
+    if($current > floor($maxPage)){
         echo '<script>window.top.location="index.php?pageno='.ceil($maxPage).'"</script>';
     }
     
@@ -107,12 +107,19 @@
           <?php 
           
           if(!empty($articles)){
+              
               for($i =0; $i < count($articles); $i++){  
+                $id = $articles[$i]->articleID;
+                
                 $catObj = new Categories();
                 $catObj->initWithCatID($articles[$i]->catID);
-            
+                
+                $filesObj = new Files();
+                $filesObj->getArticleFiles($id);
+                $firstImagePath = $filesObj->getFirstArticleImage($id);
+                
             echo '<div class="card mb-4">
-            <img class="card-img-left" src="images/heat.png">
+            <img class="card-img-left" src='.$firstImagePath.'>
             
             <div class="card-body">
             <!--category-->
@@ -143,9 +150,10 @@
           
           <!-- Pagination Section for later -->
           <div>
-              <a class="btn btn-outline-dark <?php if($current == 0) echo 'disabled'?>" role ="button" href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a>
-              <a class="btn btn-outline-dark <?php if($current == ceil($maxPage)) echo 'disabled'?>" role ="button"href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a>
+              <a class="btn btn-outline-dark <?php if($current == 0) echo 'disabled' ?>" role ="button" href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a>
+              <a class="btn btn-outline-dark <?php if($current == floor($maxPage)) echo 'disabled'?>" role ="button"href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a>
           </div>
+          <?php echo $current . ' ' . $maxPage; ?>
         </div>
 
         <!-- Sidebar Widgets Column -->

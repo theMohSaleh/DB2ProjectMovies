@@ -104,7 +104,21 @@ class Files {
 
     function getArticleFiles($articleID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from dbProj_FILES where articleID=' . $this->articleID);
+        $data = $db->multiFetch('Select * from dbProj_FILES where articleID=' . $articleID);
         return $data;
+    }
+    
+    function getFirstArticleImage($articleID){
+        $filePath = "images/image-not-available.png";
+        $imageTypes = array('image/jpeg', 'image/png', 'image/gif', 'image/tiff');
+        $files = $this->getArticleFiles($articleID);
+        $filePath = $files[0]->fileLocation;
+        for($i = 0; $i < count($files); $i++){
+            if(in_array($files[$i]->fileType,$imageTypes)){
+                $filePath = $files[$i]->fileLocation;
+                return $filePath;
+            }
+        }
+        return $filePath;
     }
 }

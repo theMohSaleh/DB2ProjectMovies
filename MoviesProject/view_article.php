@@ -17,6 +17,9 @@ $author->initWithUid($uid);
 $category = new Categories();
 $category->initWithCatID($article->getCatID());
 
+$filesObj = new Files();
+$files = $filesObj->getArticleFiles($id);
+
 $commentObj = new Comments();
 $comments = $commentObj->getAllCommentsForArticle($id);
 
@@ -96,16 +99,14 @@ if (isset($_POST['dislike'])) {
                             <button type="button" data-bs-target="#mediaCarousel" data-bs-slide-to="1"></button>
                             <button type="button" data-bs-target="#mediaCarousel" data-bs-slide-to="2"></button>
                         </div>
+                        
                         <div class="carousel-inner ratio ratio-4x3 w-100 ">
-                            <div class="carousel-item active">
-                                <img class = "img-fluid border rounded" src="images/heat.png" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img class = "img-fluid border rounded" src="images/heat.png" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img class = "img-fluid border rounded" src="images/IntNews1.jpg" class="d-block w-100" alt="...">
-                            </div>
+                        <?php for($i = 0; $i < count($files); $i++){
+                            echo '<div class="carousel-item active">
+                                <img class = "img-fluid border rounded" src='.$files[$i]->fileLocation.' class="d-block w-100" alt="...">
+                            </div>';
+                            } 
+                        ?>    
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#mediaCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

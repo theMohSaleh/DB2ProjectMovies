@@ -81,8 +81,9 @@ $authors = $users->getAllUsersRole(1);
 <br>
 <br>
 
-<h1> <?php echo $lang['ARTICLES']; ?> </h1>    
-<div class = "flex justify-content-between"><h1> Articles </h1>
+    
+<div class = "flex justify-content-between">
+                <h1> <?php echo $lang['ARTICLES']; ?> </h1>
                 <form id="advancedSearch" name="advancedSearch" action="view_articles.php" method="post">         
                 <select id="author" name="authorID">
                     <option value="" disabled selected hidden>--Select an Author--</option>
