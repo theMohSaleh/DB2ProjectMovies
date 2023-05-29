@@ -162,8 +162,8 @@ class Articles {
     function addArticle($userID) {
         try {
             $db = Database::getInstance();
-            $db->querySql("INSERT INTO dbProj_ARTICLE (title, description, content, publishDate, isPublished, userID, catID) VALUES ('$this->title', '$this->description',"
-                    . "'$this->content', '$this->publishDate', '$this->isPublished', '$userID', '$this->catID');");
+            $db->querySql("INSERT INTO dbProj_ARTICLE (title, description, content, isPublished, userID, catID) VALUES ('$this->title', '$this->description',"
+                    . "'$this->content', $this->isPublished, $userID, $this->catID);");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -183,7 +183,6 @@ class Articles {
 			catID = $this->catID
 			WHERE articleID = $this->articleID";
         $db->querySql($q);
-        return $q;
     }
     
     // method to set article publish date in database
@@ -194,7 +193,7 @@ class Articles {
 			publishDate = \"$date\"
 			WHERE articleID = $this->articleID";
         $db->querySql($q);
-        return $data;
+        return $q;
     }
 
     // method to return all articles (for admin use)

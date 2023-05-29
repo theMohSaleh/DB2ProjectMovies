@@ -19,7 +19,7 @@ class Categories {
     }
 
     public function getCatName() {
-        return $this-catName;
+        return $this->catName;
     }
 
     public function setCatName($catName): void {

@@ -21,9 +21,6 @@ if (empty($_SESSION['userID'])) {
 }
 
 
-
-$page_title = 'Delete User';
-
 include 'header.html';
 
 $id = 0;

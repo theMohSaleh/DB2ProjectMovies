@@ -48,8 +48,8 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
     for ($i = 0; $i < count($row); $i++) {
         
         echo '<tr>
-            <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'<a href="view_article.php?id=' . $row[$i]->articleID . '">'.$lang['VIEWA'].'</a>':"Not Published.").'</td>
-            <td style="text-align: center">'.(($row[$i]->isPublished=='0')?'<a href="add_article.php?id=' . $row[$i]->articleID . '">'.$lang['EDIT'].'</a>':"Cannot Edit Published Article.").'</td>
+            <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'<a href="view_article.php?artID=' . $row[$i]->articleID . '">'.$lang['VIEWA'].'</a>':"Not Published.").'</td>
+            <td style="text-align: center">'.(($row[$i]->isPublished=='0')?'<a href="add_article.php?artID=' . $row[$i]->articleID . '">'.$lang['EDIT'].'</a>':"Cannot Edit Published Article.").'</td>
             <td>' . $row[$i]->title . '</td>
             <td>' . $row[$i]->description . '</td>
             <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'Yes':"No").'</td>
@@ -68,4 +68,5 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
 
 <a href="add_article.php"><input class = "btn btn-primary" type="submit" class ="DB4Button" name="submit" value="Create new Article" /><br><br><a/>
 </div>
+<?php $date = date("Y-m-d H:i:s"); echo $date;?>
 <?php include 'footer.html';?>

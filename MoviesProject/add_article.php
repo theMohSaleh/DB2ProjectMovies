@@ -13,22 +13,27 @@ session_start();
 
 
 <?php
+$article = new Articles();
+$id = 0;
+
 
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
     header('Location: index.php');
     die();
 }
-$id = null;
+
 include 'header.html';
-$article = new Articles();
+
 // check if current user is admin or author
-if ($_SESSION['roleID'] == '0' || $_SESSION['roleID'] = '1') {
+if ($_SESSION['roleID'] == '0' || $_SESSION['roleID'] == '1') {
     // check if article is draft or a completely new article
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+    if (isset($_GET['artID'])) {
+        $id = $_GET['artID'];
+        $_SESSION['artID'] = $id;
             // create article object and pass ID to get related article information
-            $article->initWithArticleid($id);
+            $article->initWithArticleid($_SESSION['artID']);
+            echo $article->getArticleID();
             // check if current user is not the writer of the article
             if ($article->getUserID() != $_SESSION['userID']) {
                 // redirect to home page
@@ -47,26 +52,29 @@ $categories = $categoryObj->getAllCategories();
 //perfrom the following if the user has submitted the form 
 if (isset($_POST['save'])) {
     //save action
+    $article->initWithArticleid($_SESSION['artID']);
     //populate the user object member variables from values on the form
     $article->setTitle($_POST['title']);
     $article->setDescription($_POST['desc']);
     $article->setContent($_POST['content']);
+    $article->setPublishDate(null);
     $article->setIsPublished(0);
     $article->setCatID($_POST['category']);
-    
     // check if article is not an edit
-    if ($_GET['id'] == null) {
+    if ($_SESSION['artID'] == "") {
         // create new article
         $article->addArticle($_SESSION['userID']);
+        $_SESSION['artID'] = "";
+        header('Location: view_drafts.php');
     } else {
     
     if (empty($errors)) {
         //update the user 
-        $q = $article->updateDB();
-        echo $q;
+        $article->updateDB();
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
+        $_SESSION['artID'] = "";
         echo '<p>You will be redirected shortly...</p>';
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
@@ -80,22 +88,37 @@ if (isset($_POST['save'])) {
         }
     }
 } else if (isset($_POST['publish'])) {
-    //delete action
-
-
+    //publish action
+    $article->initWithArticleid($_SESSION['artID']);
     //populate the user object member variables from values on the form
     $article->setTitle($_POST['title']);
     $article->setDescription($_POST['desc']);
     $article->setContent($_POST['content']);
     $article->setIsPublished(1);
     $article->setCatID($_POST['category']);
+    // check if article is not an edit
+    if ($_SESSION['artID'] == "") {
+        // create new article
+        $newArtID = $article->addArticle($_SESSION['userID']);
+        $_SESSION['artID'] = $newArtID->articleID;
+        $q = $article->publishArticle($_SESSION['artID']);
+        echo $q;
+        echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
+        $_SESSION['artID'] = "";
+        echo '<p>You will be redirected shortly...</p>';
+        echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
+        return true;
+    } else {
     
     if (empty($errors)) {
         //update the user 
-        $q = $article->updateDB();
+        $article->updateDB();
+        $article->publishArticle($_SESSION['artID']);
+        echo 'mmmmmmmmmm';
+        $_SESSION['artID'] = "";
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
-        echo '<h2> Successful! </h2><p>Article: '.$article->getTitle().' has been published.</p>';
+        echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
         echo '<p>You will be redirected shortly...</p>';
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
@@ -107,6 +130,7 @@ if (isset($_POST['save'])) {
             }
             echo '</p></div>';
         }
+    }
 } else if (isset($_POST['delete'])) {
     $article->deleteArticle($_SESSION['userID']);
     header('Location: view_drafts.php');
