@@ -25,15 +25,33 @@
     <!-- The Navigation Menu -->
    <?php include 'header.php';
    $increment = 10;
+   $current = 0;
    
    if(isset($_GET['pageno'])){
+    
     $current = (int) $_GET['pageno'];
+    $articleObj = new Articles();
+    $count = $articleObj->getPublishedArticlesCount();
+    
+    $maxPage = $count/$increment;
+    
+    if($current < 0){
+        echo "<script>window.top.location='index.php'</script>";
+    }
+    
+    if($maxPage < 1 and $maxPage > 0){
+        echo "<script>window.top.location='index.php?'</script>";
+    }
+    
+    if($current > ceil($maxPage)){
+        echo '<script>window.top.location="index.php?pageno='.ceil($maxPage).'"</script>';
+    }
+    
     $start = $current * $increment;
     echo $start;
-    echo "HELLO";
    }else{
         $start = 0;
-    } 
+    }
    ?>
 
     
@@ -58,8 +76,6 @@
         $search = trim($_GET['searchtitle']);
         $articles = $articlesObj->ShowArticles($search);
         }
-
-        
         
     // if form is subbmited
     if (isset($_POST['submitted'])) {
@@ -92,8 +108,8 @@
           
           if(!empty($articles)){
               for($i =0; $i < count($articles); $i++){  
-            $catObj = new Categories();
-            $catObj->initWithCatID($articles[$i]->catID);
+                $catObj = new Categories();
+                $catObj->initWithCatID($articles[$i]->catID);
             
             echo '<div class="card mb-4">
             <img class="card-img-left" src="images/heat.png">
@@ -127,12 +143,9 @@
           
           <!-- Pagination Section for later -->
           <div>
-              <button class="btn"><a href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a></button>
-              <button class="btn"><a href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a></button>
+              <a class="btn btn-outline-dark <?php if($current == 0) echo 'disabled'?>" role ="button" href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a>
+              <a class="btn btn-outline-dark <?php if($current == ceil($maxPage)) echo 'disabled'?>" role ="button"href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a>
           </div>
-          
-          if(ceil(count($totalDispalyed)/$increment)){}
-
         </div>
 
         <!-- Sidebar Widgets Column -->

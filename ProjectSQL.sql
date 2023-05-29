@@ -50,9 +50,9 @@ CREATE OR REPLACE TABLE `dbProj_COMMENT` (
 
 CREATE OR REPLACE TABLE `dbProj_FILES`(
     `fileID` int(11) NOT NULL AUTO_INCREMENT,
-    `fileName` int(11) NOT NULL,
-    `fileType` varchar(30),
-    `fileLocation` varchar(30),
+    `fileName` varchar(50) NOT NULL,
+    `fileType` varchar(50),
+    `fileLocation` varchar(50),
     `articleID` int NOT NULL,
     PRIMARY KEY (`fileID`),
     FOREIGN KEY (`articleID`) REFERENCES `dbProj_ARTICLE`(`articleID`)

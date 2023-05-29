@@ -204,6 +204,14 @@ class Articles {
         return $data;
     }
     
+    function getPublishedArticlesCount() {
+        $db = Database::getInstance();
+        $q = "SELECT * FROM dbProj_ARTICLE WHERE isPublished = 1";
+        $data = $db->multiFetch($q);
+        $count = count($data);
+        return $count;
+    }
+    
     // method to display published articles
     function getAllPublishedArticles($start,$end) {
         $db = Database::getInstance();

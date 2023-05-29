@@ -54,10 +54,11 @@ class Files {
     }
 
     
+    
     function deleteFile() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql("Delete from dbProj_FILE where fileID=' . $this->fileID" );
+            $data = $db->querySql("Delete from dbProj_FILES where fileID= $this->fileID " );
             unlink($this->fileLocation);
             return true;
         } catch (Exception $e) {
@@ -68,14 +69,14 @@ class Files {
 
     function initWithFileID($fileID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch("SELECT * FROM dbProj_FILE WHERE fileID = ' . $fileID");
+        $data = $db->singleFetch("SELECT * FROM dbProj_FILES WHERE fileID = ' . $fileID");
         $this->initWith($data->fileID, $data->fileName, $data->fileLocation, $data->articleID);
     }
 
     function addFile() {
         try {
             $db = Database::getInstance();
-            $data = $db->querySql("INSERT INTO dbProj_FILE (fileID, fileName, fileLocation, fileType, articleID) VALUES (NULL, $this->fileName, $this->fileLocation, $this->fileType, $this->articleID )");
+            $data = $db->querySql("INSERT INTO dbProj_FILES (fileID, fileName, fileType, fileLocation, articleID) VALUES (NULL, \" $this->fileName \" , \" $this->fileType \", \" $this->fileLocation \", $this->articleID )");
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;
@@ -86,7 +87,7 @@ class Files {
     function updateDB() {
 
         $db = Database::getInstance();
-        $data = 'UPDATE dbProj_FILE set
+        $data = 'UPDATE dbProj_FILES set
 			fileName= \'' . $this->fileName . '\' ,
 			fileType= \'' . $this->fileType . '\' ,
 			fileLocation = \'' . $this->fileLocation . '\' ,
@@ -97,13 +98,13 @@ class Files {
 
     function getAllFiles() {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from dbProj_FILE');
+        $data = $db->multiFetch('Select * from dbProj_FILES');
         return $data;
     }
 
     function getArticleFiles($articleID) {
         $db = Database::getInstance();
-        $data = $db->multiFetch('Select * from dbProj_FILE where articleID=' . $this->articleID);
+        $data = $db->multiFetch('Select * from dbProj_FILES where articleID=' . $this->articleID);
         return $data;
     }
 }

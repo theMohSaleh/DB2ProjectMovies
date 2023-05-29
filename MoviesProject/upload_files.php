@@ -1,13 +1,39 @@
 <?php include 'header.php';?>
 
 <?php
-if (isset($_POST['submitted'])) {
-    $imageName = $_FILES["image"]["tmp_name"];
-    echo $imageName;
+
+ini_set('upload_tmp_dir', sys_get_temp_dir());
+
+if (isset($_SESSION["userID"])){
     
-    $imageDest = 'images//'.$_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], $imageDest);
+    if (isset($_POST['submitted'])) {
+
+    if (!empty($_FILES)) {
+        $upload = new Upload();
+        $upload->setUploadDir('images/');
+        $msg = $upload->upload('image');
+
+        if (empty($msg)) {
+            $file = new Files();
+            
+            $file->setFileName($upload->getFilepath());
+            
+            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+            
+            $file->setFileType($upload->getFileType());
+            
+            $file->setArticleID(1);
+            
+            $file->addFile();
+        }else    print_r ($msg);
+    }
+    else
+        echo '<p> try again';
+    }
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +48,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>
-        <?php
-        echo '<h1> Upload Files </h1>';
-
-        echo '<div><form action="upload_files.php" method="post" enctype="multipart/form-data">
-           <p><h1>Upload From</h1> 
+        
+        <div class = "container">
+            <h1> Upload Files </h1>
+            <form action="upload_files.php" method="post" enctype="multipart/form-data">
+           <p><h1>Upload Form</h1> 
         <p>
            <p>File   <input type="file" name="image" /></p>
         </p>
         <p><input type="submit" name="submit" value="Upload" /></p>
         
          <input type ="hidden" name="submitted" value="TRUE">
-         </form></div>';
-        ?>
+         </form>
+        </div>
+        
     </body>
 </html>

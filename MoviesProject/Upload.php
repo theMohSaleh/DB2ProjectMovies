@@ -11,17 +11,18 @@ class Upload {
 
     function __construct() {
         $this->upload_dir = '';
-        $this->max_file_size = 1048576; //Max File Size in Bytes, 1MB
+        $this->max_file_size = 10 * 1048576; //Max File Size in Bytes, 1MB
         $this->allowed_mime_types = array('text/plain', 'text/html', 'image/jpeg', 'image/png', 'image/gif', 'image/tiff', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel');
         $this->denied_mime_types = array('application/x-php', 'application/x-javascript', 'application/zip');
         $this->filepath = '';
         $this->fileType = '';
     }
     
+    
     function setFilepath($file) {
         $this->filepath = $file;
     }
-
+    
     function getFilepath() {
         return $this->filepath;
     }
@@ -135,7 +136,7 @@ class Upload {
             elseif (in_array($files['type'], $this->denied_mime_types))
                 $error[] = $files['name'] . ' is a denied type';
 
-            elseif (!move_uploaded_file($files['tmp_name'], __DIR__. $this->getUploadDir() . $files['name']))
+            elseif (!move_uploaded_file($files['tmp_name'], $this->getUploadDir() . $files['name']))
                 $error[] = $files['name'] . ' could not be uploaded';
             else
                 $this->setFilepath($files['name']);

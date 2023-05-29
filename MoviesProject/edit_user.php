@@ -99,29 +99,30 @@ echo '<h1>Edit User</h1>';
 //create a new user data object and populate it using the get() method
 //this will show the form with the fields already populated with values from the $user object created above 
 //see the CSS file to see what effect the id="stylized" properties have on the form 
-echo '<div id="stylized" class="myform"> 
+echo '<div id="stylized" class="container"> 
          <form action="edit_user.php" method="post">
+        <br />
         <br />
         <h3>Edit User: ' . $user->getUserName() . '</h3>
         <br />
-            <label>Username</label>    <input type="text" name="userName" value="' . $user->getUserName() . '" /><br><br>
-            <label>First Name</label> <input type="text" name="FName" value="' . $user->getFirstName() . '"/><br><br>
-            <label>Last Name</label> <input type="text" name="LName" value="' . $user->getLastName() . '"/><br><br>
-            <label>Date of Birth</label> <input type="date" name="DOB" value="' . $user->getDOB() . '"/><br><br>
-            <label>Registered Date</label> <input type="date" name="RegDate" value="' . $user->getRegDate() . '" readonly/><br><br>
-                <label for="roleID">User Role</label>
-                <select id="roleID" name="roleID">
+            <label class = "form-label">Username</label>    <input class="form-control" type="text" name="userName" value="' . $user->getUserName() . '" /><br><br>
+            <label class = "form-label">First Name</label> <input class="form-control"type="text" name="FName" value="' . $user->getFirstName() . '"/><br><br>
+            <label class = "form-label">Last Name</label> <input class="form-control" type="text" name="LName" value="' . $user->getLastName() . '"/><br><br>
+            <label class ="form-label">Date of Birth</label> <input class="form-control" type="date" name="DOB" value="' . $user->getDOB() . '"/><br><br>
+                <label class = "form-label" for="roleID">User Role</label>
+                <select class "form-control" id="roleID" name="roleID">
                     <option value="0"'.(($user->getRoleID()=='0')?'selected="selected"':"").'>Administrator</option> 
                     <option value="1"'.(($user->getRoleID()=='1')?'selected="selected"':"").'>Author</option> 
                     <option value="2"'.(($user->getRoleID()=='2')?'selected="selected"':"").'>Viewer</option> 
                 </select><br><br>
-                <input type="submit" class ="DB4Button" onclick="redirect()" name="submit" value="Update" />
+                <input type="submit" class ="btn btn-primary" onclick="redirect()" name="submit" value="Update" />
         
         <input type ="hidden" name="submitted" value="TRUE">
         <input type ="hidden" name="id" value="' . $id . '"/>
         </form>
-        <a href="view_users.php"><input type="button" value="Return to Users" /></a>
         <div class="spacer"></div>
+        <br />
+        <br />
         </div>';
 
 

@@ -1,7 +1,7 @@
 <?php
-
 ini_set('show_errors', 'On');
 ini_set('display_errors', 1);
+ini_set('upload_tmp_dir', sys_get_temp_dir());
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 session_start();
@@ -12,6 +12,7 @@ spl_autoload_register(
             include $class_name . '.php';             
         }
 );
+
 include 'langSet.php';
 ?>
 
