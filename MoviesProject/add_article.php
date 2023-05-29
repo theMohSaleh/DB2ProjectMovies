@@ -64,6 +64,32 @@ if (isset($_POST['save'])) {
     if ($_SESSION['artID'] == "") {
         // create new article
         $article->addArticle($_SESSION['userID']);
+        
+        if (!empty($_FILES)) {
+        $upload = new Upload();
+        $upload->setUploadDir('images/');
+        $msg = $upload->upload('image');
+
+        if (empty($msg)) {
+            $file = new Files();
+            
+            $file->setFileName($upload->getFilepath());
+            
+            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+            
+            $file->setFileType($upload->getFileType());
+            
+            $file->setArticleID(1);
+            
+            $file->addFile();
+        } else {
+            print_r ($msg);
+        }
+    }
+    else {
+        echo '<p> try again';
+    }
+        
         $_SESSION['artID'] = "";
         header('Location: view_drafts.php');
     } else {
@@ -71,6 +97,31 @@ if (isset($_POST['save'])) {
     if (empty($errors)) {
         //update the user 
         $article->updateDB();
+        
+        if (!empty($_FILES)) {
+        $upload = new Upload();
+        $upload->setUploadDir('images/');
+        $msg = $upload->upload('image');
+
+        if (empty($msg)) {
+            $file = new Files();
+            
+            $file->setFileName($upload->getFilepath());
+            
+            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+            
+            $file->setFileType($upload->getFileType());
+            
+            $file->setArticleID(1);
+            
+            $file->addFile();
+        } else {
+            print_r ($msg);
+        }
+    }
+    else {
+        echo '<p> try again';
+    }
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
@@ -101,20 +152,73 @@ if (isset($_POST['save'])) {
         // create new article
         $newArtID = $article->addArticle($_SESSION['userID']);
         $_SESSION['artID'] = $newArtID->articleID;
-        $q = $article->publishArticle($_SESSION['artID']);
-        echo $q;
+        $article->publishArticle($_SESSION['artID']);
+        
+        if (!empty($_FILES)) {
+        $upload = new Upload();
+        $upload->setUploadDir('images/');
+        $msg = $upload->upload('image');
+
+        if (empty($msg)) {
+            $file = new Files();
+            
+            $file->setFileName($upload->getFilepath());
+            
+            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+            
+            $file->setFileType($upload->getFileType());
+            
+            $file->setArticleID(1);
+            
+            $file->addFile();
+        } else {
+            print_r ($msg);
+        }
+    }
+    else {
+        echo '<p> try again';
+    }
+    
+        
         echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
         $_SESSION['artID'] = "";
         echo '<p>You will be redirected shortly...</p>';
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
+        
+        
     } else {
     
     if (empty($errors)) {
         //update the user 
         $article->updateDB();
         $article->publishArticle($_SESSION['artID']);
-        echo 'mmmmmmmmmm';
+        
+        if (!empty($_FILES)) {
+        $upload = new Upload();
+        $upload->setUploadDir('images/');
+        $msg = $upload->upload('image');
+
+        if (empty($msg)) {
+            $file = new Files();
+            
+            $file->setFileName($upload->getFilepath());
+            
+            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+            
+            $file->setFileType($upload->getFileType());
+            
+            $file->setArticleID(1);
+            
+            $file->addFile();
+        } else {
+            print_r ($msg);
+        }
+    }
+    else {
+        echo '<p> try again';
+    }
+        
         $_SESSION['artID'] = "";
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
@@ -165,6 +269,16 @@ echo '<div class ="container" id="stylized" class="myform">
                                 echo '<option value="'.$categories[$i]->catID.'">'.$categories[$i]->catName.'</option>'; // insert category in dropdown list
                             }
                         }
+                        echo '<div class = "container">
+            
+             
+        
+           <p>File   <input type="file" name="image" /></p>
+        </p>
+        
+         <input type ="hidden" name="submitted" value="TRUE">
+         
+        </div>';
                 echo '</select><br><br>
                 <input class = "btn btn-primary" type="submit" class ="DB4Button" name="publish" value="Publish" />
                 <input class = "btn btn-primary" type="submit" class ="DB4Button" name="save" value="Save" />
@@ -175,10 +289,6 @@ echo '<div class ="container" id="stylized" class="myform">
         </form>
         <div class="spacer"></div>
         </div>';
-
-
-
-
 
 include 'footer.html';
 ?>

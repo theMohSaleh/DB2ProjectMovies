@@ -61,12 +61,11 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
     echo '</table>';
 } else {
     echo '<p class="error">' . $q . '</p>';
-    echo '<p class="error"> Oh dear. There was an error</p>';
+    echo '<p class="error"> Your articles will be displayed here.</p>';
     echo '<p class="error">' . mysqli_error($dbc) . '</p>';
 }
 ?>
 
 <a href="add_article.php"><input class = "btn btn-primary" type="submit" class ="DB4Button" name="submit" value="Create new Article" /><br><br><a/>
 </div>
-<?php $date = date("Y-m-d H:i:s"); echo $date;?>
 <?php include 'footer.html';?>

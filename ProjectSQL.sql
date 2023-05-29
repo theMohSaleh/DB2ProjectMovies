@@ -273,7 +273,7 @@ INSERT INTO `dbProj_FILES` (`fileID`, `fileName`, `fileType`, `fileLocation`, `a
 (NULL, ' 8229923_SportArtNews2.jpg ', ' image/jpeg ', ' images/8229923_SportArtNews2.jpg ', 8),
 (NULL, ' 8467630_SportArtNews3.jpeg ', ' image/jpeg ', ' images/8467630_SportArtNews3.jpeg ', 9),
 (NULL, ' 3708504_WeatherNews1.jpg ', ' image/jpeg ', ' images/3708504_WeatherNews1.jpg ', 10),
-(NULL, ' 5811063_WeatherNews2.jpeg ', ' image/jpeg ', ' images/5811063_WeatherNews2.jpeg ', 11);
+(NULL, ' 5811063_WeatherNews2.jpeg ', ' image/jpeg ', ' images/5811063_WeatherNews2.jpeg ', 11),
 (NULL, ' 2615674_WeatherNews3.jpg ', ' image/jpeg ', ' images/2615674_WeatherNews3.jpg ', 12),
 (NULL, ' 2472375_AdSection1.jpg ', ' image/jpeg ', ' images/2472375_AdSection1.jpg ', 13),
 (NULL, ' 6151845_AdSection2.jpg ', ' image/jpeg ', ' images/6151845_AdSection2.jpg ', 14),
