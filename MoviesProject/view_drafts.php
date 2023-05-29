@@ -15,15 +15,10 @@ if (empty($_SESSION['userID'])) {
     die();
 }
 
-
-
 $articles = new Articles();
 $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
 
     ?>
-
-
-
 <div class ="container">
 <br>
 <br>

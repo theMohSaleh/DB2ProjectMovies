@@ -1,5 +1,6 @@
 <?php
 
+
 $currLang = "en";
 
 if (!isset($_SESSION['lang'])) {
