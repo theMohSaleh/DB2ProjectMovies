@@ -32,6 +32,24 @@ if (isset($_POST['like'])) {
 if (isset($_POST['dislike'])) {
     $article->dislike();
 }
+
+if (isset($_POST['commentPosted'])) {
+    $commentObj = new Comments();
+    $commentObj->setArticleID($id);
+    $commentObj->setCommentText($_POST['comment']);
+    $commentObj->setUserID($_SESSION['userID']);
+    $commentObj->setCreationDate(date('Y-m-d'));
+    
+    $idTest = $id;
+    $textTest = ($_POST['comment']);
+    $userIDTest = ($_SESSION['userID']);
+
+    if ($commentObj->addComment()) {
+        echo "<script>alert('Comment added');</script>";
+    } else {
+        echo "<script>alert('Error');</script>";
+    }
+}
 ?>    
 <!DOCTYPE html>
 <html lang="en">
@@ -128,17 +146,31 @@ if (isset($_POST['dislike'])) {
             <!---Comment Section --->
             <div class="row">
                 <div class="col-md-8">
-                    <div class="card">
-                        <h5 class="card-header">Leave a Comment:</h5>
+                    <?php
+            if ($_SESSION['userName'] == "") {
+                echo '<div class="card">
+                        <h5 class="card-header">Login to comment</h5>
                         <div class="card-body">
-                            <form action='add_comment.php?<?php echo $id ?>' name="Comment" method="post">
+                            <form name="Comment" method="post">
                                 <div class="form-group">
-                                    <textarea class="form-control" style="resize: none" name="comment" rows="3" placeholder="Comment" required></textarea>
-                                    <button type="submit" class="btn btn-primary my-2" name="submit">Submit</button>
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div>';
+            } else {
+                echo '<div class="card">
+                        <h5 class="card-header">Leave a Comment:</h5>
+                        <div class="card-body">
+                            <form name="Comment" method="post">
+                                <div class="form-group">
+                                    <textarea class="form-control" style="resize: none" name="comment" rows="3" placeholder="Comment" required></textarea>
+                                    <button type="submit" class="btn btn-primary my-2" name="commentPosted">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>';
+            }
+            ?>
 
                     <!---Comment Display Section --->
                     <?php
@@ -146,7 +178,8 @@ if (isset($_POST['dislike'])) {
                         $commentUserID = $comments[$i]->userID;
                         $commentUser = new Users();
                         $commentUser->initWithUid($commentUserID);
-                        echo '<div class="card mb-3 my-2">
+                        if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '0') {
+                            echo '<div class="card mb-3 my-2">
                     <div class="card-body">
                       <div class="d-flex flex-start">
                         <div class="w-100">
@@ -166,6 +199,25 @@ if (isset($_POST['dislike'])) {
                     </div>
                 </div>
             </div>';
+                        } else {
+                            echo '<div class="card mb-3 my-2">
+                    <div class="card-body">
+                      <div class="d-flex flex-start">
+                        <div class="w-100">
+                          <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="text-primary fw-bold mb-0">
+                              ' . $commentUser->getUserName() . '
+                              <span class="text-dark fw-normal ms-2">' . $comments[$i]->commentText . '</span>
+                            </h6>
+                          </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                ' . $comments[$i]->creationDate . '
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+                        }
                     }
                     ?>
                 </div>

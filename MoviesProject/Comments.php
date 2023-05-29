@@ -71,7 +71,7 @@ class Comments {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
-                $data = $db->querySql("INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID) VALUES (NULL, '$this->commentText', NOW(), $this->userID, $this->articleID  )");
+                $data = $db->querySql('INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, \'' . $this->commentText . '\', \'' . $this->creationDate . '\', \'' .$this->userID. '\', \'' . $this->articleID. '\')');
                 return true;
             } catch (Exception $e) {
                 echo 'Exception: ' . $e;
