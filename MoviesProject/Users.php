@@ -131,7 +131,7 @@ class Users {
         if ($this->isValid()) {
             try {
                 $db = Database::getInstance();
-                $data = $db->querySql('INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT('.$this->password.', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
+                $data = $db->querySql('INSERT INTO dbProj_USER (userID, userName, password, firstName, lastName, DOB, regDate, roleID) VALUES (NULL, \'' . $this->userName . '\',AES_ENCRYPT(\''.$this->password.'\', \'P0ly\'),\'' . $this->firstName . '\', \'' . $this->lastName . '\',
                      \'' . $this->DOB . '\', \'' . $this->regDate . '\', \'' . $this->roleID . '\')');
                 return true;
             } catch (Exception $e) {
@@ -213,24 +213,23 @@ class Users {
     
     // method to validate input
     public function isValid() {
-        $errors = true;
-
+        
         if (empty($this->userName))
-            $errors = false;
+            return false;
         else {
             if (!$this->initWithUsername())
-                $errors = false;
+                return false;
         }
         
         if (empty($this->password))
-            $errors = false;
+            return false;
         
         if (empty($this->firstName))
-            $errors = false;
+            return false;
         
         if (empty($this->lastName))
-            $errors = false;
+            return false;
         
-        return $errors;
+        return true;
     }
 }

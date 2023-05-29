@@ -283,7 +283,18 @@ INSERT INTO `dbProj_FILES` (`fileID`, `fileName`, `fileType`, `fileLocation`, `a
 (NULL, ' 4986131_MoviewReview3.jpg ', ' image/jpeg ', ' images/4986131_MoviewReview3.jpg ', 18);
 
 DELIMITER $$
-CREATE PROCEDURE `ArticlePublishDate`(IN `id` INT)
+CREATE PROCEDURE `ArticlePublishDate`(IN `art` INT)
 BEGIN
-UPDATE dbProj_ARTICLE SET publishDate = NOW() WHERE articleID = id;
+DECLARE newArtID INT DEFAULT 0;
+
+SELECT articleID FROM dbProj_ARTICLE ORDER BY articleID DESC LIMIT 1 INTO newArtID;
+
+IF art != 0 THEN
+	UPDATE dbProj_ARTICLE SET publishDate = NOW() WHERE articleID = art;
+
+ELSE
+    UPDATE dbProj_ARTICLE SET publishDate = NOW() WHERE articleID = newArtID;
+
+END IF;
+
 END$$
