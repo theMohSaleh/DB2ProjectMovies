@@ -122,7 +122,7 @@ class Users {
     // method to validate user login and initilize
     function checkUser($userName, $password){
         $db = Database::getInstance();
-        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = AES_ENCRYPT('.$password.', \'P0ly\')');
+        $data = $db->singleFetch('SELECT * FROM dbProj_USER WHERE userName = \''.$userName.'\' AND password = AES_ENCRYPT(\''.$password.'\', \'P0ly\')');
         $this->initWith($data->userID, $data->userName, $data->password, $data->firstName, $data->lastName, $data->DOB, $data->regDate, $data->roleID);
     }
     
