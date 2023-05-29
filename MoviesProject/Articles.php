@@ -162,8 +162,10 @@ class Articles {
     function addArticle($userID) {
         try {
             $db = Database::getInstance();
-            $db->querySql("INSERT INTO dbProj_ARTICLE (title, description, content, isPublished, userID, catID) VALUES ('$this->title', '$this->description',"
+            $lastId = $db->querySql("INSERT INTO dbProj_ARTICLE (title, description, content, isPublished, userID, catID) VALUES ('$this->title', '$this->description',"
                     . "'$this->content', $this->isPublished, $userID, $this->catID);");
+            $this->setArticleID($lastId);
+            //SAVE
             return true;
         } catch (Exception $e) {
             echo 'Exception: ' . $e;

@@ -7,7 +7,7 @@ ini_set('upload_tmp_dir', sys_get_temp_dir());
 if (isset($_SESSION["userID"])){
     
     if (isset($_POST['submitted'])) {
-
+    
     if (!empty($_FILES)) {
         $upload = new Upload();
         $upload->setUploadDir('images/');

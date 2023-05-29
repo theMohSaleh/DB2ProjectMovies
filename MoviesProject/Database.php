@@ -23,7 +23,7 @@ class Database {
     }
 
     function connect() {
-        $this->dblink = mysqli_connect('localhost', 'u201900414', 'u201900414', 'db201900414') or die('CAN NOT CONNECT');
+        $this->dblink = mysqli_connect('localhost', 'u202000144', 'u202000144', 'db202000144') or die('CAN NOT CONNECT');
     }
 
     function __destruct() {
@@ -39,6 +39,7 @@ class Database {
     function querySQL($sql) {
         if ($sql != null || $sql != '') {
             mysqli_query($this->dblink, $sql);
+            return mysqli_insert_id($this->dblink);
         }
     }
 
@@ -66,6 +67,7 @@ class Database {
         return $result;
     }
 
+    
     function mkSafe($string) {
         /* $string = strip_tags($string);
           if (!get_magic_quotes_gpc()) {

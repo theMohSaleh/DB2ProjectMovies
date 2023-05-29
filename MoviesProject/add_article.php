@@ -65,6 +65,7 @@ if (isset($_POST['save'])) {
         // create new article
         $article->addArticle($_SESSION['userID']);
         
+        
         if (!empty($_FILES)) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
@@ -78,8 +79,8 @@ if (isset($_POST['save'])) {
             $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
             
             $file->setFileType($upload->getFileType());
-            
-            $file->setArticleID(1);
+           
+            $file->setArticleID($article->getArticleID());
             
             $file->addFile();
         } else {
@@ -91,14 +92,14 @@ if (isset($_POST['save'])) {
     }
         
         $_SESSION['artID'] = "";
-        header('Location: view_drafts.php');
+        //header('Location: view_drafts.php');
     } else {
     
     if (empty($errors)) {
         //update the user 
         $article->updateDB();
         
-        if (!empty($_FILES)) {
+        if (!empty($_FILES['image'])) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
         $msg = $upload->upload('image');
@@ -112,7 +113,7 @@ if (isset($_POST['save'])) {
             
             $file->setFileType($upload->getFileType());
             
-            $file->setArticleID(1);
+            $file->setArticleID($id);
             
             $file->addFile();
         } else {
@@ -150,7 +151,7 @@ if (isset($_POST['save'])) {
     // check if article is not an edit
     if ($_SESSION['artID'] == "") {
         // create new article
-        $newArtID = $article->addArticle($_SESSION['userID']);
+        $article->addArticle($_SESSION['userID']);
         $_SESSION['artID'] = $newArtID->articleID;
         $article->publishArticle($_SESSION['artID']);
         
@@ -168,7 +169,7 @@ if (isset($_POST['save'])) {
             
             $file->setFileType($upload->getFileType());
             
-            $file->setArticleID(1);
+            $file->setArticleID($article->getArticleID());
             
             $file->addFile();
         } else {
@@ -208,7 +209,7 @@ if (isset($_POST['save'])) {
             
             $file->setFileType($upload->getFileType());
             
-            $file->setArticleID(1);
+            $file->setArticleID($id);
             
             $file->addFile();
         } else {
@@ -244,7 +245,7 @@ echo '<h1>Add Article</h1>';
 
 
 echo '<div class ="container" id="stylized" class="myform"> 
-        <form action="add_article.php" method="post">
+        <form action="add_article.php" method="post" enctype="multipart/form-data" >
         <br />
         <br />
         <h3>Publish new Article</h3>
