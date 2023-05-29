@@ -281,3 +281,9 @@ INSERT INTO `dbProj_FILES` (`fileID`, `fileName`, `fileType`, `fileLocation`, `a
 (NULL, ' 1093703_MovieReview1.jpg ', ' image/jpeg ', ' images/1093703_MovieReview1.jpg ', 16),
 (NULL, ' 9058526_MovieReview2.jpg ', ' image/jpeg ', ' images/9058526_MovieReview2.jpg ', 17),
 (NULL, ' 4986131_MoviewReview3.jpg ', ' image/jpeg ', ' images/4986131_MoviewReview3.jpg ', 18);
+
+DELIMITER $$
+CREATE PROCEDURE `ArticlePublishDate`(IN `id` INT)
+BEGIN
+UPDATE dbProj_ARTICLE SET publishDate = NOW() WHERE articleID = id;
+END$$
