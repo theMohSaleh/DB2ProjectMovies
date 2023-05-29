@@ -1,12 +1,18 @@
 <?php include 'header.php';?>
 
 <?php
+
+ini_set('upload_tmp_dir', sys_get_temp_dir());
+
 if (isset($_POST['submitted'])) {
     $imageName = $_FILES["image"]["tmp_name"];
     echo $imageName;
     
     $imageDest = 'images//'.$_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], $imageDest);
+    
+    if(move_uploaded_file($_FILES['image']['tmp_name'], $imageDest)){
+        echo "UPLOADED";
+    }
 }
 ?>
 
