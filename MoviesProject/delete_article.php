@@ -41,22 +41,26 @@ echo '<h1>Delete Article</h1>';
 $article = new Articles();
 $article->initWithArticleid($id);
 
-
 if(isset($_POST['submitted']))
 {
 //test the value of the radio button    
     if(isset($_POST['sure']) && ($_POST['sure'] == 'Yes') ) //delete the record   
     {  
         $articleName = $article->getTitle();
-       if($article->deleteArticle())
+       if($article->deleteArticle($_SESSION['userID'])) {
            // inform user of successful delete and redirect
             echo '<p> Article: ' .$articleName. ' was deleted</p>'; 
             header( "refresh:5;url=view_articles.php" );
             echo '<p>You will be redirected shortly...</p>';
-    }//no confirmation
-     else
-       echo '<p> Article '. $article->getTitle(). '  deletion not confirmed</p>';
-        echo '<a href="view_articles.php" <button id="back" type="button">Return to Articles</button></a>';
+            echo '<a href="view_articles.php" <button id="back" type="button">Return to Articles</button></a>';
+       } else {
+           //no confirmation
+            echo '<p> Article '. $article->getTitle(). '  deletion not confirmed</p>';
+            echo '<a href="view_articles.php" <button id="back" type="button">Return to Articles</button></a>';
+       }
+    }
+     
+        
 }
 else //show form
 {

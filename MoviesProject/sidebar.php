@@ -124,31 +124,4 @@
   </div>
 </div>
 
-<!-- Side Widget -->
-<div class="card my-4">
-  <h5 class="card-header">Recent News</h5>
-  <div class="card-body">
-    <ul class="mb-0">
-      Placeholder for Recent News
-        <li>
-          Placeholder for Recent News Link
-        </li>
-    </ul>
-  </div>
-</div>
-
-
-<!-- Side Widget -->
-<div class="card my-4">
-  <h5 class="card-header">Popular News</h5>
-  <div class="card-body">
-    <ul>
-      Placeholder for Popular news
-        <li>
-          Placeholder for Popular news link
-        </li>
-    </ul>
-  </div>
-</div>
-
 </div>

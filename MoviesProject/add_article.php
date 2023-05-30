@@ -92,9 +92,13 @@ if (isset($_POST['save'])) {
     else {
         echo '<p> try again';
     }
-        
+        echo '<br><br><br>';
+        echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
         $_SESSION['artID'] = "";
-        //header('Location: view_drafts.php');
+        echo '<p>You will be redirected shortly...</p>';
+        header( "refresh:5;url=view_drafts.php" );
+        echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
+        return true;
     } else {
     
     if (empty($errors)) {
@@ -127,9 +131,11 @@ if (isset($_POST['save'])) {
     }
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
+        echo '<br><br><br>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
         $_SESSION['artID'] = "";
         echo '<p>You will be redirected shortly...</p>';
+        header( "refresh:5;url=view_drafts.php" );
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
         } else {
@@ -182,10 +188,11 @@ if (isset($_POST['save'])) {
         echo '<p> try again';
     }
     
-        
+        echo '<br><br><br>';
         echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
         $_SESSION['artID'] = "";
         echo '<p>You will be redirected shortly...</p>';
+        header( "refresh:5;url=view_drafts.php" );
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
         
@@ -225,7 +232,9 @@ if (isset($_POST['save'])) {
         $_SESSION['artID'] = "";
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
+        echo '<br><br><br>';
         echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
+        header( "refresh:5;url=view_drafts.php" );
         echo '<p>You will be redirected shortly...</p>';
         echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
         return true;
@@ -239,8 +248,17 @@ if (isset($_POST['save'])) {
         }
     }
 } else if (isset($_POST['delete'])) {
-    $article->deleteArticle($_SESSION['userID']);
-    header('Location: view_drafts.php');
+    $article->initWithArticleid($_SESSION['artID']);
+    if ($article->deleteArticle($_SESSION['userID'])){
+    echo '<br><br><br><br>';
+    echo '<h2> Deleted. </h2><p>Article has been deleted successfully.</p>';
+    header( "refresh:5;url=view_drafts.php" );
+    echo '<p>You will be redirected shortly...</p>';
+    echo '<a href="view_drafts.php"><input type="button" value="Return to My Articles" /></a>';
+    return true;
+    } else {
+        echo 'unexpected error.';
+    }
 } // end if submitted conditional
 echo '<br><br><br><br>';
 echo '<h1>Add Article</h1>';

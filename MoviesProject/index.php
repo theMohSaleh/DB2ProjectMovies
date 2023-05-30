@@ -157,7 +157,6 @@
               <a class="btn btn-outline-dark <?php if($current == 0) echo 'disabled' ?>" role ="button" href="index.php?pageno=<?php echo $current - 1; ?>">Previous Page</a>
               <a class="btn btn-outline-dark <?php if($current == floor($maxPage)) echo 'disabled'?>" role ="button"href="index.php?pageno=<?php echo $current + 1; ?>">Next Page</a>
           </div>
-          <?php echo $current . ' ' . $maxPage; ?>
         </div>
 
         <!-- Sidebar Widgets Column -->

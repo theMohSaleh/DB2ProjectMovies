@@ -35,7 +35,7 @@ $lang['CAT'] = 'Categories';
 $lang['CATS'] = '--Select a Category--';
 $lang['GO'] = 'GO!';
 $lang['AUTHORS'] = '--SELECT AN AUTHOR--';
-$lang['MOSTP'] = 'MOST POPULER';
+$lang['MOSTP'] = 'MOST POPULAR';
 $lang['BETWEEND'] = 'BETWEEN DATE';
 $lang['ANDD'] = 'AND DATE';
 
@@ -43,7 +43,7 @@ $lang['VIEWA'] = 'View Article';
 $lang['EDIT'] = 'Edit';
 $lang['DELETE'] = 'Delete';
 $lang['TITLE'] = 'Title';
-$lang['DISC'] = 'Discreption';
+$lang['DISC'] = 'Description';
 $lang['ISPUB'] = 'Is Published';
 $lang['PUBDATE'] = 'Publish Date';
 $lang['TOTALV'] = 'Total Views';

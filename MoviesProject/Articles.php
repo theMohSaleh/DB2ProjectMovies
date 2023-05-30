@@ -129,22 +129,26 @@ class Articles {
     
 
     // method to delete article
-    function deleteArticle($loggedUserID="") {
+    function deleteArticle($loggedUser) {
         try {
             $db = Database::getInstance();
             $user = new Users();
             $user->initWithUid($this->userID);
-            // check if article is a draft
-            if ($user->getUserID() == $loggedUserID) {
+            $logUser = new Users();
+            $logUser->initWithUid($loggedUser);
+            // check if logged in user is an author/admin and if article belongs to them
+            if ($logUser->getRoleID() == '1' || $logUser->getRoleID() == '0' && $loggedUser == $this->userID) {
                 $data = $db->querySql("DELETE FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
                 return true;
-            // check if article was not published by an admin
-            } else if ($user->getRoleID() != '0') {
-                $data = $db->querySql("UPDATE dbProj_ARTICLE SET Title = '*this article was removed by an administrator*', isPublished = 0 WHERE articleID = $this->articleID");
-                return true;
-            } else { 
-                // prevent deletion of article if published by admin
-                return false;
+            } else {
+                // check if delete is called from add_article page
+                if ($user->getRoleID() != '0') { // check if article was not published by an admin
+                    $data = $db->querySql("UPDATE dbProj_ARTICLE SET Title = '*this article was removed by an administrator*', isPublished = 0 WHERE articleID = $this->articleID");
+                    return true;
+                } else { 
+                    // prevent deletion of article if published by admin
+                    return false;
+                }
             }
         } catch (Exception $e) {
             echo 'Exception: ' . $e;

@@ -38,12 +38,6 @@ include 'langSet.php';
                         <a class="nav-link" href="index.php"><?php echo $lang['MAIN_PAGE']; ?></a>
                     </li>                    
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php"><?php echo $lang['NEWS'];?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php"><?php echo $lang['CONTACTUS']; ?></a>
-                    </li>
-                    <li class="nav-item">
                         <?php
                         // check if logged in user is an admin
                             if (isset($_SESSION['roleID']) && $_SESSION['roleID'] == '0') 
@@ -78,8 +72,10 @@ include 'langSet.php';
                         ?>
                     </li>
                     <li class="nav-item">
-                         <a href='<?php $_SERVER['PHP_SELF']?>?lang=ar'>AR</a>        
-             <a href='<?php $_SERVER['PHP_SELF']?>?lang=en'>EN</a>
+                         <a class="nav-link" href='<?php $_SERVER['PHP_SELF']?>?lang=ar'>AR</a>        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href='<?php $_SERVER['PHP_SELF']?>?lang=en'>EN</a>
                         </li>
                 </ul>
             </div>

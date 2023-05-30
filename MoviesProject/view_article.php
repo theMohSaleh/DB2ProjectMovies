@@ -136,7 +136,9 @@ if ($article->getIsPublished() == 0) {
                                 Views: <?php echo $article->getViews() ?> 
                                 <form name="likeButton" method="post"><input type="submit" name="like" value="Like"> <?php echo $article->getLikes(); ?> </form> 
                                 <form name="dislikeButton" method="post"><input type="submit" name="dislike" value="Dislike"> <?php echo $article->getDislikes(); ?> </form> 
-                                <a href="delete_article.php" class="link-grey">Delete Post</a>
+                                <?php if ($_SESSION["roleID"] == '0')
+                                  echo '<a href="delete_article.php?id='.$id.'" class="link-grey">Delete Post</a>'  
+                                 ?>
                             </div>
 
                         </div>
