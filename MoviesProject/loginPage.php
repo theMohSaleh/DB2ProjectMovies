@@ -1,7 +1,11 @@
 <?php
 
 include 'header.php';
-session_destroy();
+
+//Reset View/Like/Dislike first time values
+unset($_SESSION['first_run']);
+unset($_SESSION['first_likeDislike']);
+   
 session_start();
 
 if (isset($_POST['submitted'])) {

@@ -11,6 +11,7 @@ $article->initWithArticleid($id);
 if(!isset($_SESSION['first_run'])){
     $_SESSION['first_run'] = 1;
     $article->updateViewCount();
+    echo "<meta http-equiv='refresh' content='0'>";
 }
 $title = $article->getTitle();
 
@@ -70,16 +71,6 @@ if (isset($_POST['commentPosted'])) {
     }
     
 }
-
-// redirect user to removed_article page if article was removed by an admin
-if ($article->getTitle() == "*this article was removed by an administrator*") {
-    header('Location: removed_article.php');
-}
-
-// redirect user to home page if article is not published
-if ($article->getIsPublished() == 0) {
-    header('Location: index.php');
-}
 ?>    
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +107,6 @@ if ($article->getIsPublished() == 0) {
                     <!-- Blog Post -->
                     <div class="card mb-4">
                         <div class="card-body ">
-                            
                             <h2 class="card-title"><?php echo $article->getTitle(); ?></h2>
 
                             <!--category-->
