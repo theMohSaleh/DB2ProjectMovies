@@ -23,7 +23,11 @@
   <body>
 
     <!-- The Navigation Menu -->
-   <?php include 'header.php';
+   <?php include 'header.php'; 
+   
+   //Reset View/Like/Dislike first time values
+   unset($_SESSION['first_run']);
+   unset($_SESSION['first_likeDislike']);
    
    $current = 0;
    $increment = 10;
@@ -171,4 +175,3 @@
       <?php include 'footer.html';?>
 
 </html>
-

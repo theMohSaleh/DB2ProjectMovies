@@ -29,7 +29,7 @@ class Files {
     }
 
     public function setFileName($fileName) {
-        $this->fileName = $fileName;
+        $this->fileName = trim($fileName);
     }
 
     public function setFileType($fileType) {
@@ -37,7 +37,7 @@ class Files {
     }
 
     public function setFileLocation($fileLocation) {
-        $this->fileLocation = $fileLocation;
+        $this->fileLocation = trim($fileLocation);
     }
 
     public function setArticleID($articleID) {
@@ -69,8 +69,8 @@ class Files {
 
     function initWithFileID($fileID) {
         $db = Database::getInstance();
-        $data = $db->singleFetch("SELECT * FROM dbProj_FILES WHERE fileID = ' . $fileID");
-        $this->initWith($data->fileID, $data->fileName, $data->fileLocation, $data->articleID);
+        $data = $db->singleFetch("SELECT * FROM dbProj_FILES WHERE fileID = $fileID");
+        $this->initWith($data->fileID, $data->fileName, $data->fileType, $data->fileLocation, $data->articleID);
     }
 
     function addFile() {
@@ -121,5 +121,4 @@ class Files {
         }
         return $filePath;
     }
-    
 }
