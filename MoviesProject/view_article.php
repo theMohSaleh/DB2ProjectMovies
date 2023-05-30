@@ -137,7 +137,7 @@ if (isset($_POST['commentPosted'])) {
                                 <form name="dislikeButton" method="post"><input type="submit" name="dislike" value="Dislike"> <?php echo $article->getDislikes(); ?> </form> 
                                 <?php
                                 if($_SESSION['roleID'] == 0){
-                                    echo '<a href="delete_article.php?artID='. $article->getArticleID()  .'" class="link-grey">Delete Post</a>';
+                                    echo '<a href="delete_article.php?id='. $id  .'" class="link-grey">Delete Post</a>';
                                 }
                                 ?>
                             </div>
