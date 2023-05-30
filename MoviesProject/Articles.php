@@ -134,10 +134,11 @@ class Articles {
             $db = Database::getInstance();
             $user = new Users();
             $user->initWithUid($this->userID);
-            // check if article was not published by an admin
+            // check if article is a draft
             if ($user->getUserID() == $loggedUserID) {
                 $data = $db->querySql("DELETE FROM dbProj_ARTICLE WHERE articleID = $this->articleID");
                 return true;
+            // check if article was not published by an admin
             } else if ($user->getRoleID() != '0') {
                 $data = $db->querySql("UPDATE dbProj_ARTICLE SET Title = '*this article was removed by an administrator*', isPublished = 0 WHERE articleID = $this->articleID");
                 return true;

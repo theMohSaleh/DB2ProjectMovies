@@ -50,6 +50,10 @@ if (isset($_POST['commentPosted'])) {
         echo "<script>alert('Error');</script>";
     }
 }
+
+if ($article->getTitle() == "*this article was removed by an administrator*") {
+    header('Location: removed_article.php');
+}
 ?>    
 <!DOCTYPE html>
 <html lang="en">
@@ -85,6 +89,7 @@ if (isset($_POST['commentPosted'])) {
                     <!-- Blog Post -->
                     <div class="card mb-4">
                         <div class="card-body ">
+                            
                             <h2 class="card-title"><?php echo $article->getTitle(); ?></h2>
 
                             <!--category-->
