@@ -25,17 +25,18 @@ CREATE OR REPLACE TABLE `dbProj_ARTICLE` (
     `description` varchar(1000),
     `content` varchar(2000),
     `publishDate` datetime,
-    `views` int(11) DEFAULT 0,
-    `likes` int(11) DEFAULT 0,
-    `dislikes` int(11) DEFAULT 0,
-    `rating` float(11) DEFAULT 0.0 GENERATED ALWAYS AS (round(likes/if(likes+dislikes,0,1))),
+    `views` int(11),
+    `likes` int(11),
+    `dislikes` int(11),
+    `rating` float(11, 2) GENERATED ALWAYS AS (IF((likes + dislikes) > 0, ROUND((likes / (likes + dislikes)), 2), 0)),
     `isPublished` boolean DEFAULT FALSE,
     `userID` int(11) NOT NULL,
     `catID` int(11),
     PRIMARY KEY (`articleID`),
     FOREIGN KEY (`userID`) REFERENCES `dbProj_USER`(`userID`),
     FOREIGN KEY (`catID`) REFERENCES `dbProj_CATEGORY`(`catID`)
-)ENGINE=MyISAM;
+) ENGINE=MyISAM;
+
 
 CREATE OR REPLACE TABLE `dbProj_COMMENT` (
     `commentID` int NOT NULL AUTO_INCREMENT,
@@ -263,24 +264,24 @@ VALUES (NULL, "This movie left me feeling inspired and uplifted. 'The Power of D
        (NULL, "What an incredible film! 'The Power of Dreams' captures the essence of hope and perseverance. It reminds us to never give up on our aspirations. Truly a masterpiece.", NOW(), 3, 18);
 
 INSERT INTO `dbProj_FILES` (`fileID`, `fileName`, `fileType`, `fileLocation`, `articleID`) VALUES
-(NULL, ' 8389233_IntNews1.jpg ', ' image/jpeg ', ' images/8389233_IntNews1.jpg ', 1),
-(NULL, ' 3353247_IntNews2.jpg ', ' image/jpeg ', ' images/3353247_IntNews2.jpg ', 2),
-(NULL, ' 1161946_IntNews3.jpg ', ' image/jpeg ', ' images/1161946_IntNews3.jpg ', 3),
-(NULL, ' 3427475_LocalNews1.jpg ', ' image/jpeg ', ' images/3427475_LocalNews1.jpg ', 4),
-(NULL, ' 4260441_LocalNews2.jpg ', ' image/jpeg ', ' images/4260441_LocalNews2.jpg ', 5),
-(NULL, ' 8724816_LocalNews3.jpg ', ' image/jpeg ', ' images/8724816_LocalNews3.jpg ', 6),
-(NULL, ' 8279172_SportArtNews1.png ', ' image/png ', ' images/8279172_SportArtNews1.png ', 7),
-(NULL, ' 8229923_SportArtNews2.jpg ', ' image/jpeg ', ' images/8229923_SportArtNews2.jpg ', 8),
-(NULL, ' 8467630_SportArtNews3.jpeg ', ' image/jpeg ', ' images/8467630_SportArtNews3.jpeg ', 9),
-(NULL, ' 3708504_WeatherNews1.jpg ', ' image/jpeg ', ' images/3708504_WeatherNews1.jpg ', 10),
-(NULL, ' 5811063_WeatherNews2.jpeg ', ' image/jpeg ', ' images/5811063_WeatherNews2.jpeg ', 11),
-(NULL, ' 2615674_WeatherNews3.jpg ', ' image/jpeg ', ' images/2615674_WeatherNews3.jpg ', 12),
-(NULL, ' 2472375_AdSection1.jpg ', ' image/jpeg ', ' images/2472375_AdSection1.jpg ', 13),
-(NULL, ' 6151845_AdSection2.jpg ', ' image/jpeg ', ' images/6151845_AdSection2.jpg ', 14),
-(NULL, ' 4789891_AdSection3.jpg ', ' image/jpeg ', ' images/4789891_AdSection3.jpg ', 15),
-(NULL, ' 1093703_MovieReview1.jpg ', ' image/jpeg ', ' images/1093703_MovieReview1.jpg ', 16),
-(NULL, ' 9058526_MovieReview2.jpg ', ' image/jpeg ', ' images/9058526_MovieReview2.jpg ', 17),
-(NULL, ' 4986131_MoviewReview3.jpg ', ' image/jpeg ', ' images/4986131_MoviewReview3.jpg ', 18);
+(NULL, '8389233_IntNews1.jpg', ' image/jpeg ', ' images/8389233_IntNews1.jpg', 1),
+(NULL, '3353247_IntNews2.jpg', ' image/jpeg ', ' images/3353247_IntNews2.jpg', 2),
+(NULL, '1161946_IntNews3.jpg ', ' image/jpeg ', ' images/1161946_IntNews3.jpg', 3),
+(NULL, '3427475_LocalNews1.jpg', ' image/jpeg ', ' images/3427475_LocalNews1.jpg', 4),
+(NULL, '4260441_LocalNews2.jpg', ' image/jpeg ', ' images/4260441_LocalNews2.jpg', 5),
+(NULL, '8724816_LocalNews3.jpg', ' image/jpeg ', ' images/8724816_LocalNews3.jpg', 6),
+(NULL, '8279172_SportArtNews1.png', ' image/png ', ' images/8279172_SportArtNews1.png', 7),
+(NULL, '8229923_SportArtNews2.jpg', ' image/jpeg ', ' images/8229923_SportArtNews2.jpg', 8),
+(NULL, '8467630_SportArtNews3.jpeg', ' image/jpeg ', ' images/8467630_SportArtNews3.jpeg', 9),
+(NULL, '3708504_WeatherNews1.jpg', ' image/jpeg ', ' images/3708504_WeatherNews1.jpg', 10),
+(NULL, '5811063_WeatherNews2.jpeg', ' image/jpeg ', ' images/5811063_WeatherNews2.jpeg', 11),
+(NULL, '2615674_WeatherNews3.jpg', ' image/jpeg ', ' images/2615674_WeatherNews3.jpg', 12),
+(NULL, '2472375_AdSection1.jpg', ' image/jpeg ', ' images/2472375_AdSection1.jpg', 13),
+(NULL, '6151845_AdSection2.jpg', ' image/jpeg ', ' images/6151845_AdSection2.jpg', 14),
+(NULL, '4789891_AdSection3.jpg', ' image/jpeg ', ' images/4789891_AdSection3.jpg', 15),
+(NULL, '1093703_MovieReview1.jpg', ' image/jpeg ', ' images/1093703_MovieReview1.jpg', 16),
+(NULL, '9058526_MovieReview2.jpg', ' image/jpeg ', ' images/9058526_MovieReview2.jpg', 17),
+(NULL, '4986131_MoviewReview3.jpg', ' image/jpeg ', ' images/4986131_MoviewReview3.jpg', 18);
 
 DELIMITER $$
 CREATE PROCEDURE `ArticlePublishDate`(IN `art` INT)

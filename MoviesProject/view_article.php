@@ -176,7 +176,16 @@ if (isset($_POST['commentPosted'])) {
                 <?php include('sidebar.php'); ?>
             </div>
 
-
+            <div class = "row">
+                <div class="col-md-8 my-5">
+                    <h3>Download Content</h3>
+                    <?php
+                        for($i = 0; $i < count($files); $i++){
+                            echo '<a href="download_file.php?fileID='.$files[$i]->fileID.'">'.$files[$i]->fileName.'</a><br>';
+                        }
+                    ?>
+                </div>
+            </div>
 
             <!---Comment Section --->
             <div class="row">

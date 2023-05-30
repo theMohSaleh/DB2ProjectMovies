@@ -109,7 +109,7 @@ if (isset($_POST['save'])) {
         if (!empty($_FILES['image'])) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
-        $msg = $upload->upload('image');
+        $msg = $upload->upload($imgArray[$i]);
         
         if (empty($msg)) {
             $file = new Files();
@@ -167,7 +167,7 @@ if (isset($_POST['save'])) {
         if (!empty($_FILES)) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
-        $msg = $upload->upload('image');
+        $msg = $upload->upload($imgArray[$i]);
 
         if (empty($msg)) {
             $file = new Files();
@@ -204,10 +204,11 @@ if (isset($_POST['save'])) {
         $article->updateDB();
         $article->publishArticle($_SESSION['artID']);
         
+        for($i = 0; $i < count($imgArray); $i++){
         if (!empty($_FILES)) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
-        $msg = $upload->upload('image');
+        $msg = $upload->upload($imgArray[$i]);
 
         if (empty($msg)) {
             $file = new Files();
@@ -228,7 +229,7 @@ if (isset($_POST['save'])) {
     else {
         echo '<p> try again';
     }
-        
+        }
         $_SESSION['artID'] = "";
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
