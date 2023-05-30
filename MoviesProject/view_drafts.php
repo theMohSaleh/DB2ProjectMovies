@@ -36,7 +36,6 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
           <th class = "col">'.$lang['EDIT'].'</td>
           <th class = "col">'.$lang['TITLE'].'</td>
           <th class = "col">'.$lang['DISC'].'</td>
-          <th class = "col">'.$lang['ISPUB'].'</td>
           <th class = "col">'.$lang['PUBDATE'].'</td>
           <th class = "col">'.$lang['TOTALV'].'</td>
           <th class = "col">'.$lang['RATING'].'</td>';
@@ -52,7 +51,6 @@ $row = $articles->getAllArticlesAuthor($_SESSION['userID']);
             <td style="text-align: center">'.(($row[$i]->isPublished=='0')?'<a href="add_article.php?artID=' . $row[$i]->articleID . '">'.$lang['EDIT'].'</a>':"Cannot Edit Published Article.").'</td>
             <td>' . $row[$i]->title . '</td>
             <td>' . $row[$i]->description . '</td>
-            <td style="text-align: center">'.(($row[$i]->isPublished=='1')?'Yes':"No").'</td>
             <td style="text-align: center">'.(($row[$i]->isPublished=='1')?''.$row[$i]->publishDate.'':"Not Published Yet.").'</td>
             <td style="text-align: center">' . $row[$i]->views . '</td>
             <td style="text-align: center">' . $row[$i]->rating . '</td>

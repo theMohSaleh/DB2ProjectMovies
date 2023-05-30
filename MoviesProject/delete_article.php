@@ -35,7 +35,7 @@ else
      echo '<p class="error"> Error has occured</p>';    
 }
 
-
+echo '<br><br><br><br>';
 echo '<h1>Delete Article</h1>';
 //create a user object 
 $article = new Articles();

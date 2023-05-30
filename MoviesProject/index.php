@@ -84,7 +84,11 @@
         $popular = $_POST['popular'];
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
-        $msg = "Displaying advanced search results for ".$_POST['searchtitle'];
+        if ($title != "") {
+            $msg = "Displaying advanced search results for ".$title;
+        } else {
+            $msg = "Displaying advanced search results";
+        }
         $articles = $search->ShowAdvancedArticles($title, $authorID, $popular, $startDate, $endDate);
         }
     ?>

@@ -33,10 +33,12 @@ if ($_SESSION['roleID'] == '0' || $_SESSION['roleID'] == '1') {
         $_SESSION['artID'] = $id;
             // create article object and pass ID to get related article information
             $article->initWithArticleid($_SESSION['artID']);
-            echo $article->getArticleID();
             // check if current user is not the writer of the article
             if ($article->getUserID() != $_SESSION['userID']) {
                 // redirect to home page
+                header('Location: index.php');
+                // if article is published, redirect user to home page to avoid making any changes
+            } else if ($article->getIsPublished() == 1) {
                 header('Location: index.php');
             }
    }

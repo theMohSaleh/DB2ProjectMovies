@@ -51,8 +51,14 @@ if (isset($_POST['commentPosted'])) {
     }
 }
 
+// redirect user to removed_article page if article was removed by an admin
 if ($article->getTitle() == "*this article was removed by an administrator*") {
     header('Location: removed_article.php');
+}
+
+// redirect user to home page if article is not published
+if ($article->getIsPublished() == 0) {
+    header('Location: index.php');
 }
 ?>    
 <!DOCTYPE html>
