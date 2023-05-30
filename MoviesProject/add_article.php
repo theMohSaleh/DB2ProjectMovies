@@ -153,7 +153,7 @@ if (isset($_POST['save'])) {
         // create new article
         $article->addArticle($_SESSION['userID']);
         $_SESSION['artID'] = $newArtID->articleID;
-        $article->publishArticle($_SESSION['artID']);
+        $article->publishArticle(0);
         
         if (!empty($_FILES)) {
         $upload = new Upload();

@@ -188,14 +188,11 @@ class Articles {
     }
     
     // method to set article publish date in database
-    function publishArticle() {
+    function publishArticle($artID=0) {
         $db = Database::getInstance();
-        $date = date("Y-m-d H:i:s"); // get current date and time
-        $q = "UPDATE dbProj_ARTICLE SET
-			publishDate = \"$date\"
-			WHERE articleID = $this->articleID";
+        $q = "call ArticlePublishDate('$artID')";
         $db->querySql($q);
-        return $q;
+        return true;
     }
 
     // method to return all articles (for admin use)
