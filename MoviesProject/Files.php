@@ -121,5 +121,4 @@ class Files {
         }
         return $filePath;
     }
-    
 }

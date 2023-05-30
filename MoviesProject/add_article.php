@@ -16,6 +16,7 @@ session_start();
 $article = new Articles();
 $id = 0;
 
+$imgArray = ["image","image2"];
 
 // redirect user to home page if not logged in
 if (empty($_SESSION['userID'])) {
@@ -68,30 +69,34 @@ if (isset($_POST['save'])) {
         $article->addArticle($_SESSION['userID']);
         
         
-        if (!empty($_FILES)) {
-        $upload = new Upload();
-        $upload->setUploadDir('images/');
-        $msg = $upload->upload('image');
+        for($i = 0; $i < count($imgArray); $i++){
+            if (!empty($_FILES)) {
+                $upload = new Upload();
+                $upload->setUploadDir('images/');
+                $msg = $upload->upload($imgArray[$i]);
 
-        if (empty($msg)) {
-            $file = new Files();
-            
-            $file->setFileName($upload->getFilepath());
-            
-            $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
-            
-            $file->setFileType($upload->getFileType());
-           
-            $file->setArticleID($article->getArticleID());
-            
-            $file->addFile();
-        } else {
-            print_r ($msg);
-        }
+            if (empty($msg)) {
+                $file = new Files();
+                
+                $file->setFileName($upload->getFilepath());
+
+                $file->setFileLocation($upload->getUploadDir() . $upload->getFilepath());
+
+                $file->setFileType($upload->getFileType());
+
+                $file->setArticleID($article->getArticleID());
+
+                $file->addFile();
+            } else {
+                print_r ($msg);
+            }
     }
     else {
         echo '<p> try again';
     }
+        }
+        
+        
         
         $_SESSION['artID'] = "";
         //header('Location: view_drafts.php');
@@ -100,12 +105,12 @@ if (isset($_POST['save'])) {
     if (empty($errors)) {
         //update the user 
         $article->updateDB();
-        
+        for($i = 0; $i < count($imgArray); $i++){
         if (!empty($_FILES['image'])) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
         $msg = $upload->upload('image');
-
+        
         if (empty($msg)) {
             $file = new Files();
             
@@ -125,6 +130,7 @@ if (isset($_POST['save'])) {
     else {
         echo '<p> try again';
     }
+        }
         // inform user of successful publish
         echo '<p>'.$q.'</p>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
@@ -157,6 +163,7 @@ if (isset($_POST['save'])) {
         $_SESSION['artID'] = $newArtID->articleID;
         $article->publishArticle(0);
         
+        for($i = 0; $i < count($imgArray); $i++){
         if (!empty($_FILES)) {
         $upload = new Upload();
         $upload->setUploadDir('images/');
@@ -181,7 +188,7 @@ if (isset($_POST['save'])) {
     else {
         echo '<p> try again';
     }
-    
+        }
         
         echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
         $_SESSION['artID'] = "";
@@ -276,11 +283,15 @@ echo '<div class ="container" id="stylized" class="myform">
             
              
         
-           <p>File   <input type="file" name="image" /></p>
+           <p>File #1  <input type="file" name="image"/></p>
         </p>
         
          <input type ="hidden" name="submitted" value="TRUE">
          
+            <p>File #2   <input type="file" name="image2"/></p>
+        </p>
+        
+         <input type ="hidden" name="submitted" value="TRUE">         
         </div>';
                 echo '</select><br><br>
                 <input class = "btn btn-primary" type="submit" class ="DB4Button" name="publish" value="Publish" />
