@@ -17,7 +17,7 @@ if (isset($_POST['submitted'])) {
     if ($lgnObj->login($username, $password)) {
         header('Location: index.php');
     } else {
-        echo $error = "<br><br><br><div class = 'container' ><h1 style = 'color:red'>Wrong Login Values</h1></div>";
+        echo $error = "<br><br><br><div class = 'container' ><span style='text-align: center'><h1 style = 'color:red'>Wrong Login Values</h1></div></span>";
     }  
 }
 ?>
