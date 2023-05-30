@@ -25,11 +25,11 @@ if (isset($_POST['submitted'])) {
         return true;
         }
         else {   
-        echo "<script>alert('Invalid Details');</script>";
+        echo '<br><br><h1 text-align:center class="text-uppercase" style="text-align: center"><span style="color:red">Invalid Detalis</h1></span>';
         }
         
     }else {
-        echo "<script>alert('Username already exists!);</script>";
+        echo '<br><br><h1 text-align:center class="text-uppercase" style="text-align: center"><span style="color:red">Username already exists</h1></span>';
     }
 }
 ?>
@@ -114,7 +114,7 @@ if (isset($_POST['submitted'])) {
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <label> <?php echo $lang['DOB'].' '. $_SESSION['userName']; ?> </label>
-                                            <input class="form-control" type="date" name="DOB" >
+                                            <input class="form-control" type="date" name="DOB" required>
                                         </div>
                                     </div>
                                     <div class="form-group account-btn text-center m-t-10">
