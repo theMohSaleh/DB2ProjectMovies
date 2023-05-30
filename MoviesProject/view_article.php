@@ -7,8 +7,16 @@ if (!isset($_GET["artID"])) {
 $id = $_GET["artID"];
 $article = new Articles();
 $article->initWithArticleid($id);
-$article->updateViewCount();
+// Check if user visited the article once, then run view update once
+if(!isset($_SESSION['first_run'])){
+    $_SESSION['first_run'] = 1;
+    $article->updateViewCount();
+}
 $title = $article->getTitle();
+
+// Save article ID to a session variable
+$_SESSION['sessionArticleID']=$id;
+$sessionArticleID = $_SESSION[sessionArticleID];
 
 $uid = $article->getUserID();
 $author = new Users();
@@ -26,11 +34,19 @@ $comments = $commentObj->getAllCommentsForArticle($id);
 $currenturl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 if (isset($_POST['like'])) {
-    $article->like();
+    if (!isset($_SESSION['first_likeDislike'])) {
+        $_SESSION['first_likeDislike'] = 1;
+        $article->like();
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
 }
 
 if (isset($_POST['dislike'])) {
-    $article->dislike();
+    if (!isset($_SESSION['first_likeDislike'])) {
+        $_SESSION['first_likeDislike'] = 1;
+        $article->dislike();
+        echo "<meta http-equiv='refresh' content='0'>";
+    } 
 }
 
 if (isset($_POST['commentPosted'])) {
@@ -38,35 +54,40 @@ if (isset($_POST['commentPosted'])) {
     $commentObj->setArticleID($id);
     $commentObj->setCommentText($_POST['comment']);
     $commentObj->setUserID($_SESSION['userID']);
-    $commentObj->setCreationDate(date('Y-m-d'));
-    
+    date_default_timezone_set("Asia/Bahrain");
+    $commentObj->setCreationDate(date('Y-m-d h:i:s'));    
+   
     $idTest = $id;
     $textTest = ($_POST['comment']);
     $userIDTest = ($_SESSION['userID']);
+    $dateTest = (date('Y-m-d h:i:s'));
+    
 
     if ($commentObj->addComment()) {
-        echo "<script>alert('Comment added');</script>";
+        echo "<meta http-equiv='refresh' content='0'>";
     } else {
         echo "<script>alert('Error');</script>";
     }
+    
 }
 ?>    
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title><?php echo $article->getTitle() ?></title>
+        <title><?php echo $article->getTitle();?></title>
 
         <!-- Bootstrap core CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="bootstrap/css/modern-business.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+
 
     </head>
     <body>
@@ -149,7 +170,7 @@ if (isset($_POST['commentPosted'])) {
                     <?php
             if ($_SESSION['userName'] == "") {
                 echo '<div class="card">
-                        <h5 class="card-header">Login to comment</h5>
+                        <h5 class="card-header"><a href="loginPage.php"> Login </a> or <a href="register.php">Register</a> to comment</h5>
                         <div class="card-body">
                             <form name="Comment" method="post">
                                 <div class="form-group">
@@ -192,7 +213,7 @@ if (isset($_POST['commentPosted'])) {
                             <div class="d-flex justify-content-between align-items-center">
                                 ' . $comments[$i]->creationDate . '
                                 <p class="small mb-0" style="color: #aaa;">
-                                <a href="delete_comment.php">Remove Comment</a> 
+                                <a href="delete_comment.php?id='. $comments[$i]->commentID .'">Remove Comment</a> 
                                 </p>    
                             </div>
                         </div>

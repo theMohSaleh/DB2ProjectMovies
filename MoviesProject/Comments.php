@@ -72,6 +72,7 @@ class Comments {
             try {
                 $db = Database::getInstance();
                 $data = $db->querySql('INSERT INTO dbProj_COMMENT (commentID, commentText, creationDate, userID, articleID) VALUES (NULL, \'' . $this->commentText . '\', \'' . $this->creationDate . '\', \'' .$this->userID. '\', \'' . $this->articleID. '\')');
+                echo $data;
                 return true;
             } catch (Exception $e) {
                 echo 'Exception: ' . $e;
@@ -122,5 +123,11 @@ class Comments {
         }
         
         return $errors;
+    }
+    
+    function deleteComment() {
+            $db = Database::getInstance();
+            $data = $db->querySql('UPDATE dbProj_COMMENT SET commentText="This comment was removed by an administrator" WHERE commentID=' . $this->commentID);
+            return true;
     }
 }

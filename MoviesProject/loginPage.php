@@ -1,7 +1,7 @@
 <?php
 
 include 'header.php';
-
+session_destroy();
 session_start();
 
 if (isset($_POST['submitted'])) {

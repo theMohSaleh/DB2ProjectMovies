@@ -1,6 +1,7 @@
 <?php include 'header.php'?>
 
 <?php
+session_destroy();
 
 if (isset($_POST['submitted'])) {
     $user = new Users();

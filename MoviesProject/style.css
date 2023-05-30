@@ -36,3 +36,21 @@ body {
     font-family:georgia;
     font-size: 40px;
 }
+
+input[name=like] {
+        background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+}
+
+input[name=dislike] {
+        background-color: #F50a0a;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+}
