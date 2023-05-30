@@ -78,6 +78,7 @@ if (isset($_POST['submitted'])) {
         $q = $article->updateDB();
         // inform user of successful edit
         echo '<p>'.$q.'</p>';
+        echo '<br><br>';
         echo '<h2> Successful! </h2><p>Article: '.$oldName.' has been updated.</p>';
         echo '<p>You will be redirected shortly...</p>';
         // redirect user to relative page after 5 seconds
@@ -98,7 +99,6 @@ if (isset($_POST['submitted'])) {
         }
 } // end if submitted conditional
 echo '<br><br><br><br>';
-echo '<h1>Edit Article</h1>';
 
 
 //create a new user data object and populate it using the get() method

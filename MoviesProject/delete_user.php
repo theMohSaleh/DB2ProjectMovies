@@ -39,7 +39,7 @@ else
      echo '<p class="error"> Error has occured</p>';    
 }
 
-
+echo '<br><br><br>';
 echo '<h1>Delete User</h1>';
 //create a user object 
 $user = new Users();

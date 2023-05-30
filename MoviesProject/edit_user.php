@@ -80,6 +80,7 @@ if (isset($_POST['submitted'])) {
             // redirect user to users list after 5 seconds
             header( "refresh:5;url=view_users.php" );
             // inform user of successful edit
+            echo '<br><br><br>';
             echo '<h2> Successful </h2><p>'.$user->getUserName().' is updated</p>';
             echo '<p>You will be redirected shortly...</p>';
             return true;
@@ -93,8 +94,6 @@ if (isset($_POST['submitted'])) {
         }
     }
 } // end if submitted conditional
-echo '<h1>Edit User</h1>';
-
 
 //create a new user data object and populate it using the get() method
 //this will show the form with the fields already populated with values from the $user object created above 

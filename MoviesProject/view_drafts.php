@@ -14,6 +14,11 @@ if (empty($_SESSION['userID'])) {
     header('Location: index.php');
     die();
 }
+// if user is a viewer, redirect to home page
+if ($_SESSION['roleID'] == '2') {
+    header('Location: index.php');
+    die();
+}
 
 $articles = new Articles();
 $row = $articles->getAllArticlesAuthor($_SESSION['userID']);

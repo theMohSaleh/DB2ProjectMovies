@@ -15,6 +15,13 @@ if(!isset($_SESSION['first_run'])){
 }
 $title = $article->getTitle();
 
+// redirect user to removed_article page if article was removed by an admin
+    if ($article->getTitle() == "*this article was removed by an administrator*") {
+        header('Location: removed_article.php');
+    } else if ($article->getIsPublished() == 0) { // redirect user to home page if article is not published
+        header('Location: index.php');
+    }
+    
 // Save article ID to a session variable
 $_SESSION['sessionArticleID']=$id;
 $sessionArticleID = $_SESSION[sessionArticleID];
@@ -69,16 +76,7 @@ if (isset($_POST['commentPosted'])) {
     } else {
         echo "<script>alert('Error');</script>";
     }
-
-    // redirect user to removed_article page if article was removed by an admin
-    if ($article->getTitle() == "*this article was removed by an administrator*") {
-        header('Location: removed_article.php');
-    }
-
-    // redirect user to home page if article is not published
-    if ($article->getIsPublished() == 0) {
-        header('Location: index.php');
-    }
+    
 }
 ?>    
 <!DOCTYPE html>
@@ -135,6 +133,7 @@ if (isset($_POST['commentPosted'])) {
                                 Views: <?php echo $article->getViews() ?> 
                                 <form name="likeButton" method="post"><input type="submit" name="like" value="Like"> <?php echo $article->getLikes(); ?> </form> 
                                 <form name="dislikeButton" method="post"><input type="submit" name="dislike" value="Dislike"> <?php echo $article->getDislikes(); ?> </form> 
+                                <label>Rating: <?php echo $article->getRating(); ?></label>
                                 <?php
                                 if($_SESSION['roleID'] == 0){
                                     echo '<a href="delete_article.php?id='. $id  .'" class="link-grey">Delete Post</a>';
