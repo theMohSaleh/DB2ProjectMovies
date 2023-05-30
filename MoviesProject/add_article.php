@@ -94,6 +94,9 @@ if (isset($_POST['save'])) {
     else {
         echo '<p> try again';
     }
+        
+        }
+        
         echo '<br><br><br>';
         echo '<h2> Successful! </h2><p>Article changes has been saved.</p>';
         $_SESSION['artID'] = "";
@@ -192,6 +195,8 @@ if (isset($_POST['save'])) {
         echo '<p> try again';
     }
     
+        
+        }
         echo '<br><br><br>';
         echo '<h2> Published! </h2><p>Article has been successfully published.</p>';
         $_SESSION['artID'] = "";
